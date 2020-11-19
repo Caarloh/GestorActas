@@ -1,3 +1,8 @@
+<?php
+    require "baseDatos/conexion.php";
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -148,10 +153,26 @@
                         <div class="card-body">
                             <div class="container">
                                 <div class="row row-cols-2">
-                                  <div class="col">Column</div>
-                                  <div class="col">Column</div>
-                                  <div class="col">Column</div>
-                                  <div class="col">Column</div>
+                                    <?php
+                                        $consulta = "SELECT * FROM reunion";
+                                        $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                        while ($columna = mysqli_fetch_array( $resultado )){
+                                            echo '<div class="col">
+                                                    <div class="card text-white bg-primary mb-3">
+
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Reunión: '.$columna['tipoPredefinido'].'</h5>
+                                                            <h5 class="card-title"><i class="far fa-calendar"></i> '.$columna['fecha'].'</h5>
+                                                            <h5 class="card-title"><i class="far fa-clock"></i> '.$columna['hora'].'</h5>
+                                                            <h5 class="card-title"><i class="fas fa-stopwatch"></i> '.$columna['duracion'].' '.$columna['tipoDuracion'].'</h5>
+                                                        </div>
+                                                        <div class="card-footer text-muted">
+                                                            <center><a href="#" class="btn btn-primary"><i class="fas fa-chevron-right"></i></a></center>
+                                                        </div>
+                                                    </div>
+                                                </div>';
+                                        }
+                                    ?>
                                 </div>
                               </div>
                         </div>
@@ -209,15 +230,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">¿Listo para salir?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión actual.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
                 </div>
             </div>
         </div>
@@ -233,12 +254,6 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 

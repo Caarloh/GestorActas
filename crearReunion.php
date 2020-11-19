@@ -1,3 +1,21 @@
+<?php
+    require "baseDatos/conexion.php";
+    $idReunion = 0;
+    $existe = false;
+    
+    do{
+        $idReunion = rand();
+        $consulta = "SELECT * FROM reunion WHERE id='$idReunion'";
+        $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+        while ($columna = mysqli_fetch_array( $resultado )){
+            $existe=true;
+        }
+    }while($idReunion==0 || $existe);
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -88,7 +106,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nombre Usuario</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -97,20 +115,12 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
+                                    Perfil
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Salir
                                 </a>
                             </div>
                         </li>
@@ -130,7 +140,7 @@
                         <div class="card-body">
                             <form>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="idReunion" value="123" readonly>
+                                    <input type="text" class="form-control" id="idReunion" value="<?php echo $idReunion;?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <select class="form-control" id="tipoReunion">
@@ -141,15 +151,63 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="fechaReunion" placeholder="Fecha Reunión">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="horaReunion" placeholder="Hora Reunión">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label>Fecha Reunión</label>
+                                        </div>
+                                        <div class="col">
+                                            <input type="date" class="form-control" id="fechaReunion" requiered>
+                                        </div>
+                                    </div>
+                                    
+                                    
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col">
-                                            <input type="number" class="form-control" id="duracionReunion" placeholder="Duración Reunión">
+                                            <select class="form-control" id="hora">
+                                                <?php
+                                                    echo '<option value="Seleccionar">Seleccionar Hora Reunion</option>';
+                                                    
+                                                    for($i =0; $i<=23; $i++){
+                                                        if($i<10){
+                                                            echo '<option value="0'.$i.'">0'.$i.'</option>';
+                                                        }
+                                                        else{
+                                                            echo '<option value="'.$i.'">'.$i.'</option>';
+                                                        }
+                                                        
+
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <select class="form-control" id="minuto">
+                                                <?php
+                                                    echo '<option value="Seleccionar">Seleccionar Minuto Reunion</option>';
+                                                    
+                                                    for($i=0; $i<=60; $i++){
+                                                        if($i<10){
+                                                            echo '<option value="0'.$i.'">0'.$i.'</option>';
+                                                        }
+                                                        else{
+                                                            echo '<option value="'.$i.'">'.$i.'</option>';
+                                                        }
+                                                        
+
+                                                    }
+                                                ?>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="number" class="form-control" id="duracionReunion" placeholder="Duración Reunión" requiered>
                                         </div>
                                         <div class="col">
                                             <select class="form-control" id="tipoDuracion">
@@ -237,10 +295,10 @@
                             <center>
                                 <div class="row">
                                     <div class="col">
-                                        <button type="button" class="btn btn-primary">Guardar</button>
+                                        <button type="button" class="btn btn-primary" id="guardar">Guardar</button>
                                     </div>
                                     <div class="col">
-                                        <button type="button" class="btn btn-primary">Cancelar</button>
+                                        <button type="button" class="btn btn-primary" id="cancelar">Cancelar</button>
                                     </div>
                                 </div>
                             </center>
@@ -281,15 +339,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">¿Listo para salir?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión actual.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
                 </div>
             </div>
         </div>
@@ -313,8 +371,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar</button>
                 </div>
             </div>
         </div>
@@ -341,8 +399,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar</button>
                 </div>
             </div>
         </div>
@@ -364,6 +422,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+    <script src="js/crearReunion.js"></script>
 
 </body>
 
