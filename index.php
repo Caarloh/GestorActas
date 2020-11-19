@@ -165,6 +165,7 @@
                                                             <h5 class="card-title"><i class="far fa-calendar"></i> '.$columna['fecha'].'</h5>
                                                             <h5 class="card-title"><i class="far fa-clock"></i> '.$columna['hora'].'</h5>
                                                             <h5 class="card-title"><i class="fas fa-stopwatch"></i> '.$columna['duracion'].' '.$columna['tipoDuracion'].'</h5>
+                                                            <h5 class="card-title"><i class="fas fa-link"></i><a class="btn btn-primary" href="'.$columna['linkReunion'].'">'.$columna['linkReunion'].'</a></h5>
                                                         </div>
                                                         <div class="card-footer text-muted">
                                                             <center><a href="#" class="btn btn-primary"><i class="fas fa-chevron-right"></i></a></center>
@@ -174,6 +175,7 @@
                                         }
                                     ?>
                                 </div>
+                                
                               </div>
                         </div>
                     </div>

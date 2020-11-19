@@ -7,6 +7,7 @@ $(document).ready(function(){
         minuto= $('#minuto').val();
         duracionReunion= $('#duracionReunion').val();
         tipoDuracion= $('#tipoDuracion').val();
+        linkReunion = $('#linkReunion').val();
 
         if(tipoReunion == "Seleccionar"){
             alert("Completar el tipo de reunion");
@@ -29,7 +30,7 @@ $(document).ready(function(){
         }
         else{
             cadena = "idReunion=" + idReunion + "&tipoReunion=" + tipoReunion + 
-            "&fechaReunion=" + fechaReunion + "&hora=" + hora+ "&minuto=" + minuto + "&duracionReunion=" + duracionReunion+ "&tipoDuracion=" + tipoDuracion;
+            "&fechaReunion=" + fechaReunion + "&hora=" + hora+ "&minuto=" + minuto + "&duracionReunion=" + duracionReunion+ "&tipoDuracion=" + tipoDuracion + "&linkReunion=" + linkReunion;
             $.ajax({
                 type:"POST",
                 url:"BaseDatos/agregarReunion.php",

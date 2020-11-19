@@ -218,6 +218,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="linkReunion" placeholder="Link de la Reunión">
+                                </div>
                             </form>
                         </div>
                     </div>

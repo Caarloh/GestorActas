@@ -2,22 +2,22 @@
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Nov 19, 2020 at 02:06 AM
--- Server version: 5.7.26
--- PHP Version: 7.3.8
+-- Servidor: localhost:8889
+-- Tiempo de generación: 19-11-2020 a las 20:08:11
+-- Versión del servidor: 5.7.26
+-- Versión de PHP: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Database: `gestoractas`
+-- Base de datos: `gestoractas`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reunion`
+-- Estructura de tabla para la tabla `reunion`
 --
 
 CREATE TABLE `reunion` (
@@ -26,22 +26,24 @@ CREATE TABLE `reunion` (
   `fecha` varchar(50) NOT NULL,
   `hora` varchar(50) NOT NULL,
   `duracion` int(11) NOT NULL,
-  `tipoDuracion` varchar(100) NOT NULL
+  `tipoDuracion` varchar(100) NOT NULL,
+  `linkReunion` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reunion`
+-- Volcado de datos para la tabla `reunion`
 --
 
-INSERT INTO `reunion` (`id`, `tipoPredefinido`, `fecha`, `hora`, `duracion`, `tipoDuracion`) VALUES
-(1238353639, 'Regular', '2020-11-20', '09:00', 2, 'Horas');
+INSERT INTO `reunion` (`id`, `tipoPredefinido`, `fecha`, `hora`, `duracion`, `tipoDuracion`, `linkReunion`) VALUES
+(1124387998, 'Extraordinaria', '2020-11-20', '09:00', 3, 'Horas', ''),
+(1238353639, 'Regular', '2020-11-20', '09:00', 2, 'Horas', 'https://reuna.zoom.us/j/9975784070?pwd=dmQwMk1MWWFzME1FMWoxalZGUHQxQT09');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `reunion`
+-- Indices de la tabla `reunion`
 --
 ALTER TABLE `reunion`
   ADD PRIMARY KEY (`id`);
