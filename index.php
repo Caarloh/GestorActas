@@ -142,6 +142,11 @@
                                         <a href="crearReunion.php" class="btn btn-primary">Crear Reunion</a>
             
                                     </div>
+                                    <div id="app"class="col">
+                                        <button @click="enviar" class="btn btn-primary">
+                                            Spam para el pollo
+                                        </button>
+                                    </div>
                                 </div>
                               </div>
                         </div>
@@ -255,7 +260,43 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js" type="text/javascript"></script>
+    <script>
+        (function(){
+            emailjs.init("user_ScLlEvYz72S0KKmk3Kkfs");
+            })();
+        const vue = new Vue({
+            el: '#app',
+            data(){
+                return {
+                    to_email: '',
+                    message: '',
+                    subject: '',
+                }
+            },
+            methods: {
+                enviar(){
+                    let data = {
+                        to_email: "j.pablo.velasc@gmail.com",
+                        message: "Mensaje de prueba",
+                        subject: "Spam",
+                    };
+                    
+                    emailjs.send("service_osf3irr","template_li2nwll", data)
+                    .then(function(response) {
+                        if(response.text === 'OK'){
+                            alert('El correo se ha enviado de forma exitosa');
+                        }
+                        console.log("SUCCESS. status=%d, text=%s", response.status, response.text);
+                    }, function(err) {
+                        alert('Ocurrió un problema al enviar el correo');
+                        console.log("FAILED. error=", err);
+                    });
+                }
+            }
+        });
+    </script>
 
 </body>
 
