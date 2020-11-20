@@ -1,19 +1,17 @@
 <?php
     require "baseDatos/conexion.php";
-    $idReunion = 0;
+    $idReunion = $_GET['id'];
     $existe = false;
-    
-    do{
-        $idReunion = rand();
-        $consulta = "SELECT * FROM reunion WHERE id='$idReunion'";
-        $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
-        while ($columna = mysqli_fetch_array( $resultado )){
-            $existe=true;
-        }
-    }while($idReunion==0 || $existe);
 
+    $consulta = "SELECT * FROM reunion WHERE id='$idReunion'";
+    $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+    while ($columna = mysqli_fetch_array( $resultado )){
+        $existe=true;
+    }
+    if(empty($idReunion) || $existe==false){
+        header('Location: index.php');
 
-
+    }
 ?>
 
 <!DOCTYPE html>
@@ -135,91 +133,12 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-head py-3">
-                            <center><h6 class="m-0 font-weight-bold text-primary"> Datos Reunion</h6></center>
+                            <center><h6 class="m-0 font-weight-bold text-primary"> ID Reunion</h6></center>
                         </div>
                         <div class="card-body">
                             <form>
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="idReunion" value="<?php echo $idReunion;?>" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <select class="form-control" id="tipoReunion">
-                                        <option value="Seleccionar">Seleccionar Tipo Reunión</option>
-                                        <option value="Regular">Regular</option>
-                                        <option value="Extraordinaria">Extraordinaria</option>
-                                        <option value="Consejo de Escuela">Consejo de Escuela</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col">
-                                            <label>Fecha Reunión</label>
-                                        </div>
-                                        <div class="col">
-                                            <input type="date" class="form-control" id="fechaReunion" requiered>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col">
-                                            <select class="form-control" id="hora">
-                                                <?php
-                                                    echo '<option value="Seleccionar">Seleccionar Hora Reunion</option>';
-                                                    
-                                                    for($i =0; $i<=23; $i++){
-                                                        if($i<10){
-                                                            echo '<option value="0'.$i.'">0'.$i.'</option>';
-                                                        }
-                                                        else{
-                                                            echo '<option value="'.$i.'">'.$i.'</option>';
-                                                        }
-                                                        
-
-                                                    }
-                                                ?>
-                                            </select>
-                                        </div>
-
-                                        <div class="col">
-                                            <select class="form-control" id="minuto">
-                                                <?php
-                                                    echo '<option value="Seleccionar">Seleccionar Minuto Reunion</option>';
-                                                    
-                                                    for($i=0; $i<=60; $i++){
-                                                        if($i<10){
-                                                            echo '<option value="0'.$i.'">0'.$i.'</option>';
-                                                        }
-                                                        else{
-                                                            echo '<option value="'.$i.'">'.$i.'</option>';
-                                                        }
-                                                        
-
-                                                    }
-                                                ?>
-                                            </select>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="number" class="form-control" id="duracionReunion" placeholder="Duración Reunión" requiered>
-                                        </div>
-                                        <div class="col">
-                                            <select class="form-control" id="tipoDuracion">
-                                                <option value="Seleccionar">Seleccionar Tipo Duración</option>
-                                                <option value="Minutos">Minutos</option>
-                                                <option value="Horas">Horas</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="linkReunion" placeholder="Link de la Reunión">
                                 </div>
                             </form>
                         </div>

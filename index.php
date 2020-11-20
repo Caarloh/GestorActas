@@ -1,5 +1,6 @@
 <?php
     require "baseDatos/conexion.php";
+    
 
 
 ?>
@@ -139,7 +140,7 @@
                             <div class="container">
                                 <div class="row row-cols-3">
                                     <div class="col">
-                                        <a href="crearReunion.php" class="btn btn-primary">Crear Reunion</a>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearReunion">Crear Reunion</button>
             
                                     </div>
                                 </div>
@@ -246,6 +247,145 @@
         </div>
     </div>
 
+    <!-- Modal Crear Reunion -->
+    <div class="modal fade" id="crearReunion" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Nuevo Tema</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cerrarX">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <?php
+                            $idReunion = 0;
+                            $existe = false;
+                            
+                            do{
+                                $idReunion = rand();
+                                $consulta = "SELECT * FROM reunion WHERE id='$idReunion'";
+                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                while ($columna = mysqli_fetch_array( $resultado )){
+                                    $existe=true;
+                                }
+                            }while($idReunion==0 || $existe);
+                        ?>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="idReunion" value="<?php echo $idReunion;?>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Tipo Reunión</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-control" id="tipoReunion">
+                                        <option value="Seleccionar">Seleccionar Tipo Reunión</option>
+                                        <option value="Regular">Regular</option>
+                                        <option value="Extraordinaria">Extraordinaria</option>
+                                        <option value="Consejo de Escuela">Consejo de Escuela</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Fecha Reunión</label>
+                                </div>
+                                <div class="col">
+                                    <input type="date" class="form-control" id="fechaReunion" requiered>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Hora de Inicio Reunión</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-control" id="hora">
+                                        <?php
+                                            echo '<option value="Seleccionar">Seleccionar Hora Reunion</option>';
+                                            
+                                            for($i =0; $i<=23; $i++){
+                                                if($i<10){
+                                                    echo '<option value="0'.$i.'">0'.$i.'</option>';
+                                                }
+                                                else{
+                                                    echo '<option value="'.$i.'">'.$i.'</option>';
+                                                }
+                                                
+
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <select class="form-control" id="minuto">
+                                        <?php
+                                            echo '<option value="Seleccionar">Seleccionar Minuto Reunion</option>';
+                                            
+                                            for($i=0; $i<=60; $i++){
+                                                if($i<10){
+                                                    echo '<option value="0'.$i.'">0'.$i.'</option>';
+                                                }
+                                                else{
+                                                    echo '<option value="'.$i.'">'.$i.'</option>';
+                                                }
+                                                
+
+                                            }
+                                        ?>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Duracion Reunión</label>
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control" id="duracionReunion" placeholder="Duración Reunión" requiered>
+                                </div>
+                                <div class="col">
+                                    <select class="form-control" id="tipoDuracion">
+                                        <option value="Seleccionar">Seleccionar Tipo Duración</option>
+                                        <option value="Minutos">Minutos</option>
+                                        <option value="Horas">Horas</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Link de Reunión</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="linkReunion" placeholder="Link de la Reunión">
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrar">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="siguientePaso">Siguiente Paso</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -255,6 +395,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="js/index.js"></script>
 
 
 </body>
