@@ -8,6 +8,7 @@
     while ($columna = mysqli_fetch_array( $resultado )){
         $existe=true;
     }
+    
     if(empty($idReunion) || $existe==false){
         header('Location: index.php');
 
@@ -38,6 +39,20 @@
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="alertifyjs/css/alertify.css">
+	<link rel="stylesheet" type="text/css" href="alertifyjs/css/themes/default.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+
+    
+
+    <script src="alertifyjs/alertify.js"></script>
+    <style>
+        .ui-autocomplete {
+            z-index: 10000000;
+        }
+    </style>
+    
 
 </head>
 
@@ -165,10 +180,21 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          <tr>
-                                            <th scope="row">1</th>
-                                            <td>Eliminar</td>
-                                          </tr>
+                                            <?php
+                                                $consulta = "SELECT * FROM tema WHERE refreunion='$idReunion'";
+                                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                                while ($columna = mysqli_fetch_array( $resultado )){
+
+                                                    $datos = $columna["nombre"].'||'.$idReunion;
+                                                    $usarFuncion = "preguntarSiNo2('".$datos."')";
+                                                    echo '<tr>
+                                                        <td>'.$columna['nombre'].'</td>
+                                                        <td><button type="button" class="btn btn-danger" onclick="'.$usarFuncion.'">Eliminar</button><button type="button" class="btn btn-primary" onclick="">Agregar Accion</button><button type="button" class="btn btn-info">Ver Acciones</button></td>
+                                                    </tr>';
+
+                                                    
+                                                }
+                                            ?>
                                         </tbody>
                                       </table>
                                 </div>
@@ -199,31 +225,31 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          <tr>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                          </tr>
+                                            <?php
+                                                $consulta = "SELECT * FROM relacionreunioninvitado WHERE refid='$idReunion'";
+                                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                                while ($columna = mysqli_fetch_array( $resultado )){
+                                                    $refCorreo = $columna['refcorreo'];
+
+                                                    $consulta2 = "SELECT * FROM invitado WHERE correo='$refCorreo'";
+                                                    $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                                    while ($columna2 = mysqli_fetch_array( $resultado2 )){
+                                                        $datos = $columna2["correo"].'||'.$idReunion;
+                                                        $usarFuncion = "preguntarSiNo('".$datos."')";
+                                                        echo '<tr>
+                                                            <td>'.$columna2['nombre'].'</td>
+                                                            <td>'.$columna2['correo'].'</td>
+                                                            <td><button type="button" class="btn btn-danger" onclick="'.$usarFuncion.'">Eliminar</button></td>
+                                                        </tr>';
+                                                    }
+
+                                                    
+                                                }
+                                            ?>
                                         </tbody>
                                       </table>
                                 </div>
                             </div>
-            
-                        </div>
-                    </div>
-
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <center>
-                                <div class="row">
-                                    <div class="col">
-                                        <button type="button" class="btn btn-primary" id="guardar">Guardar</button>
-                                    </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-primary" id="cancelar">Cancelar</button>
-                                    </div>
-                                </div>
-                            </center>
             
                         </div>
                     </div>
@@ -286,15 +312,25 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form>   
                         <div class="form-group">
-                          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nombre Tema">
+                            <input type="text" class="form-control" id="idReunionTemaModal" value="<?php echo $idReunion;?>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="correoInvitadoModal">Nombre Tema</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="nombreTemaModal" placeholder="Nombre Tema" required>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="crearTemaBoton">Guardar</button>
                 </div>
             </div>
         </div>
@@ -313,37 +349,54 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nombre Invitado">
-                          </div>
+                            <input type="text" class="form-control" id="idReunionInvitadoModal" value="<?php echo $idReunion;?>" readonly>
+                        </div>
                         <div class="form-group">
-                          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Correo Invitado">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="correoInvitadoModal">Correo Invitado</label>
+                                </div>
+                                <div class="col">
+                                    <input type="email" class="form-control" id="correoInvitadoModal" placeholder="Correo Invitado" required>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="correoInvitadoModal">Nombre Invitado</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="nombreInvitadoModal" placeholder="Nombre Invitado" required>
+                                </div>
+                            </div>
+                            
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="crearInvitadoBoton">Guardar</button>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
+    <!-- Core plugin JavaScript -->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
+    <!-- Custom scripts for all pages -->
     <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
     <script src="js/crearReunion.js"></script>
 
 </body>

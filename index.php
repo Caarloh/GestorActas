@@ -152,24 +152,80 @@
 
                     <div class="card">
                         <div class="card-body">
+                            <div class="card-head py-3">
+                                <center><h6 class="m-0 font-weight-bold text-primary">Estado de Reuniones</h6></center>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary">Creada</button>
+            
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-info">En Proceso</button>
+            
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-danger">En Espera de Acciones</button>
+            
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-success">Terminada</button>
+            
+                                    </div>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="card">
+                        <div class="card-body">
                             <div class="container">
                                 <div class="row row-cols-2">
                                     <?php
                                         $consulta = "SELECT * FROM reunion";
                                         $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
                                         while ($columna = mysqli_fetch_array( $resultado )){
+                                            $linkReunion = $columna['linkReunion'];
+                                            $colorCard = "bg-primary";
+                                            $colorBoton = "btn-primary";
+                                            $estado = $columna['estado'];
+                                            if($estado == "Terminado"){
+                                                $colorCard = "bg-success";
+                                                $colorBoton = "btn-success";
+                                            }
+                                            else if($estado=="En Proceso"){
+                                                $colorCard = "bg-info";
+                                                $colorBoton = "btn-info";
+
+                                            }
+                                            else if($estado=="En Espera"){
+                                                $colorCard = "bg-danger";
+                                                $colorBoton = "btn-danger";
+
+
+                                            }
+                                            
                                             echo '<div class="col">
-                                                    <div class="card text-white bg-primary mb-3">
+                                                    <div class="card text-white '.$colorCard.' mb-3">
 
                                                         <div class="card-body">
                                                             <h5 class="card-title">Reunión: '.$columna['tipoPredefinido'].'</h5>
                                                             <h5 class="card-title"><i class="far fa-calendar"></i> '.$columna['fecha'].'</h5>
                                                             <h5 class="card-title"><i class="far fa-clock"></i> '.$columna['hora'].'</h5>
-                                                            <h5 class="card-title"><i class="fas fa-stopwatch"></i> '.$columna['duracion'].' '.$columna['tipoDuracion'].'</h5>
-                                                            <h5 class="card-title"><i class="fas fa-link"></i><a class="btn btn-primary" href="'.$columna['linkReunion'].'">'.$columna['linkReunion'].'</a></h5>
-                                                        </div>
+                                                            <h5 class="card-title"><i class="fas fa-stopwatch"></i> '.$columna['duracion'].' '.$columna['tipoDuracion'].'</h5>';
+                                                            if($linkReunion == "" || $linkReunion==" "){
+                                                                echo '<h5 class="card-title"><i class="fas fa-link"></i><a class="btn '.$colorBoton.'" href=""></a></h5>';
+                                                            }
+                                                            else{
+                                                                echo '<h5 class="card-title"><i class="fas fa-link"></i><a class="btn '.$colorBoton.'" href="'.$columna['linkReunion'].'">Link Reunion</a></h5>';
+                                                            }
+                                                            
+                                                        echo '</div>
                                                         <div class="card-footer text-muted">
-                                                            <center><a href="#" class="btn btn-primary"><i class="fas fa-chevron-right"></i></a></center>
+                                                            <center><a href="#" class="btn '.$colorBoton.'"><i class="fas fa-chevron-right"></i></a></center>
                                                         </div>
                                                     </div>
                                                 </div>';
