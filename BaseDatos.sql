@@ -1,15 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 4.9.0.1
--- https://www.phpmyadmin.net/
---
--- Servidor: localhost:8889
--- Tiempo de generación: 19-11-2020 a las 20:08:11
--- Versión del servidor: 5.7.26
--- Versión de PHP: 7.3.8
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
+﻿
 --
 -- Base de datos: `gestoractas`
 --
@@ -34,10 +23,21 @@ CREATE TABLE `reunion` (
 -- Estructura de tabla para la tabla `invitado`
 --
 
+--
+-- Estructura de tabla para la tabla `acta`
+--
+
+CREATE TABLE `acta` (  
+  `titulo` int(11) NOT NULL,
+  `refreunion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE `invitado` (
   `correo` varchar(50) NOT NULL,
   `nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 --
 -- Estructura de tabla para la tabla `relacionreunioninvitado`
@@ -112,6 +112,13 @@ ALTER TABLE `tema`
   ADD KEY `fkreunion` (`refreunion`);
 
 --
+-- Indexes for table `acta`
+--
+ALTER TABLE `acta`
+  ADD PRIMARY KEY (`titulo`),
+  ADD KEY `fk_reunion` (`refreunion`);
+
+--
 -- Indexes for table `accion`
 --
 ALTER TABLE `accion`
@@ -137,10 +144,15 @@ ALTER TABLE `tema`
   ADD CONSTRAINT `fkreunion` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `acta`
+--
+ALTER TABLE `acta`
+  ADD CONSTRAINT `fk_reunion` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `accion`
 --
 ALTER TABLE `accion`
   ADD CONSTRAINT `fkreuniontema` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fkinvitado` FOREIGN KEY (`refinvitado`) REFERENCES `invitado` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fktema` FOREIGN KEY (`reftema`) REFERENCES `tema` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
