@@ -1,3 +1,20 @@
+<?php
+    require "baseDatos/conexion.php";
+    $idReunion = $_GET['id'];
+    $existe = false;
+
+    $consulta = "SELECT * FROM reunion WHERE id='$idReunion'";
+    $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+    while ($columna = mysqli_fetch_array( $resultado )){
+        $existe=true;
+    }
+    
+    if(empty($idReunion) || $existe==false){
+        header('Location: index.php');
+
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +39,20 @@
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="alertifyjs/css/alertify.css">
+	<link rel="stylesheet" type="text/css" href="alertifyjs/css/themes/default.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+
+    
+
+    <script src="alertifyjs/alertify.js"></script>
+    <style>
+        .ui-autocomplete {
+            z-index: 10000000;
+        }
+    </style>
+    
 
 </head>
 
@@ -88,7 +119,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nombre Usuario</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -97,20 +128,12 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
+                                    Perfil
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Salir
                                 </a>
                             </div>
                         </li>
@@ -125,40 +148,12 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-head py-3">
-                            <center><h6 class="m-0 font-weight-bold text-primary"> Datos Reunion</h6></center>
+                            <center><h6 class="m-0 font-weight-bold text-primary"> ID Reunion</h6></center>
                         </div>
                         <div class="card-body">
                             <form>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="idReunion" value="123" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <select class="form-control" id="tipoReunion">
-                                        <option value="Seleccionar">Seleccionar Tipo Reunión</option>
-                                        <option value="Regular">Regular</option>
-                                        <option value="Extraordinaria">Extraordinaria</option>
-                                        <option value="Consejo de Escuela">Consejo de Escuela</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="fechaReunion" placeholder="Fecha Reunión">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="horaReunion" placeholder="Hora Reunión">
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="number" class="form-control" id="duracionReunion" placeholder="Duración Reunión">
-                                        </div>
-                                        <div class="col">
-                                            <select class="form-control" id="tipoDuracion">
-                                                <option value="Seleccionar">Seleccionar Tipo Duración</option>
-                                                <option value="Minutos">Minutos</option>
-                                                <option value="Horas">Horas</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <input type="text" class="form-control" id="idReunion" value="<?php echo $idReunion;?>" readonly>
                                 </div>
                             </form>
                         </div>
@@ -185,10 +180,21 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          <tr>
-                                            <th scope="row">1</th>
-                                            <td>Eliminar</td>
-                                          </tr>
+                                            <?php
+                                                $consulta = "SELECT * FROM tema WHERE refreunion='$idReunion'";
+                                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                                while ($columna = mysqli_fetch_array( $resultado )){
+
+                                                    $datos = $columna["nombre"].'||'.$idReunion;
+                                                    $usarFuncion = "preguntarSiNo2('".$datos."')";
+                                                    echo '<tr>
+                                                        <td>'.$columna['nombre'].'</td>
+                                                        <td><button type="button" class="btn btn-danger" onclick="'.$usarFuncion.'">Eliminar</button><button type="button" class="btn btn-primary" onclick="">Agregar Accion</button><button type="button" class="btn btn-info">Ver Acciones</button></td>
+                                                    </tr>';
+
+                                                    
+                                                }
+                                            ?>
                                         </tbody>
                                       </table>
                                 </div>
@@ -219,31 +225,31 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          <tr>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                          </tr>
+                                            <?php
+                                                $consulta = "SELECT * FROM relacionreunioninvitado WHERE refid='$idReunion'";
+                                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                                while ($columna = mysqli_fetch_array( $resultado )){
+                                                    $refCorreo = $columna['refcorreo'];
+
+                                                    $consulta2 = "SELECT * FROM invitado WHERE correo='$refCorreo'";
+                                                    $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                                    while ($columna2 = mysqli_fetch_array( $resultado2 )){
+                                                        $datos = $columna2["correo"].'||'.$idReunion;
+                                                        $usarFuncion = "preguntarSiNo('".$datos."')";
+                                                        echo '<tr>
+                                                            <td>'.$columna2['nombre'].'</td>
+                                                            <td>'.$columna2['correo'].'</td>
+                                                            <td><button type="button" class="btn btn-danger" onclick="'.$usarFuncion.'">Eliminar</button></td>
+                                                        </tr>';
+                                                    }
+
+                                                    
+                                                }
+                                            ?>
                                         </tbody>
                                       </table>
                                 </div>
                             </div>
-            
-                        </div>
-                    </div>
-
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <center>
-                                <div class="row">
-                                    <div class="col">
-                                        <button type="button" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-primary">Cancelar</button>
-                                    </div>
-                                </div>
-                            </center>
             
                         </div>
                     </div>
@@ -281,15 +287,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">¿Listo para salir?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión actual.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
                 </div>
             </div>
         </div>
@@ -306,15 +312,25 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form>   
                         <div class="form-group">
-                          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nombre Tema">
+                            <input type="text" class="form-control" id="idReunionTemaModal" value="<?php echo $idReunion;?>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="correoInvitadoModal">Nombre Tema</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="nombreTemaModal" placeholder="Nombre Tema" required>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="crearTemaBoton">Guardar</button>
                 </div>
             </div>
         </div>
@@ -333,37 +349,55 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nombre Invitado">
-                          </div>
+                            <input type="text" class="form-control" id="idReunionInvitadoModal" value="<?php echo $idReunion;?>" readonly>
+                        </div>
                         <div class="form-group">
-                          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Correo Invitado">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="correoInvitadoModal">Correo Invitado</label>
+                                </div>
+                                <div class="col">
+                                    <input type="email" class="form-control" id="correoInvitadoModal" placeholder="Correo Invitado" required>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="correoInvitadoModal">Nombre Invitado</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="nombreInvitadoModal" placeholder="Nombre Invitado" required>
+                                </div>
+                            </div>
+                            
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="crearInvitadoBoton">Guardar</button>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
+    <!-- Core plugin JavaScript -->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
+    <!-- Custom scripts for all pages -->
     <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
+    <script src="js/crearReunion.js"></script>
 
 </body>
 
