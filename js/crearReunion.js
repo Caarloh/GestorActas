@@ -52,6 +52,8 @@ function eliminarDatosTema(nombre, idReunion){
 }
 
 $(document).ready(function(){
+    //$('#tablaAcciones')
+
     $('#crearInvitadoBoton').click(function(){
         nombreInvitadoModal = $('#nombreInvitadoModal').val();
         correoInvitadoModal = $('#correoInvitadoModal').val();
@@ -91,19 +93,23 @@ $(document).ready(function(){
     });
 
     $('#crearTemaBoton').click(function(){
+        idTemaCr = $('#idTemaCrear').val();
         nombreTemaModal = $('#nombreTemaModal').val();
         idReunion = $('#idReunionTemaModal').val();
+
+        console.log(idTemaCr);
 
         if(nombreTemaModal == "" || nombreTemaModal==" "){
             alert("Completar nombre del tema");
         }
         else{
-            cadena = "idReunion=" + idReunion + "&nombre=" + nombreTemaModal;
+            cadena = "idReunion=" + idReunion + "&nombre=" + nombreTemaModal + "&idTema=" + idTemaCr;
             $.ajax({
                 type:"POST",
                 url:"baseDatos/agregarTemaReunion.php",
                 data:cadena,
                 success:function(r){
+                    console.log(r);
                   if(r==1){
                     location.reload();
                     
@@ -119,7 +125,7 @@ $(document).ready(function(){
                 }
               });
         }
-      
+        
     });
     
 
