@@ -1,49 +1,86 @@
+function preguntarSiNo(datos){
+    d=datos.split("||");
+    correo = d[0];
+    idReunion = d[1];
+      alertify.confirm('Eliminar Datos', '¿Esta seguro de eliminar este registro?', 
+                      function(){ eliminarDatosInvitado(correo, idReunion) }
+                  , function(){ alertify.error('CANCELADO')});
+}
+function preguntarSiNo2(datos){
+    d=datos.split("||");
+    nombre = d[0];
+    idReunion = d[1];
+      alertify.confirm('Eliminar Datos', '¿Esta seguro de eliminar este registro?', 
+                      function(){ eliminarDatosTema(nombre, idReunion) }
+                  , function(){ alertify.error('CANCELADO')});
+}
+  
+function eliminarDatosInvitado(correo, idReunion){
+
+    cadena2="correo=" + correo+"&idReunion="+idReunion;
+
+    $.ajax({
+        type:"POST",
+        url:"baseDatos/eliminarRelacionInvitadoReunion.php",
+        data:cadena2,
+        success:function(r){
+            if(r==1){
+                location.reload();
+            }else{
+                alertify.error("FALLO EN EL SERVIDOR");
+            }
+        }
+    });
+}
+
+function eliminarDatosTema(nombre, idReunion){
+
+    cadena2="nombre=" + nombre +"&idReunion="+idReunion;
+
+    $.ajax({
+        type:"POST",
+        url:"baseDatos/eliminarTemaReunion.php",
+        data:cadena2,
+        success:function(r){
+            if(r==1){
+                location.reload();
+            }else{
+                alertify.error("FALLO EN EL SERVIDOR");
+            }
+        }
+    });
+}
+
 $(document).ready(function(){
-    $('#guardar').click(function(){
-        idReunion = $('#idReunion').val();
-        tipoReunion = $('#tipoReunion').val();
-        fechaReunion= $('#fechaReunion').val();
-        hora= $('#hora').val();
-        minuto= $('#minuto').val();
-        duracionReunion= $('#duracionReunion').val();
-        tipoDuracion= $('#tipoDuracion').val();
-        linkReunion = $('#linkReunion').val();
+    $('#crearInvitadoBoton').click(function(){
+        nombreInvitadoModal = $('#nombreInvitadoModal').val();
+        correoInvitadoModal = $('#correoInvitadoModal').val();
+        idReunion = $('#idReunionInvitadoModal').val();
 
-        if(tipoReunion == "Seleccionar"){
-            alert("Completar el tipo de reunion");
+        if(correoInvitadoModal == "" || correoInvitadoModal==" "){
+            alert("Completar correo del invitado");
 
         }
-        else if(hora == "Seleccionar"){
-            alert("Completar la hora");
-
-        }
-        else if(minuto == "Seleccionar"){
-            alert("Completar los minutos");
-
-        }
-        else if(tipoDuracion == "Seleccionar"){
-            alert("Completar el tipo de duracion");
-
-        }
-        else if(fechaReunion == "" || fechaReunion==" "){
-            alert("Completar fecha de la reunion");
+        else if(nombreInvitadoModal == "" || nombreInvitadoModal==" "){
+            alert("Completar nombre del invitado");
         }
         else{
-            cadena = "idReunion=" + idReunion + "&tipoReunion=" + tipoReunion + 
-            "&fechaReunion=" + fechaReunion + "&hora=" + hora+ "&minuto=" + minuto + "&duracionReunion=" + duracionReunion+ "&tipoDuracion=" + tipoDuracion + "&linkReunion=" + linkReunion;
+            cadena = "idReunion=" + idReunion + "&nombre=" + nombreInvitadoModal + 
+            "&correo=" + correoInvitadoModal;
             $.ajax({
                 type:"POST",
-                url:"BaseDatos/agregarReunion.php",
+                url:"baseDatos/agregarInvitadoReunion.php",
                 data:cadena,
                 success:function(r){
                   if(r==1){
-                    window.location = "index.php";
+                    location.reload();
+                    
                   }else{
                     if (r==6) {
-                      alert("Reunión ya existe en el sistema.");
+                        alertify.error("Invitado ya existe en la reunión.");
                     }
                     else{
-                      alert("Fallo en el servidor.");
+                        alertify.error("Fallo en el servidor.");
                     }
                     
                   }
@@ -52,4 +89,56 @@ $(document).ready(function(){
         }
       
     });
+
+    $('#crearTemaBoton').click(function(){
+        nombreTemaModal = $('#nombreTemaModal').val();
+        idReunion = $('#idReunionTemaModal').val();
+
+        if(nombreTemaModal == "" || nombreTemaModal==" "){
+            alert("Completar nombre del tema");
+        }
+        else{
+            cadena = "idReunion=" + idReunion + "&nombre=" + nombreTemaModal;
+            $.ajax({
+                type:"POST",
+                url:"baseDatos/agregarTemaReunion.php",
+                data:cadena,
+                success:function(r){
+                  if(r==1){
+                    location.reload();
+                    
+                  }else{
+                    if (r==6) {
+                        alertify.error("Tema ya existe en la reunión.");
+                    }
+                    else{
+                        alertify.error("Fallo en el servidor.");
+                    }
+                    
+                  }
+                }
+              });
+        }
+      
+    });
+    
+
+    $( "#correoInvitadoModal" ).autocomplete({
+        source: "baseDatos/buscarInvitado.php",
+        minLength: 2
+      });
+  
+      $("#correoInvitadoModal").focusout(function(){
+        rutEmpresa = $('#correoInvitadoModal').val();
+        $.ajax({
+          url:'baseDatos/obtenerInvitado.php',
+          type:'POST',
+          dataType:'json',
+          data:{ rutEmpresa:rutEmpresa}
+        }).done(function(respuesta){
+          $("#nombreInvitadoModal").val(respuesta.nombreEmpresa);
+  
+        });
+      });
+    
 });
