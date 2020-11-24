@@ -176,6 +176,7 @@
                                         <thead>
                                           <tr>
                                             <th scope="col">Nombre</th>
+                                            <th scope="col">Tag</th>
                                             <th scope="col">Acciones</th>
                                           </tr>
                                         </thead>
@@ -186,10 +187,14 @@
                                                 while ($columna = mysqli_fetch_array( $resultado )){
 
                                                     $datos = $columna["nombre"].'||'.$idReunion;
+                                                    $datos2 = $columna["id"].'||'.$columna["nombre"];
                                                     $usarFuncion = "preguntarSiNo2('".$datos."')";
+                                                    $usarFuncion2 = "formEditarTema('".$datos2."')";
+                                                    
                                                     echo '<tr>
                                                         <td>'.$columna['nombre'].'</td>
-                                                        <td><button type="button" class="btn btn-danger" onclick="'.$usarFuncion.'">Eliminar</button><button type="button" class="btn btn-primary" onclick="">Agregar Accion</button><button type="button" class="btn btn-info">Ver Acciones</button></td>
+                                                        <td>'.$columna['tag'].'</td>
+                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'">Editar</button><button type="button" class="btn btn-danger" onclick="'.$usarFuncion.'">Eliminar</button><button type="button" class="btn btn-primary" onclick="">Agregar Accion</button><button type="button" class="btn btn-info">Ver Acciones</button></td>
                                                     </tr>';
 
                                                     
@@ -379,6 +384,48 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn btn-primary" id="crearInvitadoBoton">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Tema -->
+    <div class="modal fade" id="editarTema" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Tema</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="correoInvitadoModal">ID Tema</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="idTemaModalEdicion" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="correoInvitadoModal">Nombre Tema</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="nombreTemaModalEdicion">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="editarTemaModalEdicion">Guardar</button>
                 </div>
             </div>
         </div>

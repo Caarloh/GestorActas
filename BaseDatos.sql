@@ -77,9 +77,9 @@ CREATE TABLE `accion` (
 -- Volcado de datos para la tabla `reunion`
 --
 
-INSERT INTO `reunion` (`id`, `tipoPredefinido`, `fecha`, `hora`, `duracion`, `tipoDuracion`, `linkReunion`) VALUES
-(1124387998, 'Extraordinaria', '2020-11-20', '09:00', 3, 'Horas', ''),
-(1238353639, 'Regular', '2020-11-20', '09:00', 2, 'Horas', 'https://reuna.zoom.us/j/9975784070?pwd=dmQwMk1MWWFzME1FMWoxalZGUHQxQT09');
+INSERT INTO `reunion` (`id`, `tipoPredefinido`, `fecha`, `hora`, `duracion`, `tipoDuracion`, `linkReunion`, `estado`) VALUES
+(1124387998, 'Extraordinaria', '2020-11-20', '09:00', 3, 'Horas', '', ''),
+(1238353639, 'Regular', '2020-11-20', '09:00', 2, 'Horas', 'https://reuna.zoom.us/j/9975784070?pwd=dmQwMk1MWWFzME1FMWoxalZGUHQxQT09', '');
 
 --
 -- Índices para tablas volcadas
