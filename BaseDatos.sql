@@ -117,7 +117,6 @@ ALTER TABLE `tema`
 -- Indexes for table `acta`
 --
 ALTER TABLE `acta`
-  ADD PRIMARY KEY (`titulo`),
   ADD KEY `fk_reunion` (`refreunion`);
 
 --
@@ -144,12 +143,6 @@ ALTER TABLE `relacionreunioninvitado`
 --
 ALTER TABLE `tema`
   ADD CONSTRAINT `fkreunion` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `acta`
---
-ALTER TABLE `acta`
-  ADD CONSTRAINT `fk_reunion` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `accion`
