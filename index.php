@@ -42,6 +42,14 @@
                         <button class="btn btn-primary fa fa-plus" data-toggle="modal"data-target="#crearReunion">Crear Reunion</button>
                         </div>
                                
+                                        <button type="button" class="btn btn-success">Terminada</button>
+            
+                                    </div>
+                                    <div id="app"class="col">
+                                        <button @click="enviar" class="btn btn-primary">
+                                            Spam para el pollo
+                                        </button>
+                                    </div>
                                 </div>
                               </div>
                    
