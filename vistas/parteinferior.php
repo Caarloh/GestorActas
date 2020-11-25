@@ -48,6 +48,9 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+  <!-- Codigo Index no borrar -->
+  <script type="text/javascript" src="js/index.js"></script>
  
 
   
@@ -55,8 +58,6 @@
     <!-- código propio JS --> 
     <script type="text/javascript" src="js/acta.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    
-
     
 
 </body>

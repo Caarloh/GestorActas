@@ -172,10 +172,12 @@
 
                             <div class="row">
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table class="table" id="tablaTema">
                                         <thead>
                                           <tr>
+                                            <th scope="col">ID</th>
                                             <th scope="col">Nombre</th>
+                                            <th scope="col">Tag</th>
                                             <th scope="col">Acciones</th>
                                           </tr>
                                         </thead>
@@ -184,14 +186,19 @@
                                                 $consulta = "SELECT * FROM tema WHERE refreunion='$idReunion'";
                                                 $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
                                                 while ($columna = mysqli_fetch_array( $resultado )){
-
                                                     $datos = $columna["nombre"].'||'.$idReunion;
+                                                    $datos2 = $columna["id"].'||'.$columna["nombre"];
+                                                    $usarFuncion2 = "formEditarTema('".$datos2."')";
+                                                    
+                                                    $datos3 = $columna["nombre"].'||'.$idReunion.'||'.$columna["id"];
                                                     $usarFuncion = "preguntarSiNo2('".$datos."')";
+                                                    $accionFuncion = "getIdTemaAcciones('".$datos3."')";
                                                     echo '<tr>
+                                                        <td>'.$columna['id'].'</td>
                                                         <td>'.$columna['nombre'].'</td>
-                                                        <td><button type="button" class="btn btn-danger" onclick="'.$usarFuncion.'">Eliminar</button><button type="button" class="btn btn-primary" onclick="">Agregar Accion</button><button type="button" class="btn btn-info">Ver Acciones</button></td>
+                                                        <td>'.$columna['tag'].'</td>
+                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'">Editar</button><button type="button" class="btn btn-danger" onclick="'.$usarFuncion.'">Eliminar</button><button type="button" class="btn btn-secondary" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion">Administrar Acciones</button></td>
                                                     </tr>';
-
                                                     
                                                 }
                                             ?>
@@ -301,6 +308,92 @@
         </div>
     </div>
 
+    <!-- Administrar Acciones Modal-->
+    <div class="modal fade" id="adminAccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style="overflow-y: scroll;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Administrador Acciones</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5>Acciones</h5>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAccion">Agregar Acciones</button>
+                        </div>
+                    </div>
+                    <h2></h2>
+                    <table class="table table-hover table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Nombre</td>
+                                <td>Encargado</td>
+                                <td>Fecha termino</td>
+                                <td>Editar</td>
+                                <td>Eliminar</td>
+                            </tr>
+                        </thead>
+                        <tbody id="relleno">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Listo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Crear Accion -->
+    <div class="modal fade" id="modalAccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Crear Accion</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>   
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Nombre Accion</label>
+                                    <input type="text" class="form-control" id="nombreAccionModal" placeholder="Nombre Accion" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label>Encargado</label>
+                                    <input type="text" class="form-control" id="correoInvitadoAccion" placeholder="Correo Encargado" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col">
+                                        <label>Fecha Reunión</label>
+                                        <input type="date" class="form-control" id="fechaterminoAccion" requiered>
+                                    </div>
+                                </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="crearAccionBoton">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Crear Tema -->
     <div class="modal fade" id="crearTema" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -316,10 +409,27 @@
                         <div class="form-group">
                             <input type="text" class="form-control" id="idReunionTemaModal" value="<?php echo $idReunion;?>" readonly>
                         </div>
+                        <?php
+                            $idTema = 0;
+                            $existe = false;
+                            
+                            do{
+                                $idTema = rand();
+                                $consulta = "SELECT * FROM tema WHERE id='$idTema'";
+                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                while ($columna = mysqli_fetch_array( $resultado )){
+                                    $existe=true;
+                                }
+                            }while($idTema==0 || $existe);
+                        ?>
+                        <div class="form-group">
+                            <label>Id tema</label>
+                            <input type="text" class="form-control" id="idTemaCrear" value="<?php echo $idTema;?>" readonly>
+                        </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col">
-                                    <label for="correoInvitadoModal">Nombre Tema</label>
+                                    <label>Nombre Tema</label>
                                 </div>
                                 <div class="col">
                                     <input type="text" class="form-control" id="nombreTemaModal" placeholder="Nombre Tema" required>
@@ -379,6 +489,48 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn btn-primary" id="crearInvitadoBoton">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Tema -->
+    <div class="modal fade" id="editarTema" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Tema</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="correoInvitadoModal">ID Tema</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="idTemaModalEdicion" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="correoInvitadoModal">Nombre Tema</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="nombreTemaModalEdicion">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="editarTemaModalEdicion">Guardar</button>
                 </div>
             </div>
         </div>
