@@ -31,8 +31,6 @@
 
 
                             <div class="container">
-                            <a data-toggle="modal" data-id="ISBN564541" data-reunion="Digimundo" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#alerta">test</a>
-
                             <h6 class="m-0 font-weight-bold text-primary">Filtrar Reuniones</h6>
                             <h6 class="m-0 font-weight-bold text-primary">                 </h6>
 
@@ -112,7 +110,7 @@
                                                         if($fechaActual < $fecha){
 
                                                             echo '
-                                                            <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#alerta">test</a>';
+                                                            <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'" title="Add this item" class="open-AddBookDialog btn '.$colorBoton.'" href="#alerta">Ingresar a Reunion</a>';
 
                                                         }
                                                         else{
@@ -204,7 +202,7 @@
                         <form action="actas.php" method="post">
                         <input type="hidden" name="idReunion" id="idReunion" value="" />
                         <input type="hidden" name="clausula" id="clausula" value="" />
-                        <button href="actas.php?variable1='hola'"holi type="submit" class="btn btn-info">Ingresar a Reunion</a>';
+                        <button type="submit" class="btn btn-info">Ingresar a Reunion</a>';
                         </form>
                         <button type="button" id="finalizado" class="btn btn-info">Clonar</button>
                     </div>
