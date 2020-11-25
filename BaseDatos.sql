@@ -1,4 +1,5 @@
-﻿--
+﻿
+--
 -- Base de datos: `gestoractas`
 --
 
