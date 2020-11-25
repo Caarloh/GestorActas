@@ -186,15 +186,14 @@
                                                 $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
                                                 while ($columna = mysqli_fetch_array( $resultado )){
 
-                                                    $datos = $columna["nombre"].'||'.$idReunion;
-                                                    $idTemaV = $columna['id'];
+                                                    $datos = $columna["nombre"].'||'.$idReunion.'||'.$columna["id"];
                                                     $usarFuncion = "preguntarSiNo2('".$datos."')";
+                                                    $accionFuncion = "getIdTemaAcciones('".$datos."')";
                                                     echo '<tr>
                                                         <td>'.$columna['id'].'</td>
                                                         <td>'.$columna['nombre'].'</td>
-                                                        <td><button type="button" class="btn btn-danger" onclick="'.$usarFuncion.'">Eliminar</button><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#adminAccion">Administrar Acciones</button></td>
+                                                        <td><button type="button" class="btn btn-danger" onclick="'.$usarFuncion.'">Eliminar</button><button type="button" class="btn btn-secondary" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion">Administrar Acciones</button></td>
                                                     </tr>';
-
                                                     
                                                 }
                                             ?>
@@ -316,38 +315,29 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <h4>Acciones</h4>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAccion">Agregar Acciones</button>
-                            </div>
+                    <div class="row">
+                        <div class="col">
+                            <h5>Acciones</h5>
                         </div>
-                        <h2></h2>
+                        <div class="col">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAccion">Agregar Acciones</button>
+                        </div>
                     </div>
-                    
-                    <div class="container" id="tablaAcciones">
-                        <table class="table table-hover table-condensed table-bordered">
-                            <thead>
+                    <h2></h2>
+                    <table class="table table-hover table-condensed table-bordered">
+                        <thead>
+                            <tr>
                                 <td>ID</td>
                                 <td>Nombre</td>
                                 <td>Encargado</td>
                                 <td>Fecha termino</td>
                                 <td>Editar</td>
                                 <td>Eliminar</td>
-                            </thead>
-                            <tbody>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tbody>
-                        </table>
-                    </div>
+                            </tr>
+                        </thead>
+                        <tbody id="relleno">
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" data-dismiss="modal">Listo</button>
@@ -370,19 +360,24 @@
                 <div class="modal-body">
                     <form>   
                         <div class="form-group">
-                            <input type="text" class="form-control" id="idTemaModal" value="<?php echo $idTemaV; ?>" readonly>
-                        </div>
-                        <div class="form-group">
                             <div class="row">
                                 <div class="col">
+                                    <label>Nombre Accion</label>
                                     <input type="text" class="form-control" id="nombreAccionModal" placeholder="Nombre Accion" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
+                                    <label>Encargado</label>
                                     <input type="text" class="form-control" id="correoInvitadoAccion" placeholder="Correo Encargado" required>
                                 </div>
                             </div>
+                            <div class="row">
+                                    <div class="col">
+                                        <label>Fecha Reunión</label>
+                                        <input type="date" class="form-control" id="fechaterminoAccion" requiered>
+                                    </div>
+                                </div>
                         </div>
                     </form>
                 </div>
