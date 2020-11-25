@@ -31,8 +31,6 @@
 
 
                             <div class="container">
-                            <a data-toggle="modal" data-id="ISBN564541" data-reunion="Digimundo" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#alerta">test</a>
-
                             <h6 class="m-0 font-weight-bold text-primary">Filtrar Reuniones</h6>
                             <h6 class="m-0 font-weight-bold text-primary">                 </h6>
 
@@ -112,7 +110,7 @@
                                                         if($fechaActual < $fecha){
 
                                                             echo '
-                                                            <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#alerta">test</a>';
+                                                            <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#alerta">Ingresar a Reuniont</a>';
 
                                                         }
                                                         else{
