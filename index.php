@@ -1,112 +1,213 @@
 <?php  require "baseDatos/conexion.php";?>
 <?php require_once "vistas/partesuperior.php"?>
 
+<script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js"></script>
+<script>
+(function(){
+    new Clipboard('#copy-button');
+}
+
+
+
+)();
+</script>
+
+
+
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <center>
                         <h1 class="h3 mb-0 text-gray-800">Reuniones</h1>
+                        
                     </center>
 
                     <br>
 
-           
-                                        <button class="btne btn-3 btn-3d fas fa-link" data-toggle="modal"
-                                            data-target="#crearReunion">Crear Reunion</button>
+                
 
                     <br>
 
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-head py-3">
-                                <center><h6 class="m-0 font-weight-bold text-primary">Estado de Reuniones</h6></center>
-                            </div>
+
+
                             <div class="container">
-                                <div class="row">
-                                    <div class="col">
-                                        <button type="button" class="btn btn-primary">Creada</button>
-            
+                            <h6 class="m-0 font-weight-bold text-primary">Filtrar Reuniones</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">                 </h6>
+
+                                <div class="row row-cols-3">
+                                <div class="col">
+                                        <input type="date" class="form-control" id="fechaReunion" requiered>
                                     </div>
                                     <div class="col">
-                                        <button type="button" class="btn btn-info">En Proceso</button>
-            
-                                    </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-danger">En Espera de Acciones</button>
-            
-                                    </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-success">Terminada</button>
-            
-                                    </div>
-                                    <div id="app"class="col">
-                                        <button @click="enviar" class="btn btn-primary">
-                                            Spam para el pollo
-                                        </button>
-                                    </div>
+                        <button class="btn btn-primary fa fa-plus" data-toggle="modal"data-target="#crearReunion">Crear Reunion</button>
+                        </div>
                                 </div>
                               </div>
-                        </div>
-                    </div>
-
+                   
                             <div class="grid-container">
                                     <?php
                                         $consulta = "SELECT * FROM reunion";
                                         $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
                                         while ($columna = mysqli_fetch_array( $resultado )){
+                                            $id = $columna['id'];
                                             $linkReunion = $columna['linkReunion'];
-                                            $colorCard = "bg-c-blue";
-                                            $colorBoton = "bg-c-blue";
+                                            $colorCard = "bg-create";
+                                            $colorBoton = "btn-primary";
+                                            $fecha = $columna['fecha'];
                                             $estado = $columna['estado'];
+                                            $fechaActual = date("Y-m-d");
                                             if($estado == "Terminado"){
-                                                $colorCard = "bg-c-green";
+                                                $colorCard = "bg-success";
                                                 $colorBoton = "btn-success";
                                             }
                                             else if($estado=="En Proceso"){
-                                                $colorCard = "bg-c-yellow";
+                                                $colorCard = "bg-info";
                                                 $colorBoton = "btn-info";
 
                                             }
                                             else if($estado=="En Espera"){
-                                                $colorCard = "bg-c-pink";
+                                                $colorCard = "bg-danger";
                                                 $colorBoton = "btn-danger";
 
 
                                             }
+
+
+
+
                                             
-
-
-
-
-                                             
-
-
-
-
-
                                             echo '
+
+
+                                            
                                                     <div class="card text-white '.$colorCard.' mb-3">
 
                                                         <div class="card-body">
+                                                        
                                                             <h6 class="m-b-20">Reunión: '.$columna['tipoPredefinido'].'</h6>
+                                                            
                                                             <h5 class="card-title"><i class="far fa-calendar"></i> '.$columna['fecha'].'</h5>
                                                             <h5 class="card-title"><i class="far fa-clock"></i> '.$columna['hora'].'</h5>
                                                             <h5 class="card-title"><i class="fas fa-stopwatch"></i> '.$columna['duracion'].' '.$columna['tipoDuracion'].'</h5>';
+                                                            
                                                             if($linkReunion == "" || $linkReunion==" "){
                                                                 echo '<h5 class="card-title"><i class="fas fa-link"></i><a class="btn '.$colorBoton.'" href=""></a></h5>';
                                                             }
-                                                            else{
-                                                                echo '<h5 class="card-title"><i class="fas fa-link"></i><a class="btn '.$colorBoton.'" href="'.$columna['linkReunion'].'">Link Reunion</a></h5>';
+                                                            else {
+                                                                echo ' <input  id="G'.$id.'" value="'.$columna['linkReunion'].'" style="z-index: -1;position: absolute;color: transparent;background-color: transparent;border-color: transparent;width: 7%;
+                                                                        margin: 62px 70px 6px 110px;">
+                                                                       <a href="#" class="btn '.$colorBoton.'" id="copy-button" data-clipboard-target="#G'.$id.'"><i class="fas fa-chevron-right"></i>Link Reunion</a>';
                                                             }
+                                                           
+                                                            echo'
+
+                                                           
+
                                                             
-                                                        echo ' </div>
-                                                            <center><a href="#" class="btn '.$colorBoton.'"><i class="fas fa-chevron-right"></i></a></center>
+                                                        
+                                                        </div>';
+                                                        if($fechaActual < $fecha){
+
+                                                            echo '
+                                                            <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#alerta">Ingresar a Reuniont</a>';
+
+                                                        }
+                                                        else{
+        
+                                                            echo '
+
+
+
+                                                            
+                                                            <a href="actas.php?variable1='.$id.'" class="btn '.$colorBoton.'"><i class="fas fa-chevron-right"></i>Ingresar a Reunion</a>';
+                                                        }
+                                                        echo'
+                                                
+                                                            
                                                     </div>
                                                 ';
+                                               
+                     
                                         }
+                                    
+                                    
+                                    
                                     ?>
                             </div>
  
+ 
+ 
+ 
+ 
+ 
+
+<!-- Edit Modal-->
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <center><h4 class="modal-title" id="myModalLabel">Editar usuario</h4></center>
+                </div>
+                <div class="modal-body">
+				<div class="container-fluid">
+					<div class="form-group input-group">
+						<span class="input-group-addon" style="width:150px;">Nombres:</span>
+						<input type="text" style="width:350px;" class="form-control" id="efirstname">
+					</div>
+					<div class="form-group input-group">
+						<span class="input-group-addon" style="width:150px;">Apellidos:</span>
+						<input type="text" style="width:350px;" class="form-control" id="elastname">
+					</div>
+					<div class="form-group input-group">
+						<span class="input-group-addon" style="width:150px;">Dirección:</span>
+						<input type="text" style="width:350px;" class="form-control" id="eaddress">
+					</div>					
+				</div>
+				</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+                    <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> </i> Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- /.modal -->
+ 
+ 
+ 
+ 
+ 
+ 
+        <!-- Modal alerta fecha -->
+        <div class="modal fade" id="alerta" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Ejecutar Reunion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cerrarX">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+
+                     
+                    <div class="modal-body">La reunion esta planificada para el : <input type='text' style='width: 14% ; background-color: transparent; border-color: transparent' name="bookId" id="bookId" value=""  required> 
+                        ¿Esta seguro que desea abrirla? <input type='text' style='width: 14% ; background-color: transparent; border-color: transparent' name="idReunion" id="idReunion" value=""  required> 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="cerrar">No</button>
+                        <form action="actas.php" method="post">
+                        <input type="hidden" name="idReunion" id="idReunion" value="" />
+                        <input type="hidden" name="clausula" id="clausula" value="" />
+                        <button href="actas.php?variable1='hola'"holi type="submit" class="btn btn-info">Ingresar a Reunion</a>';
+                        </form>
+                        <button type="button" id="finalizado" class="btn btn-info">Clonar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
                     <!-- Content Row -->
 
@@ -145,6 +246,24 @@
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <!-- Logout Modal-->
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -310,7 +429,10 @@
                 </div>
             </div>
         </div>
-    
+
+
+        
+
 </div>
 
 
