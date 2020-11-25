@@ -86,7 +86,6 @@ $(document).ready(function(){
         else{
             cadena = "idTema=" + idTemaAc + "&idReunion=" + idReunionAc + "&nombre=" + nombreAccionModal + 
             "&correo=" + correoInvitadoAccion + "&fecha=" + fechaterminoAccion;
-            console.log(cadena);
             $.ajax({
                 type:"POST",
                 url:"baseDatos/agregarAccionTema.php",
