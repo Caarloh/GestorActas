@@ -36,12 +36,11 @@
 
                                 <div class="row row-cols-3">
                                 <div class="col">
-                                        <input type="date" class="form-control" id="fechaReunion" requiered>
+                                        <input type="date" class="form-control" id="fechaReunionCalendar" requiered>
                                     </div>
                                     <div class="col">
                         <button class="btn btn-primary fa fa-plus" data-toggle="modal"data-target="#crearReunion">Crear Reunion</button>
                         </div>
-                               
                                 </div>
                               </div>
                    
@@ -195,12 +194,12 @@
 
                      
                     <div class="modal-body">La reunion esta planificada para el : <input type='text' style='width: 14% ; background-color: transparent; border-color: transparent' name="bookId" id="bookId" value=""  required> 
-                        ¿Esta seguro que desea abrirla? <input type='text' style='width: 14% ; background-color: transparent; border-color: transparent' name="idReunion" id="idReunion" value=""  required> 
+                        ¿Esta seguro que desea abrirla? <input type='text' style='width: 14% ; background-color: transparent; border-color: transparent' name="idReunionCalendar" id="idReunionCalendar" value=""  required> 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal" id="cerrar">No</button>
                         <form action="actas.php" method="post">
-                        <input type="hidden" name="idReunion" id="idReunion" value="" />
+                        <input type="hidden" name="idReunionCalenda" id="idReunionCalendar" value="" />
                         <input type="hidden" name="clausula" id="clausula" value="" />
                         <button href="actas.php?variable1='hola'"holi type="submit" class="btn btn-info">Ingresar a Reunion</a>';
                         </form>

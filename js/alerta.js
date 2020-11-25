@@ -4,7 +4,7 @@ $(document).on("click", ".open-AddBookDialog", function () {
     $(".modal-body #bookId").val( myBookId ); 
 
     var myId = $(this).data('reunion'); 
-    $(".modal-footer #idReunion").val( myId ); 
+    $(".modal-footer #idReunionCalendar").val( myId ); 
 
 
     var myif = $(this).data('condicion'); 
