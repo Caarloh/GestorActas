@@ -66,6 +66,13 @@ function eliminarDatosTema(nombre, idReunion){
     });
 }
 
+function formEditarTema(datos){
+
+    d=datos.split('||');
+    $('#idTemaModalEdicion').val(d[0]);
+    $('#nombreTemaModalEdicion').val(d[1]);
+}
+
 $(document).ready(function(){
     $('#crearAccionBoton').click(function(){
         nombreAccionModal = $('#nombreAccionModal').val();
@@ -181,6 +188,38 @@ $(document).ready(function(){
               });
         }
         
+    });
+
+    $('#editarTemaModalEdicion').click(function(){
+        nombreTemaModal = $('#nombreTemaModalEdicion').val();
+        idTema= $('#idTemaModalEdicion').val();
+
+        if(nombreTemaModal == "" || nombreTemaModal==" "){
+            alert("Completar nombre del tema");
+        }
+        else{
+            cadena = "idTemaModalEdicion=" + idTema + "&nombreTemaModalEdicion=" + nombreTemaModal;
+            $.ajax({
+                type:"POST",
+                url:"baseDatos/actualizarTema.php",
+                data:cadena,
+                success:function(r){
+                  if(r==1){
+                    location.reload();
+                    
+                  }else{
+                    if (r==6) {
+                        alertify.error("Tema ya existe en la reunión.");
+                    }
+                    else{
+                        alertify.error(r);
+                    }
+                    
+                  }
+                }
+              });
+        }
+      
     });
     
 
