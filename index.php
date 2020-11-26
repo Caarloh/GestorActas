@@ -43,6 +43,7 @@
                                             $id = $columna['id'];
                                             $linkReunion = $columna['linkReunion'];
                                             $colorCard = "bg-create";
+                                            $horaReunion= $columna['hora'];
                                             $colorBoton = "btn-primary";
                                             $fecha = $columna['fecha'];
                                             $estado = $columna['estado'];
@@ -99,7 +100,7 @@
                                                         if($fechaActual < $fecha){
 
                                                             echo '
-                                                            <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'" title="Add this item" class="open-AddBookDialog btn '.$colorBoton.'" href="#alerta"></i>Ingresar a Reunion</a>';
+                                                            <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'"  data-horita="'.$horaReunion.'" title="Add this item" class="open-AddBookDialog btn '.$colorBoton.'" href="#alerta"><i class="fas fa-chevron-right"></i>Ingresar a Reunion</a>';
 
                                                         }
                                                         else{
@@ -184,7 +185,7 @@
 
                      
                     <div class="modal-body">La reunion esta planificada para el : <input type='text'  readonly="readonly"  style='width: 14% ; background-color: transparent; border-color: transparent' name="bookId" id="bookId" value=""  disabled> 
-                        ¿Esta seguro que desea abrirla? <input type='text' readonly="readonly" style='width: 14% ; background-color: transparent; border-color: transparent' name="idReunionCalendar" id="idReunionCalendar" value=""  required> 
+                       a las : <input type='text'  readonly="readonly"  style='width: 8% ; background-color: transparent; border-color: transparent' name="reunionHora" id="reunionHora" value=""  disabled>    ¿Esta seguro que desea abrirla? <input type='text' readonly="readonly" style='width: 14% ; background-color: transparent; border-color: transparent' name="idReunionCalendar" id="idReunionCalendar" value=""  required> 
                     </div>
                     <div class="modal-footer">
                         <form action="actas.php" method="post">
