@@ -4,8 +4,8 @@
 <?php  
 
 $id="";
-if(isset($_POST['idReunion'])){
-    $id=$_POST['idReunion'];
+if(isset($_POST['idReunionCalendar'])){
+    $id=$_POST['idReunionCalendar'];
     $condicion=$_POST['clausula'];
 }
 if(isset($_GET['variable1'])){
@@ -25,12 +25,12 @@ $var = 1;
     <h3 style="color:#242c75" ;> Acta de la Reunion: <?php echo $id ?></h3>    </center>
     <br>
 
-    <div class="card">
-        <div class="card-body">
+    <div class="bg-card">
+        <div class="bg-card-body">
             <div class="container">
                 <div class="row row-cols-3">
                     <div class="col">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearActa">Crear
+                        <button type="button" class="button-verde" data-toggle="modal" data-target="#crearActa">Crear
                             Acta</button>
 
                     </div>
@@ -41,7 +41,8 @@ $var = 1;
 
     <br>
 
-    <div class="card">
+ 
+    <div class="bg-card">
         <div class="card-body">
             <div class="container">
                 <div class="row row-cols-2">
