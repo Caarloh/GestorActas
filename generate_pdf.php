@@ -10,7 +10,7 @@ require_once "vendor/autoload.php";
 function selectReunion(){
     $v1 = $_POST['variable1'];
     $conexion = mysqli_connect("localhost", "root", "", "gestoractas");
-    $consulta = "SELECT * FROM reunion,tema WHERE reunion.id='$v1' and tema.refreunion='$v1";
+    $consulta = "SELECT * FROM reunion WHERE id='$v1'";
     $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
     $tabla="";
     $tabla.="<table>
@@ -26,7 +26,7 @@ function selectReunion(){
                 ";
                 while ($columna = mysqli_fetch_array( $resultado )){
                 $tabla.="<tr>
-                        <th>".$columna['reuinion.id']."</th>
+                        <th>".$columna['id']."</th>
                         <th>".$columna['tipoPredefinido']."</th>
                         <th>".$columna['fecha']."</th>
                         <th>".$columna['hora']."</th>
