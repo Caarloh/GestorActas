@@ -30,7 +30,7 @@
                                         <input type="date" class="form-control" id="fechaReunionCalendar" requiered>
                                     </div>
                                     <div class="col">
-                        <button class="button1 fa fa-plus" data-toggle="modal"data-target="#crearReunion">Crear Reunion</button>
+                        <button class="button-crear fa fa-plus" data-toggle="modal"data-target="#crearReunion"> Crear Reunion</button>
                         </div>
                                 </div>
                               </div>
