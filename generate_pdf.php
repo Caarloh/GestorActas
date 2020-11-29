@@ -13,30 +13,20 @@ function selectReunion(){
     $consulta = "SELECT * FROM reunion WHERE id='$v1'";
     $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
     $tabla="";
-    $tabla.="<table>
-                <tr>
-                    <th>id</th>
-                    <th>tipo</th>
-                    <th>fecha</th>
-                    <th>hora</th>
-                    <th>duracion</th>
-                    <th>tipoduracion</th>
-                    <th>link</th>
-                </tr>
-                ";
+   
                 while ($columna = mysqli_fetch_array( $resultado )){
-                $tabla.="<tr>
-                        <th>".$columna['id']."</th>
-                        <th>".$columna['tipoPredefinido']."</th>
-                        <th>".$columna['fecha']."</th>
-                        <th>".$columna['hora']."</th>
-                        <th>".$columna['duracion']."</th>
-                        <th>".$columna['tipoDuracion']."</th>
-                        <th>".$columna['linkReunion']."</th>
-                    </tr>";
+                $tabla.="
+                        <h1> Comite ICC <h1>
+                        <a>".$columna['id']."</a>
+                        <a>".$columna['tipoPredefinido']."</a>
+                        <a>".$columna['fecha']."</a>
+                        <a>".$columna['hora']."</a>
+                        <a>".$columna['duracion']."</a>
+                        <a>".$columna['tipoDuracion']."</a>
+                        <a>".$columna['linkReunion']."</a>
+                    ";
                    
-        }
-        $tabla.="</table>"  ;  
+        } 
         return $tabla;
     }    
 
