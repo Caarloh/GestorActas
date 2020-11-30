@@ -52,6 +52,47 @@ function eliminarDatosTema(nombre, idReunion){
 }
 
 $(document).ready(function(){
+    $('#crearAccionBoton').click(function(){
+        nombreAccionModal = $('#nombreAccionModal').val();
+        correoInvitadoAccion = $('#correoInvitadoAccion').val();
+        fechaterminoAccion= $('#fechaterminoAccion').val();
+
+
+        if(correoInvitadoAccion == "" || correoInvitadoAccion==" "){
+            alert("Completar correo del encargado de la accion");
+
+        }
+        else if(fechaterminoAccion == "" || fechaterminoAccion==" "){
+            alert("Completar fecha de termino de la accion");
+        }
+        else if(nombreAccionModal == "" || nombreAccionModal==" "){
+            alert("Completar nombre de la accion");
+        }
+        else{
+            cadena = "idTema=" + idTemaAc + "&idReunion=" + idReunionAc + "&nombre=" + nombreAccionModal + 
+            "&correo=" + correoInvitadoAccion + "&fecha=" + fechaterminoAccion;
+            $.ajax({
+                type:"POST",
+                url:"baseDatos/agregarAccionTema.php",
+                data:cadena,
+                success:function(r){
+                  if(r==1){
+                    location.reload();
+                    
+                  }else{
+                    if (r==6) {
+                        alertify.error("Accion ya existe en el tema");
+                    }
+                    else{
+                        alertify.error("Fallo en el servidor.");
+                    }
+                  }
+                }
+              });
+        }
+
+    });
+
     $('#crearInvitadoBoton').click(function(){
         nombreInvitadoModal = $('#nombreInvitadoModal').val();
         correoInvitadoModal = $('#correoInvitadoModal').val();
