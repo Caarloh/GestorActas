@@ -2,6 +2,11 @@
 
     require 'conexion.php';
     
+
+    $tipoEncargado = $_POST['tipoEncargado'];
+    $correoInvitadoAccion= $_POST['correoInvitadoAccion'];
+    $nombreInvitadoAccion= $_POST['nombreInvitadoAccion'];
+
     $nombre = $_POST['nombre'];
     $idTema = $_POST['idTema'];
     $idReunion = $_POST['idReunion'];
@@ -10,6 +15,13 @@
     $idAccion = 0;
     $existe = false;
     
+    if($tipoEncargado=="CC"){
+        $consulta = "INSERT INTO invitado(correo, nombre) VALUES ('$correoInvitadoAccion','nombreInvitadoAccion')";
+        echo $result=mysqli_query($conexion,$consulta);
+        $consulta = "INSERT INTO relacionreunioninvitado(refcorreo, refid) VALUES ('$correoInvitadoAccion','$idReunion')";
+        echo $result=mysqli_query($conexion,$consulta);
+    }
+
     do{
         $idAccion = rand();
         $consulta = "SELECT * FROM accion WHERE id='$idAccion'";

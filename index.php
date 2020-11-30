@@ -54,7 +54,8 @@
                                             $colorCard = "bg-create";
                                             $colorBoton = "btn-primary";
                                             $fecha = $columna['fecha'];
-                                            $estado = $columna['estado'];
+                                            #$estado = $columna['estado'];
+                                            $estado = "En Proceso";
                                             $fechaActual = date("Y-m-d");
                                             if($estado == "Terminado"){
                                                 $colorCard = "bg-success";

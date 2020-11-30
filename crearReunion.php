@@ -1,6 +1,7 @@
 <?php
     require "baseDatos/conexion.php";
-    $idReunion = $_GET['id'];
+    #$idReunion = $_GET['id'];
+    $idReunion = 1054134096;
     $existe = false;
 
     $consulta = "SELECT * FROM reunion WHERE id='$idReunion'";
@@ -374,8 +375,23 @@
                             </div>
                             <div class="row">
                                 <div class="col">
+                                    _________________________________
                                     <label>Encargado</label>
+
+                                    <div class="col">
+                                        <select class="form-control" id="tipoEncargado" required>
+                                        
+                                            <option value="Seleccionar">Seleccionar Tipo Encargado</option>
+                                            <option value="Regular">Invitado</option>
+                                            <option value="Extraordinaria">CC</option>
+                                        </select>
+                                        <br>
+
+                                    </div>
                                     <input type="text" class="form-control" id="correoInvitadoAccion" placeholder="Correo Encargado" required>
+                                    <br>
+                                    <input type="text" class="form-control" id="nombreInvitadoAccion" placeholder="Nombre Encargado" required>
+                                    _________________________________
                                 </div>
                             </div>
                             <div class="row">
