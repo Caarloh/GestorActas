@@ -15,9 +15,7 @@ CREATE TABLE `reunion` (
   `hora` varchar(50) NOT NULL,
   `duracion` int(11) NOT NULL,
   `tipoDuracion` varchar(100) NOT NULL,
-  `linkReunion` varchar(500) DEFAULT NULL,
-  `estado` varchar(100) NOT NULL
-  
+  `linkReunion` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -116,6 +114,7 @@ ALTER TABLE `tema`
 -- Indexes for table `acta`
 --
 ALTER TABLE `acta`
+  ADD PRIMARY KEY (`titulo`),
   ADD KEY `fk_reunion` (`refreunion`);
 
 --
@@ -142,6 +141,12 @@ ALTER TABLE `relacionreunioninvitado`
 --
 ALTER TABLE `tema`
   ADD CONSTRAINT `fkreunion` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `acta`
+--
+ALTER TABLE `acta`
+  ADD CONSTRAINT `fk_reunion` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `accion`

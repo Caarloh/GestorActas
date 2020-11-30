@@ -98,6 +98,7 @@ $(document).ready(function(){
                 url:"baseDatos/agregarAccionTema.php",
                 data:cadena,
                 success:function(r){
+                console.log(r);
                   if(r==1){
                     location.reload();
                     
