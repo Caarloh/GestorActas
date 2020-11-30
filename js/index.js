@@ -31,14 +31,12 @@ $(document).ready(function(){
         else{
             cadena = "idReunion=" + idReunion + "&tipoReunion=" + tipoReunion + 
             "&fechaReunion=" + fechaReunion + "&hora=" + hora+ "&minuto=" + minuto + "&duracionReunion=" + duracionReunion+ "&tipoDuracion=" + tipoDuracion + "&linkReunion=" + linkReunion;
-            console.log(cadena);
             $.ajax({
                 type:"POST",
                 url:"BaseDatos/agregarReunion.php",
                 data:cadena,
                 success:function(r){
                   if(r==1){
-                    console.log(r);
                     window.location = "crearReunion.php?id="+idReunion;
                   }else{
                     if (r==6) {

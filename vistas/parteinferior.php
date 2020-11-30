@@ -55,7 +55,9 @@
     <!-- código propio JS --> 
     <script type="text/javascript" src="js/acta.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="js/alerta.js"></script>
+    
+
+    
 
 </body>
 
