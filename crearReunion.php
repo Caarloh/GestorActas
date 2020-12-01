@@ -7,6 +7,7 @@
     $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
     while ($columna = mysqli_fetch_array( $resultado )){
         $existe=true;
+        $nombre = $columna['nombre'];
     }
     
     if(empty($idReunion) || $existe==false){
@@ -148,12 +149,12 @@
 
                     <div class="bg-card shadow mb-4">
                         <div class="bg-card-head py-3">
-                            <center><h6 class="m-0 font-weight-bold text-primary"> ID Reunion</h6></center>
+                            <center><h6 class="m-0 font-weight-bold text-primary"> Nombre de la Reunion</h6></center>
                         </div>
                         <div class="bg-card-body">
                             <form>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="idReunion" value="<?php echo $idReunion;?>" readonly>
+                                    <input type="text" class="form-control" id="idReunion" value="<?php echo $nombre;?>" readonly>
                                 </div>
                             </form>
                         </div>
@@ -175,7 +176,6 @@
                                     <table class="table" id="tablaTema">
                                         <thead>
                                           <tr>
-                                            <th scope="col">ID</th>
                                             <th scope="col">Nombre</th>
                                             <th scope="col">Tag</th>
                                             <th scope="col">Acciones</th>
@@ -194,7 +194,6 @@
                                                     $usarFuncion = "preguntarSiNo2('".$datos."')";
                                                     $accionFuncion = "getIdTemaAcciones('".$datos3."')";
                                                     echo '<tr>
-                                                        <td>'.$columna['id'].'</td>
                                                         <td>'.$columna['nombre'].'</td>
 
                                                         <td>'.$columna['tag'].'</td>

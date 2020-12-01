@@ -1,7 +1,8 @@
 <?php
 
     require 'conexion.php';
-    
+    $existe = false;
+
     $idReunion = $_POST['idReunion'];
     $tipoReunion = $_POST['tipoReunion'];
     $fechaReunion = $_POST['fechaReunion'];
@@ -11,21 +12,21 @@
     $tipoDuracion = $_POST['tipoDuracion'];
     $linkReunion = $_POST['linkReunion'];
     $nombreReunion = $_POST['nombreReunion'];
-    $estadoReunion = $_POST['estadoReunion'];
-
-    $seguir = true;
     
-    $consulta = "SELECT * FROM reunion WHERE id='$idReunion'";
+    $consulta = "SELECT * FROM reunion WHERE id = '$idReunion'";
     $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
     while ($columna = mysqli_fetch_array( $resultado )){
-        $seguir=false;
-        echo $result=6;
+        $existe=true;
+        
     }
     
-    if ($seguir) {
-        $horaFinal = $hora.':'.$minuto;
-        $consulta = "INSERT INTO reunion(id, tipoPredefinido, fecha, hora, duracion, tipoDuracion, linkReunion, estado, nombre) VALUES ('$idReunion', '$tipoReunion','$fechaReunion','$horaFinal','$duracionReunion', '$tipoDuracion', '$linkReunion', '$estadoReunion', '$nombreReunion')";
+    if ($existe) {
+        $horaFinal = $hora.":".$minuto;
+        $consulta = "UPDATE reunion SET tipoPredefinido='$tipoReunion', fecha='$fechaReunion', hora='$horaFinal', duracion='$duracionReunion', tipoDuracion='$tipoDuracion', linkReunion='$linkReunion', nombre='$nombreReunion' WHERE id='$idReunion'";
         echo $result=mysqli_query($conexion,$consulta);
+    }
+    else{
+        echo 6;
     }
   
   
