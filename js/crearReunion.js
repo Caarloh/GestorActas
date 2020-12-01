@@ -78,6 +78,7 @@ $(document).ready(function(){
         nombreAccionModal = $('#nombreAccionModal').val();
         correoInvitadoAccion = $('#correoInvitadoAccion').val();
         fechaterminoAccion= $('#fechaterminoAccion').val();
+        encargadoAccionModal = $('#encargadoAccionModal').val();
 
 
         if(correoInvitadoAccion == "" || correoInvitadoAccion==" "){
@@ -92,7 +93,7 @@ $(document).ready(function(){
         }
         else{
             cadena = "idTema=" + idTemaAc + "&idReunion=" + idReunionAc + "&nombre=" + nombreAccionModal + 
-            "&correo=" + correoInvitadoAccion + "&fecha=" + fechaterminoAccion;
+            "&correo=" + correoInvitadoAccion + "&fecha=" + fechaterminoAccion + "&encargadoAccionModal=" + encargadoAccionModal;
             $.ajax({
                 type:"POST",
                 url:"baseDatos/agregarAccionTema.php",
@@ -106,7 +107,7 @@ $(document).ready(function(){
                         alertify.error("Accion ya existe en el tema");
                     }
                     else{
-                        alertify.error("Fallo en el servidor.");
+                        alert(r);
                     }
                   }
                 }

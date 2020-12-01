@@ -201,7 +201,6 @@
                                                         <td>'.$columna['tag'].'</td>
                                                         <td><button type="button" class="button-amarillo" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'">Editar</button><button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button><button type="button" class="button-azul" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion">Administrar Acciones</button></td>
                                                     </tr>';
-                                                    
                                                 }
                                             ?>
                                         </tbody>
@@ -334,7 +333,6 @@
                     <table class="table table-hover table-condensed table-bordered">
                         <thead>
                             <tr>
-                                <td>ID</td>
                                 <td>Nombre</td>
                                 <td>Encargado</td>
                                 <td>Fecha termino</td>
@@ -379,18 +377,20 @@
                                     <label>Encargado</label>
 
                                     <div class="col">
-                                        <select class="form-control" id="tipoEncargado" required>
-                                        
-                                            <option value="Seleccionar">Seleccionar Tipo Encargado</option>
-                                            <option value="Regular">Invitado</option>
-                                            <option value="Extraordinaria">CC</option>
+                                        <select class="form-control" id="encargadoAccionModal" required>
+                                            <option value="seleccionencargado">Seleccionar invitado</option>
+                                            <?php
+                                                $consulta2 = "SELECT * FROM relacionreunioninvitado WHERE refid='$idReunion'";
+                                                $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                                while ($columna = mysqli_fetch_array($resultado2)){
+                                                    $refCorreo = $columna['refcorreo'];
+                                                    echo '<option value="'.$refCorreo.'">'.$refCorreo .'</option>';
+                                                }
+                                            ?>
                                         </select>
                                         <br>
 
                                     </div>
-                                    <input type="text" class="form-control" id="correoInvitadoAccion" placeholder="Correo Encargado" required>
-                                    <br>
-                                    <input type="text" class="form-control" id="nombreInvitadoAccion" placeholder="Nombre Encargado" required>
                                     _________________________________
                                 </div>
                             </div>
