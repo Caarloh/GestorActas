@@ -8,8 +8,13 @@ $(document).ready(function(){
         duracionReunion= $('#duracionReunion').val();
         tipoDuracion= $('#tipoDuracion').val();
         linkReunion = $('#linkReunion').val();
-
-        if(tipoReunion == "Seleccionar"){
+        nombreReunion = $('#nombreReunion').val();
+        estado = "En Espera";
+        
+        if(nombreReunion == "" || nombreReunion == " "){
+            alert("Asignar nombre a la reunion")
+        }
+        else if(tipoReunion == "Seleccionar"){
             alert("Completar el tipo de reunion");
 
         }
@@ -29,8 +34,16 @@ $(document).ready(function(){
             alert("Completar fecha de la reunion");
         }
         else{
-            cadena = "idReunion=" + idReunion + "&tipoReunion=" + tipoReunion + 
-            "&fechaReunion=" + fechaReunion + "&hora=" + hora+ "&minuto=" + minuto + "&duracionReunion=" + duracionReunion+ "&tipoDuracion=" + tipoDuracion + "&linkReunion=" + linkReunion;
+            cadena = "idReunion=" + idReunion + 
+            "&tipoReunion=" + tipoReunion + 
+            "&fechaReunion=" + fechaReunion + 
+            "&hora=" + hora+ 
+            "&minuto=" + minuto + 
+            "&duracionReunion=" + duracionReunion+ 
+            "&tipoDuracion=" + tipoDuracion + 
+            "&linkReunion=" + linkReunion +
+            "&nombreReunion=" + nombreReunion +
+            "&estadoReunion=" + estado;
             console.log(cadena);
             $.ajax({
                 type:"POST",
