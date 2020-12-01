@@ -1,16 +1,7 @@
 <?php  require "baseDatos/conexion.php";?>
 <?php require_once "vistas/partesuperior.php"?>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js"></script>
-<script>
-(function(){
-    new Clipboard('#copy-button');
-}
 
-
-
-)();
-</script>
 
 
 
@@ -39,7 +30,7 @@
                                         <input type="date" class="form-control" id="fechaReunionCalendar" requiered>
                                     </div>
                                     <div class="col">
-                        <button class="btn btn-primary fa fa-plus" data-toggle="modal"data-target="#crearReunion">Crear Reunion</button>
+                        <button class="button-crear fa fa-plus" data-toggle="modal"data-target="#crearReunion"> Crear Reunion</button>
                         </div>
                                 </div>
                               </div>
@@ -52,6 +43,7 @@
                                             $id = $columna['id'];
                                             $linkReunion = $columna['linkReunion'];
                                             $colorCard = "bg-create";
+                                            $horaReunion= $columna['hora'];
                                             $colorBoton = "btn-primary";
                                             $fecha = $columna['fecha'];
                                             $estado = $columna['estado'];
@@ -94,9 +86,8 @@
                                                                 echo '<h5 class="card-title"><i class="fas fa-link"></i><a class="btn '.$colorBoton.'" href=""></a></h5>';
                                                             }
                                                             else {
-                                                                echo ' <input  id="G'.$id.'" value="'.$columna['linkReunion'].'" style="z-index: -1;position: absolute;color: transparent;background-color: transparent;border-color: transparent;width: 7%;
-                                                                        margin: 62px 70px 6px 110px;">
-                                                                       <a href="#" class="btn '.$colorBoton.'" id="copy-button" data-clipboard-target="#G'.$id.'"><i class="fas fa-chevron-right"></i>Link Reunion</a>';
+                                                                echo ' 
+                                                                       <a href="'.$linkReunion.'" class="btn '.$colorBoton.'" id="copy-button" data-clipboard-target="#G'.$id.'"><i class="fas fa-chevron-right"></i>Link Reunion</a>';
                                                             }
                                                            
                                                             echo'
@@ -109,7 +100,7 @@
                                                         if($fechaActual < $fecha){
 
                                                             echo '
-                                                            <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#alerta">Ingresar a Reuniont</a>';
+                                                            <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'"  data-horita="'.$horaReunion.'" title="Add this item" class="open-AddBookDialog btn '.$colorBoton.'" href="#alerta"><i class="fas fa-chevron-right"></i>Ingresar a Reunion</a>';
 
                                                         }
                                                         else{
@@ -167,7 +158,7 @@
 				</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
-                    <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> </i> Actualizar</button>
+                    <button type="button" class="button-verde"><span class="glyphicon glyphicon-edit"></span> </i> Actualizar</button>
                 </div>
             </div>
         </div>
@@ -193,17 +184,18 @@
 
 
                      
-                    <div class="modal-body">La reunion esta planificada para el : <input type='text' style='width: 14% ; background-color: transparent; border-color: transparent' name="bookId" id="bookId" value=""  required> 
-                        ¿Esta seguro que desea abrirla? <input type='text' style='width: 14% ; background-color: transparent; border-color: transparent' name="idReunionCalendar" id="idReunionCalendar" value=""  required> 
+                    <div class="modal-body">La reunion esta planificada para el : <input type='text'  readonly="readonly"  style='width: 14% ; background-color: transparent; border-color: transparent' name="bookId" id="bookId" value=""  disabled> 
+                       a las : <input type='text'  readonly="readonly"  style='width: 8% ; background-color: transparent; border-color: transparent' name="reunionHora" id="reunionHora" value=""  disabled>    ¿Esta seguro que desea abrirla? <input type='text' readonly="readonly" style='width: 14% ; background-color: transparent; border-color: transparent' name="idReunionCalendar" id="idReunionCalendar" value=""  required> 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="cerrar">No</button>
                         <form action="actas.php" method="post">
-                        <input type="hidden" name="idReunionCalenda" id="idReunionCalendar" value="" />
+                        <input type="hidden" name="idReunionCalendar" id="idReunionCalendar" value="" />
                         <input type="hidden" name="clausula" id="clausula" value="" />
-                        <button href="actas.php?variable1='hola'"holi type="submit" class="btn btn-info">Ingresar a Reunion</a>';
+                        <button  type="submit" class="button-azul">Ingresar a Reunion</a>
                         </form>
-                        <button type="button" id="finalizado" class="btn btn-info">Clonar</button>
+                        <button type="button" id="finalizado" class="button-amarillo">Clonar</button>
+                        <button type="button" class="button-rojo" data-dismiss="modal" id="cerrar">No</button>
+
                     </div>
                 </div>
             </div>
@@ -280,7 +272,7 @@
                         sesión
                         actual.</div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <button class="button-rojo" type="button" data-dismiss="modal">Cancelar</button>
                         <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
                     </div>
                 </div>
@@ -423,8 +415,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrar">Cerrar</button>
-                        <button type="button" class="btn btn-primary" id="siguientePaso">Siguiente Paso</button>
+                        <button type="button" class="button-rojo" data-dismiss="modal" id="cerrar">Cerrar</button>
+                        <button type="button" class="button-azul" id="siguientePaso">Siguiente Paso</button>
                     </div>
                 </div>
             </div>
