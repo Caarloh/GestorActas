@@ -295,7 +295,7 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            <div class="form-group">
+                            <div hidden class="form-group">
                                 <input type="text" class="form-control" id="idReunionEditar" readonly>
                             </div>
                             <div class="form-group">
