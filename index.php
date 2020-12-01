@@ -6,21 +6,17 @@
                 <div class="container-fluid">
                     <center>
                         <h1 class="h3 mb-0 text-gray-800">Reuniones</h1>
+                        
                     </center>
 
                     <br>
 
-           
-                                        <button class="btne btn-3 btn-3d fas fa-link" data-toggle="modal"
-                                            data-target="#crearReunion">Crear Reunion</button>
+                
 
                     <br>
 
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-head py-3">
-                                <center><h6 class="m-0 font-weight-bold text-primary">Estado de Reuniones</h6></center>
-                            </div>
+
+
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
@@ -46,52 +42,52 @@
                                     </div>
                                 </div>
                               </div>
-                        </div>
-                    </div>
-
+                   
                             <div class="grid-container">
                                     <?php
                                         $consulta = "SELECT * FROM reunion";
                                         $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
                                         while ($columna = mysqli_fetch_array( $resultado )){
+                                            $id = $columna['id'];
                                             $linkReunion = $columna['linkReunion'];
                                             $colorCard = "bg-c-blue";
                                             $colorBoton = "bg-c-blue";
                                             $estado = $columna['estado'];
+                                            $fechaActual = date("Y-m-d");
                                             if($estado == "Terminado"){
-                                                $colorCard = "bg-c-green";
+                                                $colorCard = "bg-success";
                                                 $colorBoton = "btn-success";
                                             }
                                             else if($estado=="En Proceso"){
-                                                $colorCard = "bg-c-yellow";
+                                                $colorCard = "bg-info";
                                                 $colorBoton = "btn-info";
 
                                             }
                                             else if($estado=="En Espera"){
-                                                $colorCard = "bg-c-pink";
+                                                $colorCard = "bg-danger";
                                                 $colorBoton = "btn-danger";
 
 
                                             }
+
+
+
+
                                             
-
-
-
-
-                                             
-
-
-
-
-
                                             echo '
+
+
+                                            
                                                     <div class="card text-white '.$colorCard.' mb-3">
 
                                                         <div class="card-body">
+                                                        
                                                             <h6 class="m-b-20">Reunión: '.$columna['tipoPredefinido'].'</h6>
+                                                            
                                                             <h5 class="card-title"><i class="far fa-calendar"></i> '.$columna['fecha'].'</h5>
                                                             <h5 class="card-title"><i class="far fa-clock"></i> '.$columna['hora'].'</h5>
                                                             <h5 class="card-title"><i class="fas fa-stopwatch"></i> '.$columna['duracion'].' '.$columna['tipoDuracion'].'</h5>';
+                                                            
                                                             if($linkReunion == "" || $linkReunion==" "){
                                                                 echo '<h5 class="card-title"><i class="fas fa-link"></i><a class="btn '.$colorBoton.'" href=""></a></h5>';
                                                             }
@@ -121,14 +117,20 @@
                                                             
                                                             <a href="actas.php?variable1='.$id.'" class="btn '.$colorBoton.'"><i class="fas fa-chevron-right"></i>Ingresar a Reunion</a>';
                                                         }
+                                                        echo'
+                                                
                                                             
-                                                        echo ' </div>
-                                                            <center><a href="#" class="btn '.$colorBoton.'"><i class="fas fa-chevron-right"></i></a></center>
                                                     </div>
                                                 ';
+                                               
+                     
                                         }
+                                    
+                                    
+                                    
                                     ?>
                             </div>
+ 
  
  
  
@@ -240,6 +242,24 @@
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <!-- Logout Modal-->
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -405,7 +425,10 @@
                 </div>
             </div>
         </div>
-    
+
+
+        
+
 </div>
 
 
