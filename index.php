@@ -75,7 +75,7 @@
                                                     <div class="card text-white '.$colorCard.' mb-3">
 
                                                         <div class="card-body">
-                                                        
+                                                        <h6 class="m-b-20">Nombre: '.$columna['nombre'].'</h6>
                                                             <h6 class="m-b-20">Reunión: '.$columna['tipoPredefinido'].'</h6>
                                                             
                                                             <h5 class="card-title"><i class="far fa-calendar"></i> '.$columna['fecha'].'</h5>
@@ -309,6 +309,18 @@
                                 <input type="text" class="form-control" id="idReunion" value="<?php echo $idReunion;?>"
                                     readonly>
                             </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Nombre de la reunion</label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="nombreReunion" requiered>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col">
