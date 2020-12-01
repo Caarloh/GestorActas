@@ -2,6 +2,10 @@
 <?php require_once "vistas/partesuperior.php"?>
 
 
+
+
+
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <center>
@@ -18,28 +22,16 @@
 
 
                             <div class="container">
-                                <div class="row">
-                                    <div class="col">
-                                        <button type="button" class="btn btn-primary">Creada</button>
-            
+                            <h6 class="m-0 font-weight-bold text-primary">Filtrar Reuniones</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">                 </h6>
+
+                                <div class="row row-cols-3">
+                                <div class="col">
+                                        <input type="date" class="form-control" id="fechaReunionCalendar" requiered>
                                     </div>
                                     <div class="col">
-                                        <button type="button" class="btn btn-info">En Proceso</button>
-            
-                                    </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-danger">En Espera de Acciones</button>
-            
-                                    </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-success">Terminada</button>
-            
-                                    </div>
-                                    <div id="app"class="col">
-                                        <button @click="enviar" class="btn btn-primary">
-                                            Spam para el pollo
-                                        </button>
-                                    </div>
+                        <button class="button-crear fa fa-plus" data-toggle="modal"data-target="#crearReunion"> Crear Reunion</button>
+                        </div>
                                 </div>
                               </div>
                    
@@ -50,8 +42,10 @@
                                         while ($columna = mysqli_fetch_array( $resultado )){
                                             $id = $columna['id'];
                                             $linkReunion = $columna['linkReunion'];
-                                            $colorCard = "bg-c-blue";
-                                            $colorBoton = "bg-c-blue";
+                                            $colorCard = "bg-create";
+                                            $horaReunion= $columna['hora'];
+                                            $colorBoton = "btn-primary";
+                                            $fecha = $columna['fecha'];
                                             $estado = $columna['estado'];
                                             $fechaActual = date("Y-m-d");
                                             if($estado == "Terminado"){
@@ -91,8 +85,9 @@
                                                             if($linkReunion == "" || $linkReunion==" "){
                                                                 echo '<h5 class="card-title"><i class="fas fa-link"></i><a class="btn '.$colorBoton.'" href=""></a></h5>';
                                                             }
-                                                            else{
-                                                                echo '<h5 class="card-title"><i class="fas fa-link"></i><a class="btn '.$colorBoton.'" href="'.$columna['linkReunion'].'">Link Reunion</a></h5>';
+                                                            else {
+                                                                echo ' 
+                                                                       <a href="'.$linkReunion.'" class="btn '.$colorBoton.'" id="copy-button" data-clipboard-target="#G'.$id.'"><i class="fas fa-chevron-right"></i>Link Reunion</a>';
                                                             }
                                                            
                                                             echo'
@@ -105,7 +100,7 @@
                                                         if($fechaActual < $fecha){
 
                                                             echo '
-                                                            <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#alerta">Ingresar a Reuniont</a>';
+                                                            <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'"  data-horita="'.$horaReunion.'" title="Add this item" class="open-AddBookDialog btn '.$colorBoton.'" href="#alerta"><i class="fas fa-chevron-right"></i>Ingresar a Reunion</a>';
 
                                                         }
                                                         else{
@@ -163,7 +158,7 @@
 				</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
-                    <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> </i> Actualizar</button>
+                    <button type="button" class="button-verde"><span class="glyphicon glyphicon-edit"></span> </i> Actualizar</button>
                 </div>
             </div>
         </div>
@@ -189,17 +184,18 @@
 
 
                      
-                    <div class="modal-body">La reunion esta planificada para el : <input type='text' style='width: 14% ; background-color: transparent; border-color: transparent' name="bookId" id="bookId" value=""  required> 
-                        ¿Esta seguro que desea abrirla? <input type='text' style='width: 14% ; background-color: transparent; border-color: transparent' name="idReunion" id="idReunion" value=""  required> 
+                    <div class="modal-body">La reunion esta planificada para el : <input type='text'  readonly="readonly"  style='width: 14% ; background-color: transparent; border-color: transparent' name="bookId" id="bookId" value=""  disabled> 
+                       a las : <input type='text'  readonly="readonly"  style='width: 8% ; background-color: transparent; border-color: transparent' name="reunionHora" id="reunionHora" value=""  disabled>    ¿Esta seguro que desea abrirla? <input type='text' readonly="readonly" style='width: 14% ; background-color: transparent; border-color: transparent' name="idReunionCalendar" id="idReunionCalendar" value=""  required> 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="cerrar">No</button>
                         <form action="actas.php" method="post">
-                        <input type="hidden" name="idReunion" id="idReunion" value="" />
+                        <input type="hidden" name="idReunionCalendar" id="idReunionCalendar" value="" />
                         <input type="hidden" name="clausula" id="clausula" value="" />
-                        <button href="actas.php?variable1='hola'"holi type="submit" class="btn btn-info">Ingresar a Reunion</a>';
+                        <button  type="submit" class="button-azul">Ingresar a Reunion</a>
                         </form>
-                        <button type="button" id="finalizado" class="btn btn-info">Clonar</button>
+                        <button type="button" id="finalizado" class="button-amarillo">Clonar</button>
+                        <button type="button" class="button-rojo" data-dismiss="modal" id="cerrar">No</button>
+
                     </div>
                 </div>
             </div>
@@ -276,7 +272,7 @@
                         sesión
                         actual.</div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <button class="button-rojo" type="button" data-dismiss="modal">Cancelar</button>
                         <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
                     </div>
                 </div>
@@ -419,8 +415,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrar">Cerrar</button>
-                        <button type="button" class="btn btn-primary" id="siguientePaso">Siguiente Paso</button>
+                        <button type="button" class="button-rojo" data-dismiss="modal" id="cerrar">Cerrar</button>
+                        <button type="button" class="button-azul" id="siguientePaso">Siguiente Paso</button>
                     </div>
                 </div>
             </div>
