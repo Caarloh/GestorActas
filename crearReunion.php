@@ -176,7 +176,6 @@
                                     <table class="table" id="tablaTema">
                                         <thead>
                                           <tr>
-                                            <th scope="col">ID</th>
                                             <th scope="col">Nombre</th>
                                             <th scope="col">Tag</th>
                                             <th scope="col">Acciones</th>
@@ -195,7 +194,6 @@
                                                     $usarFuncion = "preguntarSiNo2('".$datos."')";
                                                     $accionFuncion = "getIdTemaAcciones('".$datos3."')";
                                                     echo '<tr>
-                                                        <td>'.$columna['id'].'</td>
                                                         <td>'.$columna['nombre'].'</td>
 
                                                         <td>'.$columna['tag'].'</td>
