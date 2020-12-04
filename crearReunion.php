@@ -1,7 +1,6 @@
 <?php
     require "baseDatos/conexion.php";
-    #$idReunion = $_GET['id'];
-    $idReunion = 1054134096;
+    $idReunion = $_GET['id'];
     $existe = false;
 
     $consulta = "SELECT * FROM reunion WHERE id='$idReunion'";

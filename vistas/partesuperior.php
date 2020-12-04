@@ -22,10 +22,13 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="alertifyjs/css/alertify.css">
     <link rel="stylesheet" type="text/css" href="alertifyjs/css/themes/default.css">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <script src="alertifyjs/alertify.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    
 
 
     <style>
