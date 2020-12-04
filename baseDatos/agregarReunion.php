@@ -4,6 +4,8 @@
     
     $idReunion = $_POST['idReunion'];
     $tipoReunion = $_POST['tipoReunion'];
+
+
     $fechaReunion = $_POST['fechaReunion'];
     $hora = $_POST['hora'];
     $minuto = $_POST['minuto'];

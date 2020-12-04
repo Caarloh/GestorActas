@@ -6,7 +6,6 @@
     $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
     while ($columna = mysqli_fetch_array( $resultado )){
         echo '<tr>
-            <td>'.$columna['id'].'</td>
             <td>'.$columna['nombre'].'</td>
             <td>'.$columna['refinvitado'].'</td>
             <td>'.$columna['fechatermino'].'</td>
