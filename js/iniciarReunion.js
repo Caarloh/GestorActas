@@ -107,7 +107,7 @@ $(document).ready(function(){
                         alertify.error("Accion ya existe en el tema");
                     }
                     else{
-                        alert(r);
+                        alertify.error("Fallo en el servidor.");
                     }
                   }
                 }
