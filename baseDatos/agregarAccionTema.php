@@ -2,6 +2,8 @@
 
     require 'conexion.php';
     
+
+    $encargadoAccionModal = $_POST['encargadoAccionModal'];
     $nombre = $_POST['nombre'];
     $idTema = $_POST['idTema'];
     $idReunion = $_POST['idReunion'];
@@ -9,7 +11,14 @@
     $fecha = $_POST['fecha'];
     $idAccion = 0;
     $existe = false;
-    
+
+    //if(empty($seleccionencargado)){
+        //$consulta = "INSERT INTO invitado(correo, nombre) VALUES ('$correoInvitadoAccion','$nombreInvitadoAccion')";
+        //echo $result=mysqli_query($conexion,$consulta);
+        //$consulta = "INSERT INTO relacionreunioninvitado(refcorreo, refid) VALUES ('$correoInvitadoAccion','$idReunion')";
+        //echo $result=mysqli_query($conexion,$consulta);
+    //}
+
     do{
         $idAccion = rand();
         $consulta = "SELECT * FROM accion WHERE id='$idAccion'";
@@ -28,7 +37,7 @@
     }
 
     if($crearAccion){
-        $consulta1 = "INSERT INTO accion (nombre, refreunion, reftema, refinvitado, fechatermino, estado, id) VALUES ('$nombre','$idReunion','$idTema','$refInvitado', '$fecha','Pendiente','$idAccion')";
+        $consulta1 = "INSERT INTO accion (nombre, refreunion, reftema, refinvitado, fechatermino, estado, id) VALUES ('$nombre','$idReunion','$idTema','$encargadoAccionModal', '$fecha','Pendiente','$idAccion')";
         echo $resultado = mysqli_query($conexion,$consulta1) or die ( "'$nombre','$idReunion','$idTema','$refInvitado', '$fecha','Pendiente','$idAccion'");
     }
     else{

@@ -40,6 +40,10 @@
                                         $consulta = "SELECT * FROM reunion";
                                         $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
                                         while ($columna = mysqli_fetch_array( $resultado )){
+
+                                            $datos = $columna["id"].'||'.$columna["tipoPredefinido"].'||'.$columna["fecha"].'||'.$columna["hora"].'||'.$columna["duracion"].'||'.$columna["tipoDuracion"].'||'.$columna["linkReunion"].'||'.$columna["nombre"];
+                                            $usarFuncion = "formEditarReunionIndex('".$datos."')";
+
                                             $id = $columna['id'];
                                             $linkReunion = $columna['linkReunion'];
                                             $colorCard = "bg-create";
@@ -64,18 +68,17 @@
 
                                             }
 
-
-
-
-                                            
                                             echo '
 
 
                                             
                                                     <div class="card text-white '.$colorCard.' mb-3">
+                                                        <div class="d-flex bd-highlight mb-3">
+                                                            <div class="mr-auto p-2 bd-highlight"><h5 class="card-title"> Nombre: '.$columna['nombre'].'</h5></div>
+                                                            <div class="p-2 bd-highlight"><button id="btnEditarReunionIndex" class="btn-sm btn-info"data-toggle="modal" data-target="#editarReunionIndex" onclick="'.$usarFuncion.'"><i class="fas fa-pen"></i></button></div>
+                                                        </div> 
 
                                                         <div class="card-body">
-                                                        <h6 class="m-b-20">Nombre: '.$columna['nombre'].'</h6>
                                                             <h6 class="m-b-20">Reunión: '.$columna['tipoPredefinido'].'</h6>
                                                             
                                                             <h5 class="card-title"><i class="far fa-calendar"></i> '.$columna['fecha'].'</h5>
@@ -110,7 +113,7 @@
 
 
                                                             
-                                                            <a href="actas.php?variable1='.$id.'" class="btn '.$colorBoton.'"><i class="fas fa-chevron-right"></i>Ingresar a Reunion</a>';
+                                                            <a href="iniciarReunion.php?variable1='.$id.'" class="btn '.$colorBoton.'"><i class="fas fa-chevron-right"></i>Ingresar a Reunion</a>';
                                                         }
                                                         echo'
                                                 
@@ -188,7 +191,7 @@
                        a las : <input type='text'  readonly="readonly"  style='width: 8% ; background-color: transparent; border-color: transparent' name="reunionHora" id="reunionHora" value=""  disabled>    ¿Esta seguro que desea abrirla? <input type='text' readonly="readonly" style='width: 14% ; background-color: transparent; border-color: transparent' name="idReunionCalendar" id="idReunionCalendar" value=""  required> 
                     </div>
                     <div class="modal-footer">
-                        <form action="actas.php" method="post">
+                        <form action="iniciarReunion.php" method="post">
                         <input type="hidden" name="idReunionCalendar" id="idReunionCalendar" value="" />
                         <input type="hidden" name="clausula" id="clausula" value="" />
                         <button  type="submit" class="button-azul">Ingresar a Reunion</a>
@@ -279,13 +282,151 @@
             </div>
         </div>
 
+        <!-- Modal Editar Reunion -->
+        <div class="modal fade" id="editarReunionIndex" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Editar Reunión</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cerrarX">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div hidden class="form-group">
+                                <input type="text" class="form-control" id="idReunionEditar" readonly>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Nombre de la reunion</label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="nombreReunionEditar" requiered>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Tipo Reunión</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-control" id="tipoReunionEditar">
+                                            <option value="Seleccionar">Seleccionar Tipo Reunión</option>
+                                            <option value="Regular">Regular</option>
+                                            <option value="Extraordinaria">Extraordinaria</option>
+                                            <option value="Consejo de Escuela">Consejo de Escuela</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Fecha Reunión</label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="date" class="form-control" id="fechaReunionEditar" requiered>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Hora de Inicio Reunión</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-control" id="horaEditar">
+                                            <?php
+                                            echo '<option value="Seleccionar">Seleccionar Hora Reunion</option>';
+                                            
+                                            for($i =0; $i<=23; $i++){
+                                                if($i<10){
+                                                    echo '<option value="0'.$i.'">0'.$i.'</option>';
+                                                }
+                                                else{
+                                                    echo '<option value="'.$i.'">'.$i.'</option>';
+                                                }
+                                                
+
+                                            }
+                                        ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="col">
+                                        <select class="form-control" id="minutoEditar">
+                                            <?php
+                                            echo '<option value="Seleccionar">Seleccionar Minuto Reunion</option>';
+                                            
+                                            for($i=0; $i<=60; $i++){
+                                                if($i<10){
+                                                    echo '<option value="0'.$i.'">0'.$i.'</option>';
+                                                }
+                                                else{
+                                                    echo '<option value="'.$i.'">'.$i.'</option>';
+                                                }
+                                                
+
+                                            }
+                                        ?>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Duracion Reunión</label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" class="form-control" id="duracionReunionEditar" requiered>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-control" id="tipoDuracionEditar">
+                                            <option value="Seleccionar">Seleccionar Tipo Duración</option>
+                                            <option value="Minutos">Minutos</option>
+                                            <option value="Horas">Horas</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Link de Reunión</label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="linkReunionEditar">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="button-rojo" data-dismiss="modal" id="cerrar">Cerrar</button>
+                        <button type="button" class="button-azul" id="btnGurdarEditarIndex">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Modal Crear Reunion -->
         <div class="modal fade" id="crearReunion" data-backdrop="static" data-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Nuevo Tema</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Nueva Reunión</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cerrarX">
                             <span aria-hidden="true">&times;</span>
                         </button>
