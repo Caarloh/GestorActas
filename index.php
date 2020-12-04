@@ -113,7 +113,7 @@
 
 
                                                             
-                                                            <a href="actas.php?variable1='.$id.'" class="btn '.$colorBoton.'"><i class="fas fa-chevron-right"></i>Ingresar a Reunion</a>';
+                                                            <a href="iniciarReunion.php?variable1='.$id.'" class="btn '.$colorBoton.'"><i class="fas fa-chevron-right"></i>Ingresar a Reunion</a>';
                                                         }
                                                         echo'
                                                 
@@ -191,7 +191,7 @@
                        a las : <input type='text'  readonly="readonly"  style='width: 8% ; background-color: transparent; border-color: transparent' name="reunionHora" id="reunionHora" value=""  disabled>    ¿Esta seguro que desea abrirla? <input type='text' readonly="readonly" style='width: 14% ; background-color: transparent; border-color: transparent' name="idReunionCalendar" id="idReunionCalendar" value=""  required> 
                     </div>
                     <div class="modal-footer">
-                        <form action="actas.php" method="post">
+                        <form action="iniciarReunion.php" method="post">
                         <input type="hidden" name="idReunionCalendar" id="idReunionCalendar" value="" />
                         <input type="hidden" name="clausula" id="clausula" value="" />
                         <button  type="submit" class="button-azul">Ingresar a Reunion</a>
