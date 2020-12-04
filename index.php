@@ -50,8 +50,7 @@
                                             $horaReunion= $columna['hora'];
                                             $colorBoton = "btn-primary";
                                             $fecha = $columna['fecha'];
-                                            #$estado = $columna['estado'];
-                                            $estado = "En Proceso";
+                                            $estado = $columna['estado'];
                                             $fechaActual = date("Y-m-d");
                                             if($estado == "Terminado"){
                                                 $colorCard = "bg-success";
