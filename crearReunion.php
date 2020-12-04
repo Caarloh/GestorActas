@@ -197,8 +197,14 @@
                                                         <td>'.$columna['nombre'].'</td>
 
                                                         <td>'.$columna['tag'].'</td>
-                                                        <td><button type="button" class="button-amarillo" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'">Editar</button><button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button><button type="button" class="button-azul" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion">Administrar Acciones</button></td>
+                                                        <td><button type="button" class="button-amarillo" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'">Editar</button>   <button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button></td>
                                                     </tr>';
+                                                    #echo '<tr>
+                                                    #    <td>'.$columna['nombre'].'</td>
+
+                                                    #    <td>'.$columna['tag'].'</td>
+                                                    #    <td><button type="button" class="button-amarillo" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'">Editar</button><button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button><button type="button" class="button-azul" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion">Administrar Acciones</button></td>
+                                                    #</tr>';
                                                 }
                                             ?>
                                         </tbody>
