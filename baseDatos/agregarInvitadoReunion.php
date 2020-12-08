@@ -15,7 +15,7 @@
     }
     
     if ($crear) {
-        $consulta = "INSERT INTO invitado (correo, nombre) VALUES ('$correo', '$nombre')";
+        $consulta = "INSERT INTO invitado (correo, nombre, codigoAcceso) VALUES ('$correo', '$nombre','')";
         mysqli_query($conexion,$consulta);
     }
 
