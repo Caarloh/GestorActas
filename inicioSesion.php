@@ -87,7 +87,7 @@
                     $_SESSION['correo'] = $correo;
                     $_SESSION['contrasena'] = $contrasena;
                     $error = false;
-                    echo '<script>alert("Aun no disponible.")</script>';
+                    header("Location: invitado/index.php");
 
                 }
                 
