@@ -4,17 +4,12 @@
     
     $idReunion = $_POST['idReunion'];
     $tipoReunion = $_POST['tipoReunion'];
-
-
     $fechaReunion = $_POST['fechaReunion'];
     $hora = $_POST['hora'];
     $minuto = $_POST['minuto'];
     $duracionReunion = $_POST['duracionReunion'];
     $tipoDuracion = $_POST['tipoDuracion'];
     $linkReunion = $_POST['linkReunion'];
-    $nombreReunion = $_POST['nombreReunion'];
-    $estadoReunion = $_POST['estadoReunion'];
-
     $seguir = true;
     
     $consulta = "SELECT * FROM reunion WHERE id='$idReunion'";
@@ -26,7 +21,7 @@
     
     if ($seguir) {
         $horaFinal = $hora.':'.$minuto;
-        $consulta = "INSERT INTO reunion(id, tipoPredefinido, fecha, hora, duracion, tipoDuracion, linkReunion, estado, nombre) VALUES ('$idReunion', '$tipoReunion','$fechaReunion','$horaFinal','$duracionReunion', '$tipoDuracion', '$linkReunion', '$estadoReunion', '$nombreReunion')";
+        $consulta = "INSERT INTO reunion(id, tipoPredefinido, fecha, hora, duracion, tipoDuracion, linkReunion, estado) VALUES ('$idReunion', '$tipoReunion','$fechaReunion','$horaFinal','$duracionReunion', '$tipoDuracion', '$linkReunion', '')";
         echo $result=mysqli_query($conexion,$consulta);
     }
   
