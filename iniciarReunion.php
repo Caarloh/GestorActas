@@ -31,7 +31,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         $dateReunion = $columna['fecha'];
         $dateTimeReunion = $columna['hora'];
         $name=$columna['nombre'];
-        $horaInicio = $columna['horaInicio'];
+        #$horaInicio = $columna['horaInicio'];
         $tipoPredefinido = $columna['tipoPredefinido'];
         $duracion = $columna['duracion'];
         $tipoDuracion = $columna['tipoDuracion'];
@@ -58,53 +58,51 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
     <center>
         <h1 class="m-0 font-weight-bold text-primary">Reunión: <?php echo $name ?></h1>             
     </center>
+    <div class="grid-container">
+    <div class="col" style ="text-align: center;">
+    <img src="https://1.bp.blogspot.com/-d0OHqC6htlI/X85zKl4ksbI/AAAAAAAACPY/hLqGbvYeYkME3fre5k-m0kxAs9Gq8342QCLcBGAsYHQ/s320/calendario.png" style="width:50%; float:none" alt="Girl in a jacket">
+    <br>
+    <br>
+    <label>Fecha Reunión:  <?php echo $dateReunion;?></label>
+    <br>
+    
+    </div>
+    <div class="col" style ="text-align: center;">
+   
+    <img src="https://1.bp.blogspot.com/-hoI545pBr-k/X85zLbHDdwI/AAAAAAAACPg/xjcgnzRVJJQDip2qcuAcnO3LjgJbus4kQCLcBGAsYHQ/s320/despertador.png" style="width:50%;" alt="Girl in a jacket">
+    <br>
+    <br>
+    <label>Hora Estimada de Inicio: <?php echo $dateTimeReunion;?></label>
+    <br>
+    <br>
+    </div>
+    <div class="col" style ="text-align: center;">
+    <img src="https://1.bp.blogspot.com/-QBY582jrcCI/X85zLw2faMI/AAAAAAAACPo/kSAE_RMX2FYsx6Xo9f8BKWhiR5x72pmfQCLcBGAsYHQ/s320/notas.png" style="width:50%;"alt="Girl in a jacket">
+    <br>
+    <br>
+    <label>Tipo Reunión: <?php echo $tipoPredefinido;?></label>
+    <br>
+    <br>
 
-    <div class="bg-card shadow mb-4">
-        <div class="bg-card-body">
-            <form>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="idReunion" value="<?php echo $id;?>" readonly>
-                </div>
+    </div>
+    <div class="col" style ="text-align: center;">
+    <img src="https://1.bp.blogspot.com/-Xm8dB7Gry4A/X86b54sg6oI/AAAAAAAACQU/LJkbwlF-w8wRxbMV2cXhni6epro1QJeEQCLcBGAsYHQ/s320/reloj-de-arena%2B%25281%2529.pn" style="width:50%;"alt="Girl in a jacket">
+    <br>
+    <br>
+    <label>Duracion Reunión: <?php echo $duracion.' '.$tipoDuracion;?> </label>
+    <br>
+    <br>
+
+    </div>
 
 
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col">
-                            <label>Tipo Reunión</label>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="tipoReunion" value="<?php echo $tipoPredefinido;?>" readonly>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col">
-                            <label>Fecha Reunión</label>
-                        </div>
-                        <div class="col">
-                            <input type="date" class="form-control" id="fechaReunion" value="<?php echo $dateReunion;?>" readonly>
-                        </div>
-                    </div>
 
-
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col">
-                            <label>Hora Estimada de Inicio Reunión</label>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="tipoReunion" value="<?php echo $dateTimeReunion;?>" readonly>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col">
+    </div>
+    <div class="col">
                             <label>Hora Real de Inicio Reunión</label>
                         </div>
                         <div class="col">
+    <div class="col">
                             <?php
                                 if($horaInicio == "" || $horaInicio == " "){
                                     echo '<div class="row">
@@ -140,6 +138,8 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                             </div>
                                             <div class="col">
                                                 <button type="button" class="button-verde" id="iniciarReunionHora">Iniciar Reunión</button>
+                                                        <a href="'.$linkReunion. '" class="button-azul"><i class="fas fa-chevron-right"></i>Link Reunion</a>
+
                                             </div>
                                         </div>';
 
@@ -148,39 +148,14 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                     echo '<input type="text" class="form-control" value="'.$horaInicio.'" readonly>';
 
                                 }
+                                
                             ?>
                         </div>
 
-                        
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col">
-                            <label>Duracion Reunión</label>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="horaRealReunion" value ="<?php echo $duracion.' '.$tipoDuracion;?>" readonly>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col">
-                            <label>Link de Reunión</label>
-                        </div>
-                        <div class="col">
-                            <a href="<?php echo $linkReunion?> " class="btn btn-primary"><i class="fas fa-chevron-right"></i>Link Reunion</a>
-                        </div>
-                    </div>
-                </div>
-                
-            </form>
-        </div>
-    </div>
 
-    <div class="bg-card shadow mb-4">
+
+                        <br>             
+    <div class="bg-card">
         <div class="bg-card-head py-3">
             <center><h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-book"></i> Temas a tratar</h3></center>
         </div>
@@ -230,7 +205,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         </div>
     </div>
 
-    <div class="bg-card shadow mb-4">
+    <div class="bg-card">
         <div class="bg-card-head py-3">
             <center><h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-smile-wink"></i> Invitados</h3></center>
         </div>
@@ -282,7 +257,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         </div>
     </div>
 
-    <div class="bg-card shadow mb-4">
+    <div class="bg-card">
         <div class="bg-card-head py-3">
             <center><h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-book-reader"></i> Actas</h3></center>
         </div>
@@ -316,7 +291,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         </div>
     </div>
 
-    <div class="bg-card shadow mb-4">
+    <div class="bg-card">
         <div class="bg-card-head py-3">
             <center><button type="button" class="button-rojo">Terminar Reunión</button></center>
         </div>
