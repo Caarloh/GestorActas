@@ -16,7 +16,8 @@ CREATE TABLE `reunion` (
   `duracion` int(11) NOT NULL,
   `tipoDuracion` varchar(100) NOT NULL,
   `linkReunion` varchar(500) DEFAULT NULL,
-  `estado` varchar(100) NOT NULL
+  `estado` varchar(100) NOT NULL,
+  `nombre` varchar(100) NOT NULL
   
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

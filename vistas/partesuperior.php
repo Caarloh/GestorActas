@@ -11,6 +11,8 @@
     <title>Gestion de Actas</title>
 
     <!-- Custom fonts for this template-->
+
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -20,7 +22,20 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="alertifyjs/css/alertify.css">
+    <link rel="stylesheet" type="text/css" href="alertifyjs/css/themes/default.css">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="alertifyjs/alertify.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    
+
+
+    <style>
+        .ui-autocomplete {
+            z-index: 10000000;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -33,7 +48,7 @@
 <!-- Sidebar - Brand -->
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
     <div class="sidebar-brand-icon">
-    <i class="fas fa-thumbtack"></i>
+    <i class="fab fa-earlybirds"></i>
     </div>
     <div class="sidebar-brand-text mx-3">GESTOR ACTAS</div>
 </a>
