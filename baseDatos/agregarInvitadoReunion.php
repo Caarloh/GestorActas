@@ -59,10 +59,10 @@
         $fecha = $columna['fecha'];
         $hora = $columna['hora'];
 
-        $consulta2 = "SELECT * FROM tema WHERE refreunion='$idReunion'";
-        $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+        
         
         $cuerpo = "
+        <!DOCTYPE html>
         <html>
         <head>
         <title></title>
@@ -176,37 +176,60 @@
                     <tr>
                         <td bgcolor='#ffffff' align='left' style='padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;' >
                         <p style='margin: 0;'>Has sido invitad@ a la reunión ".$columna['nombre']. " para el dia ".$columna['fecha']. " con una duracion estimada de ".$columna['duracion']. " horas.</p><br>
-                        
-                    </tr>
-                    <!-- BULLETPROOF BUTTON -->
+                        <p style='margin: 0;'>Los temas a tratar:</p>
+            
+        ";
+        $consulta2 = "SELECT * FROM tema WHERE refreunion='$idReunion'";
+        $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+        while ($columna2 = mysqli_fetch_array( $resultado2 )){
+            $datos2 = $columna2["nombre"];
+            $cuerpo = "$cuerpo \n <p style='margin: 0;'> .- $datos2 </p>";
+        }
+
+        $cuerpo = "$cuerpo \n </tr>";
+
+        if (empty($linkreunion)){
+            $cuerpo = "$cuerpo \n <br>";
+        }else{
+            $cuerpo = "$cuerpo \n 
+            <!-- BULLETPROOF BUTTON -->
+            <tr>
+                <td bgcolor='#ffffff' align='left'>
+                <table width='100%' border='0' cellspacing='0' cellpadding='0'>
                     <tr>
-                        <td bgcolor='#ffffff' align='left'>
-                        <table width='100%' border='0' cellspacing='0' cellpadding='0'>
-                            <tr>
-                            <td bgcolor='#ffffff' align='center' style='padding: 20px 30px 60px 30px;'>
-                                <table border='0' cellspacing='0' cellpadding='0'>
-                                <tr>
-                                    <td align='center' style='border-radius: 3px;' bgcolor='#3AA849'><a href='".$columna['linkReunion']. "' target='_blank' style='font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #3AA849; display: inline-block;'>Enlace a reunión</a></td>
-                                </tr>
-                                </table>
-                            </td>
-                            </tr>
-                        </table>
-                        </td>
-                    </tr>
-                    <!-- COPY -->
-                    <tr>
-                        <td bgcolor='#ffffff' align='left' style='padding: 0px 30px 0px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;' >
-                        <p style='margin: 0;'>Si no funciona, copiar y pegar el siguiente enlace en su navegador:</p>
-                        </td>
-                    </tr>
-                    <!-- COPY -->
+                    <td bgcolor='#ffffff' align='center' style='padding: 20px 30px 60px 30px;'>
+                        <table border='0' cellspacing='0' cellpadding='0'>
                         <tr>
-                        <td bgcolor='#ffffff' align='left' style='padding: 20px 30px 20px 30px; color: #3AA849; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;' >
-                            <p style='margin: 0;'><a href='".$columna['linkReunion']. "' target='_blank' style='color: #3AA849;'>".$columna['linkReunion']. "</a></p>
-                        </td>
+                            <td align='center' style='border-radius: 3px;' bgcolor='#3AA849'>
+                                <a href='".$columna['linkReunion']. "' target='_blank' style='font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #3AA849; display: inline-block;'>
+                                    
+                                Enlace a reunión
+                                </a>
+                            </td>
                         </tr>
-                    <!-- COPY -->
+                        </table>
+                    </td>
+                    </tr>
+                </table>
+                </td>
+            </tr>
+            <!-- COPY -->
+            <tr>
+                <td bgcolor='#ffffff' align='left' style='padding: 0px 30px 0px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;' >
+                <p style='margin: 0;'>Si no funciona, copiar y pegar el siguiente enlace en su navegador:</p>
+                </td>
+            </tr>
+            <!-- COPY -->
+                <tr>
+                <td bgcolor='#ffffff' align='left' style='padding: 20px 30px 20px 30px; color: #3AA849; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;' >
+                    <p style='margin: 0;'><a href='".$columna['linkReunion']. "' target='_blank' style='color: #3AA849;'>".$columna['linkReunion']. "</a></p>
+                </td>
+                </tr>
+            <!-- COPY -->";
+        }
+
+        $cuerpo="$cuerpo \n
+                    
                     <tr>
                         <td bgcolor='#ffffff' align='left' style='padding: 0px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;' >
                         <p style='margin: 0;'>Si tiene alguna duda, por favor consultar con el administrador Daniel Moreno .</p>
@@ -261,11 +284,7 @@
         </body>
         </html>";
 
-        if (empty($linkreunion)){
-            
-        }else{
-            ##$cuerpo = "$cuerpo \n enlace de reunion : $linkreunion";
-        }
+        
         $mail->Body    = $cuerpo;
         
         include '../envio_de_correos/inferiorenviarcorreo.php';
