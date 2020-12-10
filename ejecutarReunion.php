@@ -7,7 +7,6 @@
     $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
     while ($columna = mysqli_fetch_array( $resultado )){
         $existe=true;
-        $nombre = $columna['nombre'];
     }
     
     if(empty($idReunion) || $existe==false){
@@ -147,26 +146,26 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <div class="bg-card shadow mb-4">
-                        <div class="bg-card-head py-3">
-                            <center><h6 class="m-0 font-weight-bold text-primary"> Nombre de la Reunion</h6></center>
+                    <div class="card shadow mb-4">
+                        <div class="card-head py-3">
+                            <center><h6 class="m-0 font-weight-bold text-primary"> ID Reunion</h6></center>
                         </div>
-                        <div class="bg-card-body">
+                        <div class="card-body">
                             <form>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="idReunion" value="<?php echo $nombre;?>" readonly>
+                                    <input type="text" class="form-control" id="idReunion" value="<?php echo $idReunion;?>" readonly>
                                 </div>
                             </form>
                         </div>
                     </div>
 
-                    <div class="bg-card shadow mb-4">
-                        <div class="bg-card-head py-3">
+                    <div class="card shadow mb-4">
+                        <div class="card-head py-3">
                             <center><h6 class="m-0 font-weight-bold text-primary">Temas a tratar</h6></center>
                         </div>
-                        <div class="bg-card-body">
+                        <div class="card-body">
                             <div class="row">
-                                <button type="button" class="button-azul" data-toggle="modal" data-target="#crearTema">Agregar Tema</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearTema">Agregar Tema</button>
                             </div>
 
                             <br>
@@ -176,6 +175,7 @@
                                     <table class="table" id="tablaTema">
                                         <thead>
                                           <tr>
+                                            <th scope="col">ID</th>
                                             <th scope="col">Nombre</th>
                                             <th scope="col">Tag</th>
                                             <th scope="col">Acciones</th>
@@ -194,17 +194,13 @@
                                                     $usarFuncion = "preguntarSiNo2('".$datos."')";
                                                     $accionFuncion = "getIdTemaAcciones('".$datos3."')";
                                                     echo '<tr>
+                                                        <td>'.$columna['id'].'</td>
                                                         <td>'.$columna['nombre'].'</td>
 
                                                         <td>'.$columna['tag'].'</td>
-                                                        <td><button type="button" class="button-amarillo" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'">Editar</button>   <button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button></td>
+                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'">Editar</button><button type="button" class="btn btn-danger" onclick="'.$usarFuncion.'">Eliminar</button><button type="button" class="btn btn-warning" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion">Administrar Acciones</button></td>
                                                     </tr>';
-                                                    #echo '<tr>
-                                                    #    <td>'.$columna['nombre'].'</td>
-
-                                                    #    <td>'.$columna['tag'].'</td>
-                                                    #    <td><button type="button" class="button-amarillo" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'">Editar</button><button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button><button type="button" class="button-azul" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion">Administrar Acciones</button></td>
-                                                    #</tr>';
+                                                    
                                                 }
                                             ?>
                                         </tbody>
@@ -215,13 +211,13 @@
                         </div>
                     </div>
 
-                    <div class="bg-card shadow mb-4">
-                        <div class="bg-card-head py-3">
+                    <div class="card shadow mb-4">
+                        <div class="card-head py-3">
                             <center><h6 class="m-0 font-weight-bold text-primary">Invitados</h6></center>
                         </div>
-                        <div class="bg-card-body">
+                        <div class="card-body">
                             <div class="row">
-                                <button type="button" class="button-azul" data-toggle="modal" data-target="#crearInvitado">Agregar Invitado</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearInvitado">Agregar Invitado</button>
                             </div>
 
                             <br>
@@ -251,7 +247,7 @@
                                                         echo '<tr>
                                                             <td>'.$columna2['nombre'].'</td>
                                                             <td>'.$columna2['correo'].'</td>
-                                                            <td><button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button></td>
+                                                            <td><button type="button" class="btn btn-danger" onclick="'.$usarFuncion.'">Eliminar</button></td>
                                                         </tr>';
                                                     }
 
@@ -307,7 +303,7 @@
                 <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión actual.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="button-azul" href="login.html">Cerrar sesión</a>
+                    <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
                 </div>
             </div>
         </div>
@@ -330,13 +326,14 @@
                             <h5>Acciones</h5>
                         </div>
                         <div class="col">
-                            <button type="button" class="button-azul" data-toggle="modal" data-target="#modalAccion">Agregar Acciones</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAccion">Agregar Acciones</button>
                         </div>
                     </div>
                     <h2></h2>
                     <table class="table table-hover table-condensed table-bordered">
                         <thead>
                             <tr>
+                                <td>ID</td>
                                 <td>Nombre</td>
                                 <td>Encargado</td>
                                 <td>Fecha termino</td>
@@ -349,7 +346,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button class="button-azul" type="button" data-dismiss="modal">Listo</button>
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Listo</button>
                 </div>
             </div>
         </div>
@@ -377,25 +374,8 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    _________________________________
                                     <label>Encargado</label>
-
-                                    <div class="col">
-                                        <select class="form-control" id="encargadoAccionModal" required>
-                                            <option value="seleccionencargado">Seleccionar invitado</option>
-                                            <?php
-                                                $consulta2 = "SELECT * FROM relacionreunioninvitado WHERE refid='$idReunion'";
-                                                $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
-                                                while ($columna = mysqli_fetch_array($resultado2)){
-                                                    $refCorreo = $columna['refcorreo'];
-                                                    echo '<option value="'.$refCorreo.'">'.$refCorreo .'</option>';
-                                                }
-                                            ?>
-                                        </select>
-                                        <br>
-
-                                    </div>
-                                    _________________________________
+                                    <input type="text" class="form-control" id="correoInvitadoAccion" placeholder="Correo Encargado" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -409,7 +389,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="button-azul" id="crearAccionBoton">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="crearAccionBoton">Guardar</button>
                 </div>
             </div>
         </div>
@@ -461,7 +441,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="button-azul" id="crearTemaBoton">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="crearTemaBoton">Guardar</button>
                 </div>
             </div>
         </div>
@@ -509,7 +489,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn-verde" id="crearInvitadoBoton">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="crearInvitadoBoton">Guardar</button>
                 </div>
             </div>
         </div>
@@ -551,7 +531,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="button-verde" id="editarTemaModalEdicion">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="editarTemaModalEdicion">Guardar</button>
                 </div>
             </div>
         </div>
