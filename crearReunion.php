@@ -262,10 +262,15 @@
                                       </table>
                                 </div>
                             </div>
-            
+                                                
                         </div>
-                    </div>
 
+                    </div>
+                    <div class="row">
+                        <a href="index.php">
+                            <button type="button" class="button-azul" data-toggle="modal" href="index.php">Guardar reunion</button>
+                        </a>
+                    </div>                                
                 </div>
                 <!-- /.container-fluid -->
 
