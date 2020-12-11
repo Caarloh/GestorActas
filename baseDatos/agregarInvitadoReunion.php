@@ -15,8 +15,38 @@
     }
     
     if ($crear) {
-        $consulta = "INSERT INTO invitado (correo, nombre) VALUES ('$correo', '$nombre')";
+        $contrasenaInvitado = 0;
+        $existeContra = false;
+        
+        do{
+            $contrasenaInvitado = rand();
+            $consulta = "SELECT * FROM invitado WHERE codigoAcceso='$contrasenaInvitado'";
+            $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+            while ($columna = mysqli_fetch_array( $resultado )){
+                $existeContra=true;
+            }
+        }while($contrasenaInvitado==0 || $existeContra);
+
+        $consulta = "INSERT INTO invitado (correo, nombre, codigoAcceso) VALUES ('$correo', '$nombre','$contrasenaInvitado')";
         mysqli_query($conexion,$consulta);
+
+        /*Enviar Correo*/
+        include '../envio_de_correos/superiorenviarcorreo.php';
+        //Destinatario
+        $mail->addAddress($correo, $nombre);     
+
+        //Contenido del correo
+        $mail->isHTML(true);
+
+        $topico = "Bienvenido al Gestor De Actas";                                  
+        $mail->Subject = $topico;
+        
+        $cuerpo = "Hola $nombre, se ha creado una cuenta para el correo $correo con la siguiente contraseña $contrasenaInvitado";
+        $mail->Body    = $cuerpo;
+        
+        include '../envio_de_correos/inferiorenviarcorreo.php';
+
+
     }
 
     $copiarInvitado = true;
@@ -26,21 +56,15 @@
         $copiarInvitado=false;
         
     }
-    
 
     if($copiarInvitado){
-        
-        
-        
         $consulta = "INSERT INTO relacionreunioninvitado (refcorreo, refid) VALUES ('$correo', '$idReunion')";
-        
         echo $result=mysqli_query($conexion,$consulta);
-        //Send Mail
-        
-        include '../envio_de_correos/superiorenviarcorreo.php';
-        //Destinatario
-        $mail->addAddress($correo, $nombre);     
+        //Send Mail	
 
+        include '../envio_de_correos/superiorenviarcorreo.php';	
+        //Destinatario	
+        $mail->addAddress($correo, $nombre);   
         //Contenido del correo
         $mail->isHTML(true);
 

@@ -52,6 +52,7 @@
                                             $fecha = $columna['fecha'];
                                             $estado = $columna['estado'];
                                             $fechaActual = date("Y-m-d");
+                    
                                             if($estado == "Terminado"){
                                                 $colorCard = "bg-success";
                                                 $colorBoton = "btn-success";
@@ -75,7 +76,14 @@
                                                     <div class="card text-white '.$colorCard.' mb-3">
                                                         <div class="d-flex bd-highlight mb-3">
                                                             <div class="mr-auto p-2 bd-highlight"><h5 class="card-title"> Nombre: '.$columna['nombre'].'</h5></div>
-                                                            <div class="p-2 bd-highlight"><button id="btnEditarReunionIndex" class="btn-sm btn-info"data-toggle="modal" data-target="#editarReunionIndex" onclick="'.$usarFuncion.'"><i class="fas fa-pen"></i></button></div>
+                                                            ';
+                                                            if($estado == "Terminado"){
+
+                                                            }
+                                                            else{
+                                                                echo '<div class="p-2 bd-highlight"><button id="btnEditarReunionIndex" class="btn-sm btn-info"data-toggle="modal" data-target="#editarReunionIndex" onclick="'.$usarFuncion.'"><i class="fas fa-pen"></i></button></div>';
+                                                            }
+                                                        echo '
                                                         </div> 
 
                                                         <div class="card-body">
@@ -109,10 +117,6 @@
                                                         else{
         
                                                             echo '
-
-
-
-                                                            
                                                             <a href="iniciarReunion.php?variable1='.$id.'" class="btn '.$colorBoton.'"><i class="fas fa-chevron-right"></i>Ingresar a Reunion</a>';
                                                         }
                                                         echo'
@@ -196,7 +200,12 @@
                         <input type="hidden" name="clausula" id="clausula" value="" />
                         <button  type="submit" class="button-azul">Ingresar a Reunion</a>
                         </form>
-                        <button type="button" id="finalizado" class="button-amarillo">Clonar</button>
+                        <form action="baseDatos/clonarReunion.php" method="post">
+                            <input type="hidden" name="idReunionCalendar" id="idReunionCalendar" value="" />
+                            <button type="submit" id="finalizado" class="button-amarillo">Clonar</button>
+                        
+                        </form>
+                        
                         <button type="button" class="button-rojo" data-dismiss="modal" id="cerrar">No</button>
 
                     </div>
@@ -454,7 +463,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col">
-                                        <label>Nombre de la reunion</label>
+                                        <label>Nombre de la reunion (*)</label>
                                     </div>
                                     <div class="col">
                                         <input type="text" class="form-control" id="nombreReunion" requiered>
@@ -465,7 +474,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col">
-                                        <label>Tipo Reunión</label>
+                                        <label>Tipo Reunión (*)</label>
                                     </div>
                                     <div class="col">
                                         <select class="form-control" id="tipoReunion">
@@ -481,7 +490,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col">
-                                        <label>Fecha Reunión</label>
+                                        <label>Fecha Reunión (*)</label>
                                     </div>
                                     <div class="col">
                                         <input type="date" class="form-control" id="fechaReunion" requiered>
@@ -493,7 +502,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col">
-                                        <label>Hora de Inicio Reunión</label>
+                                        <label>Hora de Inicio Reunión (*)</label>
                                     </div>
                                     <div class="col">
                                         <select class="form-control" id="hora">
@@ -538,7 +547,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col">
-                                        <label>Duracion Reunión</label>
+                                        <label>Duracion Reunión (*)</label>
                                     </div>
                                     <div class="col">
                                         <input type="number" class="form-control" id="duracionReunion"
