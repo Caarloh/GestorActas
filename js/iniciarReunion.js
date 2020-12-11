@@ -116,6 +116,45 @@ $(document).ready(function(){
 
     });
 
+    $('#iniciarReunionHora').click(function(){
+        idReunion = $('#idReunion').val();
+        hora= $('#horaReunion').val();
+        minuto= $('#minutoReunion').val();
+        
+        if(hora == "Seleccionar"){
+            alert("Completar la hora");
+
+        }
+        else if(minuto == "Seleccionar"){
+            alert("Completar los minutos");
+
+        }
+        else{
+            cadena = "idReunion=" + idReunion + 
+            "&horaReunion=" + hora + 
+            "&minutoReunion=" + minuto;
+            $.ajax({
+                type:"POST",
+                url:"BaseDatos/actualizarHoraInicialReunion.php",
+                data:cadena,
+                success:function(r){
+                  if(r==1){
+                    location.reload();
+                  }else{
+                    if (r==6) {
+                      alert("Reunión no existe en el sistema.");
+                    }
+                    else{
+                      alert("Fallo en el servidor.");
+                    }
+                    
+                  }
+                }
+              });
+        }
+      
+    });
+
     $('#crearInvitadoBoton').click(function(){
         nombreInvitadoModal = $('#nombreInvitadoModal').val();
         correoInvitadoModal = $('#correoInvitadoModal').val();

@@ -7,9 +7,15 @@
 
 $dateReunion="";
 $dateTimeReunion ="";
-
+$tipoPredefinido = "";
+$duracion = "";
+$tipoDuracion = "";
+$linkReunion = "";
+$horaInicio = "";
+$estado = "";
 $name="";
 $id="";
+
 if(isset($_POST['idReunionCalendar'])){
     $id=$_POST['idReunionCalendar'];
     $condicion=$_POST['clausula'];
@@ -25,6 +31,12 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         $dateReunion = $columna['fecha'];
         $dateTimeReunion = $columna['hora'];
         $name=$columna['nombre'];
+        $horaInicio = $columna['horaInicio'];
+        $tipoPredefinido = $columna['tipoPredefinido'];
+        $duracion = $columna['duracion'];
+        $tipoDuracion = $columna['tipoDuracion'];
+        $linkReunion = $columna['linkReunion'];
+        $estado = $columna['estado'];
 
     }
 }
@@ -44,134 +56,250 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <center>
-        <h1 class="h3 mb-0 text-gray-800">Reunion: <?php echo $name ?> </h3> </h1>                
+        <h1 class="m-0 font-weight-bold text-primary">Reunión: <?php echo $name ?></h1>             
     </center>
-    <h4 class="fas fa-calendar-alt" aria-hidden="true"> Fecha reunion: <?php echo $dateReunion ?></h4>
+    <div class="grid-container">
+    <div class="col" style ="text-align: center;">
+    <img src="https://1.bp.blogspot.com/-d0OHqC6htlI/X85zKl4ksbI/AAAAAAAACPY/hLqGbvYeYkME3fre5k-m0kxAs9Gq8342QCLcBGAsYHQ/s320/calendario.png" style="width:50%; float:none" alt="Girl in a jacket">
     <br>
-    <h4 class="far fa-clock" aria-hidden="true"> Hora de inicio: <?php echo $dateTimeReunion ?></h4>
     <br>
- 
-
-
-
-
-
-
+    <label>Fecha Reunión:  <?php echo $dateReunion;?></label>
+    <br>
     
-                        <div class="bg-card mb-4">
-                        <div class="bg-card-head py-3">
-                        <br>
-                        <br>
-                        <br>
-                        <h3 class="fas fa-book"></i> Temas a Tratar:</h3> </h3>                
+    </div>
+    <div class="col" style ="text-align: center;">
+   
+    <img src="https://1.bp.blogspot.com/-hoI545pBr-k/X85zLbHDdwI/AAAAAAAACPg/xjcgnzRVJJQDip2qcuAcnO3LjgJbus4kQCLcBGAsYHQ/s320/despertador.png" style="width:50%;" alt="Girl in a jacket">
+    <br>
+    <br>
+    <label>Hora Estimada de Inicio: <?php echo $dateTimeReunion;?></label>
+    <br>
+    <br>
+    </div>
+    <div class="col" style ="text-align: center;">
+    <img src="https://1.bp.blogspot.com/-QBY582jrcCI/X85zLw2faMI/AAAAAAAACPo/kSAE_RMX2FYsx6Xo9f8BKWhiR5x72pmfQCLcBGAsYHQ/s320/notas.png" style="width:50%;"alt="Girl in a jacket">
+    <br>
+    <br>
+    <label>Tipo Reunión: <?php echo $tipoPredefinido;?></label>
+    <br>
+    <br>
 
+    </div>
+    <div class="col" style ="text-align: center;">
+    <img src="https://1.bp.blogspot.com/-Xm8dB7Gry4A/X86b54sg6oI/AAAAAAAACQU/LJkbwlF-w8wRxbMV2cXhni6epro1QJeEQCLcBGAsYHQ/s320/reloj-de-arena%2B%25281%2529.pn" style="width:50%;"alt="Girl in a jacket">
+    <br>
+    <br>
+    <label>Duracion Reunión: <?php echo $duracion.' '.$tipoDuracion;?> </label>
+    <br>
+    <br>
+
+    </div>
+
+
+
+    </div>
+    <div class="col">
+                            <label>Hora Real de Inicio Reunión</label>
                         </div>
-                        <div class="bg-card-body">
-                            <div class="row">
-                            <button type="button" class="button-azul" data-toggle="modal" data-target="#crearTema">Agregar Tema</button>
-                            </div>
-
-                            <br>
-
-                            <div class="row">
-                                <div class="table-responsive">
-                                    <table class="table" id="tablaTema">
-                                        <thead>
-                                          <tr>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Tag</th>
-                                            <th scope="col">Acciones</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                                $idReunion = $id;
-                                                $consulta = "SELECT * FROM tema WHERE refreunion='$idReunion'";
-                                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
-                                                while ($columna = mysqli_fetch_array( $resultado )){
-                                                    $datos = $columna["nombre"].'||'.$idReunion;
-                                                    $datos2 = $columna["id"].'||'.$columna["nombre"];
-                                                    $usarFuncion2 = "formEditarTema('".$datos2."')";
-                                                    
-                                                    $datos3 = $columna["nombre"].'||'.$idReunion.'||'.$columna["id"];
-                                                    $usarFuncion = "preguntarSiNo2('".$datos."')";
-                                                    $accionFuncion = "getIdTemaAcciones('".$datos3."')";
-                                                    echo '<tr>
-                                                        <td>'.$columna['nombre'].'</td>
-
-                                                        <td>'.$columna['tag'].'</td>
-                                                        <td><button type="button" class="button-amarillo" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'">Editar</button>   <button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button>   <button type="button" class="button-azul" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion">Administrar Acciones</button></td>
-                                                    </tr>';
-                                                    
-                                                }
-                                            ?>
-                                        </tbody>
-                                      </table>
-                                </div>
-                            </div>
-            
-                        </div>
-      
-
-
-</div>
-
-
-
-
-
-<div class="bg-card">
-                        <div class="bg-card-head py-3">
-                        <h2 class="fas fa-smile-wink">Invitados</i></h2> </h1> 
-                        </div>
-                        <div class="bg-card-body">
-                            <div class="row">
-                                <button type="button" class="button-azul" data-toggle="modal" data-target="#crearInvitado">Agregar Invitado</button>
-                            </div>
-
-                            <br>
-
-                            <div class="row">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                          <tr>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Correo</th>
-                                            <th scope="col">Acciones</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                                $consulta = "SELECT * FROM relacionreunioninvitado WHERE refid='$id'";
-                                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
-                                                while ($columna = mysqli_fetch_array( $resultado )){
-                                                    $refCorreo = $columna['refcorreo'];
-
-                                                    $consulta2 = "SELECT * FROM invitado WHERE correo='$refCorreo'";
-                                                    $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
-                                                    while ($columna2 = mysqli_fetch_array( $resultado2 )){
-                                                        $datos = $columna2["correo"].'||'.$id;
-                                                        $usarFuncion = "preguntarSiNo('".$datos."')";
-                                                        echo '<tr>
-                                                            <td>'.$columna2['nombre'].'</td>
-                                                            <td>'.$columna2['correo'].'</td>
-                                                            <td><button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button></td>
-                                                        </tr>';
+                        <div class="col">
+    <div class="col">
+                            <?php
+                                if($horaInicio == "" || $horaInicio == " "){
+                                    echo '<div class="row">
+                                            <div class="col">
+                                                <select class="form-control" id="horaReunion">';
+                                                
+                                                    echo '<option value="Seleccionar">Seleccionar Hora Reunion</option>';
+                                            
+                                                    for($i =0; $i<=23; $i++){
+                                                        if($i<10){
+                                                            echo '<option value="0'.$i.'">0'.$i.'</option>';
+                                                        }
+                                                        else{
+                                                            echo '<option value="'.$i.'">'.$i.'</option>';
+                                                        }
                                                     }
-
-                                                    
-                                                }
-                                            ?>
-                                        </tbody>
-                                      </table>
-                                </div>
-                            </div>
+                                    echo '      </select>
+                                            </div>
+                                            <div class="col">
+                                                <select class="form-control" id="minutoReunion">';
+                                                    echo '<option value="Seleccionar">Seleccionar Minuto Reunion</option>';
+                                                    for($i=0; $i<=60; $i++){
+                                                        if($i<10){
+                                                            echo '<option value="0'.$i.'">0'.$i.'</option>';
+                                                        }
+                                                        else{
+                                                            echo '<option value="'.$i.'">'.$i.'</option>';
+                                                        }
+                                                        
             
-                        </div>
-                    </div>
+                                                    }
+                                                echo '</select>
+                                            </div>
+                                            <div class="col">
+                                                <button type="button" class="button-verde" id="iniciarReunionHora">Iniciar Reunión</button>
+                                                        <a href="'.$linkReunion. '" class="button-azul"><i class="fas fa-chevron-right"></i>Link Reunion</a>
 
+                                            </div>
+                                        </div>';
+
+                                }
+                                else{
+                                    echo '<input type="text" class="form-control" value="'.$horaInicio.'" readonly>';
+
+                                }
+                                
+                            ?>
+                        </div>
+
+
+
+                        <br>             
+    <div class="bg-card">
+        <div class="bg-card-head py-3">
+            <center><h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-book"></i> Temas a tratar</h3></center>
+        </div>
+        <div class="bg-card-body">
+            <div class="row">
+                <button type="button" class="button-verde" data-toggle="modal" data-target="#crearTema">Agregar Tema</button>
+            </div>
+            <br>
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table" id="tablaTema">
+                        <thead>
+                            <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Tag</th>
+                            <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $idReunion = $id;
+                                $consulta = "SELECT * FROM tema WHERE refreunion='$idReunion'";
+                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                while ($columna = mysqli_fetch_array( $resultado )){
+                                    $datos = $columna["nombre"].'||'.$idReunion;
+                                    $datos2 = $columna["id"].'||'.$columna["nombre"];
+                                    $usarFuncion2 = "formEditarTema('".$datos2."')";
+                                    
+                                    $datos3 = $columna["nombre"].'||'.$idReunion.'||'.$columna["id"];
+                                    $usarFuncion = "preguntarSiNo2('".$datos."')";
+                                    $accionFuncion = "getIdTemaAcciones('".$datos3."')";
+                                    echo '<tr>
+                                        <td>'.$columna['nombre'].'</td>
+
+                                        <td>'.$columna['tag'].'</td>
+                                        <td><button type="button" class="button-amarillo" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'">Editar</button>   <button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button>   <button type="button" class="button-azul" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion">Administrar Acciones</button></td>
+                                    </tr>';
+                                    
+                                }
+                            ?>
+                        </tbody>
+                        </table>
                 </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="bg-card">
+        <div class="bg-card-head py-3">
+            <center><h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-smile-wink"></i> Invitados</h3></center>
+        </div>
+        <div class="bg-card-body">
+            <div class="row">
+                <button type="button" class="button-verde" data-toggle="modal" data-target="#crearInvitado">Agregar Invitado</button>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $consulta = "SELECT * FROM relacionreunioninvitado WHERE refid='$id'";
+                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                while ($columna = mysqli_fetch_array( $resultado )){
+                                    $refCorreo = $columna['refcorreo'];
+
+                                    $consulta2 = "SELECT * FROM invitado WHERE correo='$refCorreo'";
+                                    $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                    while ($columna2 = mysqli_fetch_array( $resultado2 )){
+                                        $datos = $columna2["correo"].'||'.$id;
+                                        $usarFuncion = "preguntarSiNo('".$datos."')";
+                                        echo '<tr>
+                                            <td>'.$columna2['nombre'].'</td>
+                                            <td>'.$columna2['correo'].'</td>
+                                            <td><button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button></td>
+                                        </tr>';
+                                    }
+
+                                    
+                                }
+                            ?>
+                        </tbody>
+                        </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="bg-card">
+        <div class="bg-card-head py-3">
+            <center><h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-book-reader"></i> Actas</h3></center>
+        </div>
+        <div class="bg-card-body">
+            <div class="row">
+                <div class="col">
+                    <form method="post" action="generate_pdf.php">                                        
+                        <input type="hidden" name="variable1" value="<?php echo $id;?>"/>
+                        <div class="d-flex flex-row-reverse">
+                            <div class="p-2">
+                                <button id="pdf" name="generate_pdf" class="button-verde">Generar Acta Comite Curricular</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col">
+                    <form method="post" action="generate_pdf.php">                                        
+                        <input type="hidden" name="variable1" value="<?php echo $id;?>"/>
+                        <div class="d-flex flex-row-reverse">
+                            <div class="p-2">
+                                <button id="pdf" name="generate_pdf" class="button-verde">Generar Acta Publica</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div class="bg-card">
+        <div class="bg-card-head py-3">
+            <center><button type="button" class="button-rojo">Terminar Reunión</button></center>
+        </div>
+    </div>
+
+
+
+
     <!-- Modal Editar Tema -->
     <div class="modal fade" id="editarTema" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
