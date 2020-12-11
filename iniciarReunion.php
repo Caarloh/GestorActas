@@ -429,7 +429,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                 <div class="col">
                                     <label>Encargado</label>
                                         <select class="form-control" id="encargadoAccionModal" required>
-                                            <option value="seleccionencargado">Seleccionar invitado</option>
+                                            <option value="">Seleccionar invitado</option>
                                             <?php
                                                 $consulta2 = "SELECT * FROM relacionreunioninvitado WHERE refid='$idReunion'";
                                                 $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
@@ -458,6 +458,94 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
             </div>
         </div>
     </div>
+
+<!-- Modal Editar Accion -->
+    <div class="modal fade" id="editarAccion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Accion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="idAccionModalEdicion">ID Accion</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="idAccionModalEdicion" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="nombreAccionEditarModal">Nombre Accion</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="nombreAccionModalEdicion">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="encargadoAccionModalEdicion">Encargado</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-control" id="encargadoAccionModalEdicion" required>
+                                        <option value="">Seleccione nuevo encargado</option>
+                                        <?php
+                                            $consulta2 = "SELECT * FROM relacionreunioninvitado WHERE refid='$idReunion'";
+                                            $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                            while ($columna = mysqli_fetch_array($resultado2)){
+                                                $refCorreo = $columna['refcorreo'];
+                                                echo '<option value="'.$refCorreo.'">'.$refCorreo .'</option>';
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="fechanuevaterminoAccion">Fecha nueva de accion</label>
+                                </div>
+                                <div class="col">
+                                    <input type="date" class="form-control" id="fechanuevaterminoAccion" requiered>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="estadoAccionModalEdicion">Estado</label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-control" id="encargadoAccionModal" required>
+                                        <option value="seleccionencargado">Seleccione estado</option>
+                                        <option value="enproceso">En proceso</option>
+                                        <option value="enpausa">En pausa</option>
+                                        <option value="terminado">Terminado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="button-verde" id="editarAccionModal">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
  <!-- Modal Crear Tema -->
  <div class="modal fade" id="crearTema" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
