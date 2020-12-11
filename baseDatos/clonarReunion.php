@@ -28,7 +28,7 @@ require 'conexion.php';
         $idReunion=$nuevaId;
         
         $fechaReunion= date("Y-m-d");
-        $horaFinal= date("H-i");
+        $horaFinal= date("H:i");
         $tipoReunion=$columna['tipoPredefinido'];
         $duracionReunion=$columna['duracion'];
         $tipoDuracion=$columna['tipoDuracion'];
