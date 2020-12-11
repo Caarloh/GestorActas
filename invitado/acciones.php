@@ -387,6 +387,47 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="../js/accionesInvitado.js"></script>
+  <script>
+  $(document).ready(function(){
+  $('#guardarAccion').click(function(){
+      
+        idAccion = $('#idAccion').val();
+        nombreAccion = $('#nombreAccion').val();
+        estadoAccion= $('#estadoAccion').val();
+
+
+        
+
+
+        if(nombreAccion == "" || nombreAccion==" "){
+            alert("Error, nombre accion en blanco.");
+
+        }
+        else{
+            cadena = "idAccion=" + idAccion + "&nombreAccion=" + nombreAccion + "&estadoAccion=" + estadoAccion;
+            $.ajax({
+                type:"POST",
+                url:"../baseDatos/actualizarAccionInvitado.php",
+                data:cadena,
+                success:function(r){
+                  if(r==1){
+                    location.reload();
+                    
+                  }else{
+                    if (r==6) {
+                        alertify.error("Accion No existe en el sistema");
+                    }
+                    else{
+                        alert(r);
+                    }
+                  }
+                }
+              });
+        }
+
+    });
+});
+  </script>
   
 
    
