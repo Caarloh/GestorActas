@@ -29,7 +29,7 @@ try {
 
     //Recipients
     $mail->setFrom('pollorobot2020@gmail.com', 'PolloRobot');   
-    $mail->addAddress('j.pablo.velasc@gmail.com', 'Carlos');     //Destinatario
+    $mail->addAddress('cmsandoval98@hotmail.com', 'Carlos');     //Destinatario
     //$mail->addReplyTo('info@example.com', 'Information');  para replicar
 
     //$mail->addCC('cc@example.com');

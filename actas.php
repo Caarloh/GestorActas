@@ -74,6 +74,14 @@ $var = 1;
                                         </div>
                                         </div>
                                         </form>
+                                        <form method="post" action="exportarTemasPDF.php">                                        
+                                        <input type="hidden" name="variable1" value='.$columna['id'].' />
+                                        <div class="d-flex flex-row-reverse">
+                                        <div class="p-2">
+                                        <button id="pdf" name="exportarTemasPDF" class="btn btn-primary">Exportar temas  </button>
+                                        </div>
+                                        </div>
+                                        </form>                                        
                                         </div>
                                     </div>
                                 </div>';

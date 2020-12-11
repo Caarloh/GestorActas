@@ -200,7 +200,12 @@
                         <input type="hidden" name="clausula" id="clausula" value="" />
                         <button  type="submit" class="button-azul">Ingresar a Reunion</a>
                         </form>
-                        <button type="button" id="finalizado" class="button-amarillo">Clonar</button>
+                        <form action="baseDatos/clonarReunion.php" method="post">
+                            <input type="hidden" name="idReunionCalendar" id="idReunionCalendar" value="" />
+                            <button type="submit" id="finalizado" class="button-amarillo">Clonar</button>
+                        
+                        </form>
+                        
                         <button type="button" class="button-rojo" data-dismiss="modal" id="cerrar">No</button>
 
                     </div>
