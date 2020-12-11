@@ -14,7 +14,11 @@ function preguntarSiNo2(datos){
                       function(){ eliminarDatosTema(nombre, idReunion) }
                   , function(){ alertify.error('CANCELADO')});
 }
-
+function preguntarSiNo3(datos){
+      alertify.confirm('Eliminar Datos', '¿Esta seguro de eliminar este registro?', 
+                      function(){ eliminarDatosAccion(datos) }
+                  , function(){ alertify.error('CANCELADO')});
+}
 function getIdTemaAcciones(datos){
     d=datos.split("||");
     idReunionAc = d[1];
@@ -65,6 +69,23 @@ function eliminarDatosTema(nombre, idReunion){
         }
     });
 }
+function eliminarDatosAccion(idAccion){
+
+    cadena2="&idAccion="+idAccion;
+
+    $.ajax({
+        type:"POST",
+        url:"baseDatos/eliminarAccionReunion.php",
+        data:cadena2,
+        success:function(r){
+            if(r==1){
+                location.reload();
+            }else{
+                alertify.error("FALLO EN EL SERVIDOR");
+            }
+        }
+    });
+}
 
 function formEditarTema(datos){
 
@@ -73,11 +94,18 @@ function formEditarTema(datos){
     $('#nombreTemaModalEdicion').val(d[1]);
 }
 
+function formEditarAccion(datos){
+    d=datos.split('||');
+    $('#idAccionModalEdicion').val(d[0]);
+    $('#nombreAccionModalEdicion').val(d[1]);
+}
+
 $(document).ready(function(){
     $('#crearAccionBoton').click(function(){
         nombreAccionModal = $('#nombreAccionModal').val();
         correoInvitadoAccion = $('#correoInvitadoAccion').val();
         fechaterminoAccion= $('#fechaterminoAccion').val();
+        encargadoAccionModal = $('#encargadoAccionModal').val();
 
 
         if(correoInvitadoAccion == "" || correoInvitadoAccion==" "){
@@ -92,7 +120,7 @@ $(document).ready(function(){
         }
         else{
             cadena = "idTema=" + idTemaAc + "&idReunion=" + idReunionAc + "&nombre=" + nombreAccionModal + 
-            "&correo=" + correoInvitadoAccion + "&fecha=" + fechaterminoAccion;
+            "&correo=" + correoInvitadoAccion + "&fecha=" + fechaterminoAccion + "&encargadoAccionModal=" + encargadoAccionModal;
             $.ajax({
                 type:"POST",
                 url:"baseDatos/agregarAccionTema.php",
@@ -113,6 +141,45 @@ $(document).ready(function(){
               });
         }
 
+    });
+
+    $('#iniciarReunionHora').click(function(){
+        idReunion = $('#idReunion').val();
+        hora= $('#horaReunion').val();
+        minuto= $('#minutoReunion').val();
+        
+        if(hora == "Seleccionar"){
+            alert("Completar la hora");
+
+        }
+        else if(minuto == "Seleccionar"){
+            alert("Completar los minutos");
+
+        }
+        else{
+            cadena = "idReunion=" + idReunion + 
+            "&horaReunion=" + hora + 
+            "&minutoReunion=" + minuto;
+            $.ajax({
+                type:"POST",
+                url:"BaseDatos/actualizarHoraInicialReunion.php",
+                data:cadena,
+                success:function(r){
+                  if(r==1){
+                    location.reload();
+                  }else{
+                    if (r==6) {
+                      alert("Reunión no existe en el sistema.");
+                    }
+                    else{
+                      alert("Fallo en el servidor.");
+                    }
+                    
+                  }
+                }
+              });
+        }
+      
     });
 
     $('#crearInvitadoBoton').click(function(){
@@ -221,6 +288,41 @@ $(document).ready(function(){
       
     });
     
+    $('#editarAccionModal').click(function(){
+        idAccion= $('#idAccionModalEdicion').val();
+        nombreAccionModal= $('#nombreAccionModalEdicion').val();        
+        encargadoAccionModal= $('#encargadoAccionModalEdicion').val();        
+        fechaAccionModal= $('#fechanuevaterminoAccion').val();
+        estadoAccionModal= $('#estadoAccionModalEdicion').val();
+
+        //cadena = "idAccionModalEdicion=" + idAccion+ "&nombreAccionModalEdicion=" + nombreAccionModal + "&encargadoAccionModalEdicion=" +encargadoAccionModal+
+        //"&fechanuevaterminoAccion=" + fechaAccionModal + "&estadoAccionModalEdicion=" + estadoAccionModal;
+        cadena = "idAccionModalEdicion=" + idAccion+ "&nombreAccionModalEdicion=" + nombreAccionModal;
+        if(nombreTemaModal == "" || nombreTemaModal==" "){
+            alert("Completar nombre del tema");
+        }
+        else{
+            $.ajax({
+                type:"POST",
+                url:"baseDatos/actualizarAccion.php",
+                data:cadena,
+                success:function(r){
+                  if(r==1){
+                    location.reload();
+                  }else{
+                    if (r==6) {
+                        alertify.error("Error");
+                    }
+                    else{
+                        alertify.error(r);
+                    }
+                    
+                  }
+                }
+              });
+        }
+      
+    });
 
     $( "#correoInvitadoModal" ).autocomplete({
         source: "baseDatos/buscarInvitado.php",
