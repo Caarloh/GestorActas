@@ -61,6 +61,25 @@
     </div>
 </li>
 
+
+
+
+
+<!-- Divider -->
+<hr class="sidebar-divider">
+
+<!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item ">
+    <a class="nav-link " href="temas.php">
+     <i class="fas fa-book-open"></i>
+        <span>Temas</span>
+    </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    </div>
+</li>
+
+
+
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
 
@@ -90,7 +109,6 @@
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-
                 <div class="topbar-divider d-none d-sm-block"></div>
 
                 <!-- Nav Item - User Information -->

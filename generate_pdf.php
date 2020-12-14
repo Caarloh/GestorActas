@@ -10,7 +10,7 @@ $css = file_get_contents('css/plantillaActa.css');
 function selectReunion(){
     $v1 = $_POST['variable1'];
     $conexion = mysqli_connect("localhost", "root", "", "gestoractas");
-    $consulta = "SELECT * FROM reunion WHERE reunion.id='$v1'";
+    $consulta = "SELECT * FROM reunion, tema WHERE reunion.id='$v1'  AND reunion.id=refreunion";
     $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
     $tabla=""; 
     $temas="";

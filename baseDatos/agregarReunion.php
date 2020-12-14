@@ -21,7 +21,11 @@
     
     if ($seguir) {
         $horaFinal = $hora.':'.$minuto;
+<<<<<<< HEAD
         $consulta = "INSERT INTO reunion(id, tipoPredefinido, fecha, hora, duracion, tipoDuracion, linkReunion, estado) VALUES ('$idReunion', '$tipoReunion','$fechaReunion','$horaFinal','$duracionReunion', '$tipoDuracion', '$linkReunion', '')";
+=======
+        $consulta = "INSERT INTO reunion(id, tipoPredefinido, fecha, hora, duracion, tipoDuracion, linkReunion, estado, nombre, horaInicio) VALUES ('$idReunion', '$tipoReunion','$fechaReunion','$horaFinal','$duracionReunion', '$tipoDuracion', '$linkReunion', '$estadoReunion', '$nombreReunion', '')";
+>>>>>>> main
         echo $result=mysqli_query($conexion,$consulta);
     }
   
