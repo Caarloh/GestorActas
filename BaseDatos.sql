@@ -1,7 +1,4 @@
-﻿SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
---
+﻿--
 -- Database: `gestoractas`
 --
 
@@ -11,7 +8,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `accion`
 --
 
-<<<<<<< HEAD
+
 CREATE TABLE `reunion` (
   `id` int(11) NOT NULL,
   `tipoPredefinido` varchar(200) NOT NULL,
@@ -21,8 +18,9 @@ CREATE TABLE `reunion` (
   `tipoDuracion` varchar(100) NOT NULL,
   `linkReunion` varchar(500) DEFAULT NULL,
   `estado` varchar(100) NOT NULL
+);
   
-=======
+
 CREATE TABLE `accion` (
   `nombre` varchar(50) NOT NULL,
   `refreunion` int(11) NOT NULL,
@@ -31,7 +29,7 @@ CREATE TABLE `accion` (
   `fechatermino` varchar(50) NOT NULL,
   `estado` varchar(50) NOT NULL,
   `id` int(11) NOT NULL
->>>>>>> main
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
