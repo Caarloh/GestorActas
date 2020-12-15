@@ -297,7 +297,15 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
 
     <div class="bg-card">
         <div class="bg-card-head py-3">
-            <center><button type="button" class="button-rojo">Terminar Reunión</button></center>
+            <?php
+                if($estado == "Terminado"){
+
+                }
+                else{
+                    echo '<center><button type="button" class="button-rojo" id="btnTerminarReunion">Terminar Reunión</button></center>';
+                }
+            ?>
+            
         </div>
     </div>
 
