@@ -15,6 +15,7 @@ $horaInicio = "";
 $estado = "";
 $name="";
 $id="";
+$idReunion = "";
 
 if(isset($_POST['idReunionCalendar'])){
     $id=$_POST['idReunionCalendar'];
@@ -30,6 +31,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
     if($id2== $id){
         $dateReunion = $columna['fecha'];
         $dateTimeReunion = $columna['hora'];
+        $idReunion = $columna['id'];
         $name=$columna['nombre'];
         $horaInicio = $columna['horaInicio'];
         $tipoPredefinido = $columna['tipoPredefinido'];
@@ -56,7 +58,8 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <center>
-        <h1 class="m-0 font-weight-bold text-primary">Reunión: <?php echo $name ?></h1>             
+        <h1 class="m-0 font-weight-bold text-primary">Reunión: <?php echo $name ?></h1>
+        <div <?php echo "hidden"; ?>><input type="text" class="form-control" value="<?php echo $idReunion; ?>" id="idReunion" readonly></div>         
     </center>
     <div class="grid-container">
     <div class="col" style ="text-align: center;">
@@ -98,6 +101,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
 
 
     </div>
+    
     <div class="col">
                             <label>Hora Real de Inicio Reunión</label>
                         </div>
