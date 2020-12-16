@@ -6,12 +6,16 @@
     $nombre = $_POST['nombre'];
     $correo = $_POST['correo'];
     $crear = true;
+    $nuevoUsuario = false;
+    $contrasenaInvitado = "";
+    $nombre = "";
     
     $consulta = "SELECT * FROM invitado WHERE correo='$correo'";
     $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
     while ($columna = mysqli_fetch_array( $resultado )){
         $crear=false;
         $nombre = $columna['nombre'];
+        $contrasenaInvitado = $columna['codigoAcceso'];
     }
     
     if ($crear) {
@@ -29,24 +33,8 @@
 
         $consulta = "INSERT INTO invitado (correo, nombre, codigoAcceso) VALUES ('$correo', '$nombre','$contrasenaInvitado')";
         mysqli_query($conexion,$consulta);
-
-        /*Enviar Correo*/
-        include '../envio_de_correos/superiorenviarcorreo.php';
-        //Destinatario
-        $mail->addAddress($correo, $nombre);     
-
-        //Contenido del correo
-        $mail->isHTML(true);
-
-        $topico = "Bienvenido al Gestor De Actas";                                  
-        $mail->Subject = $topico;
+        $nuevoUsuario = true;
         
-        $cuerpo = "Hola $nombre, se ha creado una cuenta para el correo $correo con la siguiente contraseña $contrasenaInvitado";
-        $mail->Body    = $cuerpo;
-        
-        include '../envio_de_correos/inferiorenviarcorreo.php';
-
-
     }
 
     $copiarInvitado = true;
@@ -59,7 +47,7 @@
 
     if($copiarInvitado){
         $consulta = "INSERT INTO relacionreunioninvitado (refcorreo, refid) VALUES ('$correo', '$idReunion')";
-        echo $result=mysqli_query($conexion,$consulta);
+        $result=mysqli_query($conexion,$consulta);
         //Send Mail	
 
         include '../envio_de_correos/superiorenviarcorreo.php';	
@@ -212,6 +200,23 @@
 
         $cuerpo = "$cuerpo \n </tr>";
 
+
+        $cuerpo = "$cuerpo \n 
+        <!-- BULLETPROOF BUTTON -->
+        <tr>
+            <td bgcolor='#f4f4f4' align='center' style='padding: 0px 10px 0px 10px;'>
+                
+                <table border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px;' >
+                <!-- COPY -->
+                <tr>
+                    <td bgcolor='#ffffff' align='left' style='padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;' >
+                    <p style='margin: 0;'>La clave de acceso para el correo: ".$correo." es: ".$contrasenaInvitado."</p><br>
+                </tr>
+        </tr>";
+
+
+        $cuerpo = "$cuerpo \n </tr>";
+
         if (empty($linkreunion)){
             $cuerpo = "$cuerpo \n <br>";
         }else{
@@ -312,6 +317,7 @@
         $mail->Body    = $cuerpo;
         
         include '../envio_de_correos/inferiorenviarcorreo.php';
+        echo $result;
     }
     else{
         echo 6;
