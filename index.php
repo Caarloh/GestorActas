@@ -7,9 +7,13 @@
 
 
                 <!-- Begin Page Content -->
+
+
+
                 <div class="container-fluid">
+
                     <center>
-                        <h1 class="h3 mb-0 text-gray-800">Reuniones</h1>
+                        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-users"></i>  Reuniones</h1>
                         
                     </center>
 
@@ -30,7 +34,8 @@
                                         <input type="date" class="form-control" id="fechaReunionCalendar" requiered>
                                     </div>
                                     <div class="col">
-                        <button class="button-crear fa fa-plus" data-toggle="modal"data-target="#crearReunion"> Crear Reunion</button>
+
+                                    <a href="" class="button add" data-toggle="modal" data-target="#crearReunion"> Crear Reunion </a>
                         </div>
                                 </div>
                               </div>
@@ -117,7 +122,7 @@
                                                         else{
         
                                                             echo '
-                                                            <a href="iniciarReunion.php?variable1='.$id.'" class="btn '.$colorBoton.'"><i class="fas fa-chevron-right"></i>Ingresar a Reunion</a>';
+                                                            <a href="iniciarReunion.php?variable1='.$id.'" class="btn '.$colorBoton.'"></i>Ingresar a Reunion</a>';
                                                         }
                                                         echo'
                                                 
@@ -577,8 +582,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="button-rojo" data-dismiss="modal" id="cerrar">Cerrar</button>
-                        <button type="button" class="button-azul" id="siguientePaso">Siguiente Paso</button>
+                         <a class = "buttonRed delete" data-dismiss="modal" id="cerrar">Cerrar </a>
+                         <a class = "button next" data-dismiss="modal" id="siguientePaso"> Siguiente Paso </a>
                     </div>
                 </div>
             </div>

@@ -56,7 +56,20 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
 
 
 <!-- Begin Page Content -->
+
+
+
 <div class="container-fluid">
+
+
+
+
+
+
+
+
+
+
     <center>
         <h1 class="m-0 font-weight-bold text-primary">Reunión: <?php echo $name ?></h1>
         <div <?php echo "hidden"; ?>><input type="text" class="form-control" value="<?php echo $idReunion; ?>" id="idReunion" readonly></div>         
@@ -67,6 +80,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
     <br>
     <br>
     <label>Fecha Reunión:  <?php echo $dateReunion;?></label>
+ 
     <br>
     
     </div>
@@ -93,17 +107,12 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
     <br>
     <br>
     <label>Duracion Reunión: <?php echo $duracion.' '.$tipoDuracion;?> </label>
-    <br>
-    <br>
 
     </div>
-
-
-
     </div>
     
     <div class="col">
-                            <label>Hora Real de Inicio Reunión</label>
+                            <label style="    margin: 10px 14px;">Hora Real de Inicio Reunión</label>
                         </div>
                         <div class="col">
     <div class="col">
@@ -165,7 +174,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         </div>
         <div class="bg-card-body">
             <div class="row">
-                <button type="button" class="button-verde" data-toggle="modal" data-target="#crearTema">Agregar Tema</button>
+            <a href="" class="button add" data-toggle="modal" data-target="#crearTema">Agregar Tema</a>
             </div>
             <br>
             <div class="row">
@@ -195,7 +204,9 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                         <td>'.$columna['nombre'].'</td>
 
                                         <td>'.$columna['tag'].'</td>
-                                        <td><button type="button" class="button-amarillo" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'">Editar</button>   <button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button>   <button type="button" class="button-azul" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion">Administrar Acciones</button></td>
+                                        <td><a href="" class="buttonYellow edit" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'"> Editar </a>
+                                        <a href="" class="buttonBlue next" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion"> Acciones </a>
+                                        <a  class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a> </td>
                                     </tr>';
                                     
                                 }
@@ -215,7 +226,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         </div>
         <div class="bg-card-body">
             <div class="row">
-                <button type="button" class="button-verde" data-toggle="modal" data-target="#crearInvitado">Agregar Invitado</button>
+            <a href="" class="button add" data-toggle="modal" data-target="#crearInvitado">Agregar Invitado</a>
             </div>
 
             <br>
@@ -245,7 +256,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                         echo '<tr>
                                             <td>'.$columna2['nombre'].'</td>
                                             <td>'.$columna2['correo'].'</td>
-                                            <td><button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button></td>
+                                            <td><a class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a></td>
                                         </tr>';
                                     }
 
@@ -266,40 +277,40 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
             <center><h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-book-reader"></i> Actas</h3></center>
         </div>
         <div class="bg-card-body">
-            <div class="row">
+         <div class="row row-cols-3">
                 <div class="col">
                     <form method="post" action="generate_pdf.php">                                        
                         <input type="hidden" name="variable1" value="<?php echo $id;?>"/>
                         <div class="d-flex flex-row-reverse">
                             <div class="p-2">
-                                <button id="pdf" name="generate_pdf" class="button-verde">Generar Acta Comite Curricular</button>
+                            <button id="pdf" name="generate_pdf"  type="button" class="button-rojo">Terminar Reunión</button>
+                            <a  id="pdf" name="generate_pdf" class="button email">Generar Acta Comite Curricular</a>
                             </div>
                         </div>
                     </form>
+                    
                 </div>
                 <div class="col">
                     <form method="post" action="generate_pdf.php">                                        
                         <input type="hidden" name="variable1" value="<?php echo $id;?>"/>
                         <div class="d-flex flex-row-reverse">
                             <div class="p-2">
-                                <button id="pdf" name="generate_pdf" class="button-verde">Generar Acta Publica</button>
+                            <a id="pdf" name="generate_pdf" class="button email">Generar Acta Publica </a>
                             </div>
                         </div>
                     </form>
                 </div>
-                
-            </div>
+                            <div class="col">
+                <center><button type="button" class="button-rojo">Terminar Reunión</button></center>
 
+
+            </div>                   
 
 
         </div>
     </div>
 
-    <div class="bg-card">
-        <div class="bg-card-head py-3">
-            <center><button type="button" class="button-rojo">Terminar Reunión</button></center>
-        </div>
-    </div>
+ 
 
 
 
@@ -339,8 +350,8 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="button-verde" id="editarTemaModalEdicion">Guardar</button>
+                     <a class="buttonRed delete" data-dismiss="modal"> Cerrar </a>
+                     <a class="button save" id="editarTemaModalEdicion"> Guardar </a>
                 </div>
             </div>
         </div>
@@ -384,7 +395,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                             <h5>Acciones</h5>
                         </div>
                         <div class="col">
-                            <button type="button" class="button-azul" data-toggle="modal" data-target="#modalAccion">Agregar Acciones</button>
+                             <a  class="button add" data-toggle="modal" data-target="#modalAccion"> Agregar Acciones </a>
                         </div>
                     </div>
                     <h2></h2>
@@ -403,7 +414,8 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button class="button-azul" type="button" data-dismiss="modal">Listo</button>
+                    <a class="button save" data-dismiss="modal"> Listo </a>
+
                 </div>
             </div>
         </div>
@@ -456,8 +468,10 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="button-azul" id="crearAccionBoton">Guardar</button>
+                    
+                    <a class="buttonRed delete" data-dismiss="modal"> Cerrar </a>
+                    <a class="button save" id="crearAccionBoton"> Guardar </a>
+
                 </div>
             </div>
         </div>
@@ -543,8 +557,9 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="button-verde" id="editarAccionModal">Actualizar</button>
+
+                    <a href="" class="buttonRed delete" data-dismiss="modal"> Cerrar </a>
+                    <a class="button save" id="editarAccionModal"> Actualizar </a>
                 </div>
             </div>
         </div>
@@ -596,8 +611,12 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="button-azul" id="crearTemaBoton">Guardar</button>
+
+
+
+                    <a class="buttonRed delete" data-dismiss="modal"> Cerrar </a>
+
+                    <a class="button save" id="crearTemaBoton"> Guardar </a>
                 </div>
             </div>
         </div>
@@ -653,8 +672,10 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn-verde" id="crearInvitadoBoton">Guardar</button>
+                    <a href="" class="buttonRed delete" data-dismiss="modal"> Cerrar </a>
+
+                    <a href="" class="button save" id="crearInvitadoBoton"> Guardar </a>
+
                 </div>
             </div>
         </div>

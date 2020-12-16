@@ -1,5 +1,6 @@
 <?php
     require "baseDatos/conexion.php";
+    
     session_destroy();
     session_set_cookie_params(0);
     session_start();
@@ -170,26 +171,30 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="log-bg">
+<div id="wrapper">   
+<!-- Topbar -->
+	<nav class="lg-bar">
 
+		<img class="im-login" id=im-login src="https://1.bp.blogspot.com/-oNO-o42-0U8/X9kFEhNhWyI/AAAAAAAACRY/X80xha0kIFsOUH-edOdCpSUIMGALX1s_ACLcBGAsYHQ/s300/LOGOTIPO.png">
+
+	</nav>
+</div>
     <div class="container">
 
     <!-- Outer Row -->
         <div class="row justify-content-center">
 
             <div class="col-xl-10 col-lg-12 col-md-9">
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
+                <div class="login-card o-hidden border-0 shadow-lg my-5">
+                    <div class="login-card-body p-0">
                         <br>
-                        <center><h1 class="h4 text-gray-900 mb-4">Bienvenid@</h1></center>
+                        <center><h1 class="h4 text-gray-900 mb-4">¡Bienvenidos!</h1></center>
                         <div class="container">
                             <form method="POST" action="">
                                 <div class="row">
                                     <div class="col">
-                                        <label>Correo (*)</label>
-                                    </div>
-                                    <div class="col">
-                                        <input type="email" class="form-control" id="correoInicio" name="correoInicio">
+                                        <input type="email" class="form-control" id="correoInicio" name="correoInicio" placeholder="Correo (*)">
                                     </div>
                                 </div>
 
@@ -197,29 +202,33 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <label>Contraseña (*)</label>
-                                    </div>
-                                    <div class="col">
-                                        <input type="password" class="form-control" id="contrasenaInicio" name="contrasenaInicio">
+                                        <input type="password" class="form-control" id="contrasenaInicio" name="contrasenaInicio" placeholder="Contraseña (*)">
                                     </div>
                                 </div>
                                 <br>
 
                                 <div class="row">
                                     <div class="col">
-                                        <button class="btn btn-primary" name="inicioSesionConsejo">Inicio Sesión Consejo</button>
+                                    
+                                    
+                                        <button class="button-lg" name="inicioSesionConsejo">Inicio Sesión Consejo</button>
+                                        <br>
+                                    
                                     </div>
+                                    <br>
                                     <div class="col">
-                                        <button class="btn btn-primary" name="inicioSesionInvitado">Inicio Sesión Invitado</button>
+                                        <button class="button-lg" name="inicioSesionInvitado">Inicio Sesión Invitado</button>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col">
-                                        <button class="btn btn-primary" name="recuperarContrasenaConsejo">Recuperar Contraseña Consejo</button>
+                                        <button class="button-lg" name="recuperarContrasenaConsejo">Recuperar Contraseña Consejo</button>
+                                        <br>
                                     </div>
+                                    <br>
                                     <div class="col">
-                                        <button class="btn btn-primary" name="recuperarContrasenaInvitado">Recuperar Contraseña Invitado</button>
+                                        <button class="button-lg" name="recuperarContrasenaInvitado">Recuperar Contraseña Invitado</button>
                                     </div>
                                 </div>
                                 

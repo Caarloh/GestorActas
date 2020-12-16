@@ -147,7 +147,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <div class="bg-card shadow mb-4">
+                    <div class="bg-card ">
                         <div class="bg-card-head py-3">
                             <center><h6 class="m-0 font-weight-bold text-primary"> Nombre de la Reunion</h6></center>
                         </div>
@@ -160,13 +160,13 @@
                         </div>
                     </div>
 
-                    <div class="bg-card shadow mb-4">
+                    <div class="bg-card ">
                         <div class="bg-card-head py-3">
                             <center><h6 class="m-0 font-weight-bold text-primary">Temas a tratar</h6></center>
                         </div>
                         <div class="bg-card-body">
                             <div class="row">
-                                <button type="button" class="button-azul" data-toggle="modal" data-target="#crearTema">Agregar Tema</button>
+                                <a href="" class="button add" data-toggle="modal" data-target="#crearTema">Agregar Tema</a>
                             </div>
 
                             <br>
@@ -197,7 +197,9 @@
                                                         <td>'.$columna['nombre'].'</td>
 
                                                         <td>'.$columna['tag'].'</td>
-                                                        <td><button type="button" class="button-amarillo" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'">Editar</button>   <button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button></td>
+                                                        <td><a href="" class="buttonYellow edit" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'"> Editar </a>
+                                                        <a href="" class="buttonBlue next" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion"> Acciones </a>
+                                                        <a  class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a> </td>
                                                     </tr>';
                                                     #echo '<tr>
                                                     #    <td>'.$columna['nombre'].'</td>
@@ -215,13 +217,13 @@
                         </div>
                     </div>
 
-                    <div class="bg-card shadow mb-4">
+                    <div class="bg-card ">
                         <div class="bg-card-head py-3">
                             <center><h6 class="m-0 font-weight-bold text-primary">Invitados</h6></center>
                         </div>
                         <div class="bg-card-body">
                             <div class="row">
-                                <button type="button" class="button-azul" data-toggle="modal" data-target="#crearInvitado">Agregar Invitado</button>
+                            <a href="" class="button add" data-toggle="modal" data-target="#crearInvitado">Agregar Invitado</a>
                             </div>
 
                             <br>
@@ -251,8 +253,8 @@
                                                         echo '<tr>
                                                             <td>'.$columna2['nombre'].'</td>
                                                             <td>'.$columna2['correo'].'</td>
-                                                            <td><button type="button" class="button-rojo" onclick="'.$usarFuncion.'">Eliminar</button></td>
-                                                        </tr>';
+                                                            <td><a class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a></td>
+                                                            </tr>';
                                                     }
 
                                                     
@@ -465,8 +467,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="button-azul" id="crearTemaBoton">Guardar</button>
+                <a class="buttonRed delete" data-dismiss="modal"> Cerrar </a>
+
+<a class="button save" id="crearTemaBoton"> Guardar </a>
                 </div>
             </div>
         </div>
@@ -513,8 +516,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn-verde" id="crearInvitadoBoton">Guardar</button>
+                <a  class="buttonRed delete" data-dismiss="modal"> Cerrar </a>
+
+                <a class="button save" id="crearInvitadoBoton"> Guardar </a>
                 </div>
             </div>
         </div>

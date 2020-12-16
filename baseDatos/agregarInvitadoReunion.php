@@ -60,11 +60,12 @@
     if($copiarInvitado){
         $consulta = "INSERT INTO relacionreunioninvitado (refcorreo, refid) VALUES ('$correo', '$idReunion')";
         echo $result=mysqli_query($conexion,$consulta);
-        //Send Mail	
+             //Send Mail	
 
-        include '../envio_de_correos/superiorenviarcorreo.php';	
-        //Destinatario	
-        $mail->addAddress($correo, $nombre);   
+
+             include '../envio_de_correos/superiorenviarcorreo.php';	
+             //Destinatario	
+             $mail->addAddress($correo, $nombre); 
         //Contenido del correo
         $mail->isHTML(true);
 
