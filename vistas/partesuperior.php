@@ -1,3 +1,12 @@
+<?php 
+    $correoSession = "";
+    $contrasenaSession = "";
+    /*if (!isset($correoSession) || !isset($contrasenaSession)) {
+        session_destroy();
+        $_SESSION = array();
+        header("Location: ../inicioSesion.php");
+    }*/
+?>
 <!DOCTYPE html>
 <html lang="en">
 
