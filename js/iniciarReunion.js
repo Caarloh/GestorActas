@@ -98,6 +98,9 @@ function formEditarAccion(datos){
     d=datos.split('||');
     $('#idAccionModalEdicion').val(d[0]);
     $('#nombreAccionModalEdicion').val(d[1]);
+    $('#encargadoAccionModalEdicion').val(d[2]);
+    $('#estadoAccionModalEdicion').val(d[3]);
+    $('#fechanuevaterminoAccion').val(d[4]);
 }
 
 $(document).ready(function(){
@@ -295,9 +298,9 @@ $(document).ready(function(){
         fechaAccionModal= $('#fechanuevaterminoAccion').val();
         estadoAccionModal= $('#estadoAccionModalEdicion').val();
 
-        //cadena = "idAccionModalEdicion=" + idAccion+ "&nombreAccionModalEdicion=" + nombreAccionModal + "&encargadoAccionModalEdicion=" +encargadoAccionModal+
-        //"&fechanuevaterminoAccion=" + fechaAccionModal + "&estadoAccionModalEdicion=" + estadoAccionModal;
-        cadena = "idAccionModalEdicion=" + idAccion+ "&nombreAccionModalEdicion=" + nombreAccionModal;
+        cadena = "idAccionModalEdicion=" + idAccion+ "&nombreAccionModalEdicion=" + nombreAccionModal + "&encargadoAccionModalEdicion=" +encargadoAccionModal+
+        "&fechanuevaterminoAccion=" + fechaAccionModal + "&estadoAccionModalEdicion=" + estadoAccionModal;
+        //cadena = "idAccionModalEdicion=" + idAccion+ "&nombreAccionModalEdicion=" + nombreAccionModal;
         if(nombreTemaModal == "" || nombreTemaModal==" "){
             alert("Completar nombre del tema");
         }
