@@ -4,7 +4,7 @@
 
 <?php  
 
-
+$correoSesion="";
 $dateReunion="";
 $dateTimeReunion ="";
 $tipoPredefinido = "";
@@ -527,11 +527,11 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                     <label for="estadoAccionModalEdicion">Estado</label>
                                 </div>
                                 <div class="col">
-                                    <select class="form-control" id="encargadoAccionModal" required>
-                                        <option value="seleccionencargado">Seleccione estado</option>
-                                        <option value="enproceso">En proceso</option>
-                                        <option value="enpausa">En pausa</option>
-                                        <option value="terminado">Terminado</option>
+                                    <select class="form-control" id="estadoAccionModalEdicion" required>
+                                        <option value="">Seleccione estado</option>
+                                        <option value="En Proceso">En proceso</option>
+                                        <option value="En Pausa">En pausa</option>
+                                        <option value="Terminado">Terminado</option>
                                     </select>
                                 </div>
                             </div>
