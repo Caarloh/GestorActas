@@ -26,7 +26,7 @@
     
     if ($seguir) {
         $horaFinal = $hora.':'.$minuto;
-        $consulta = "INSERT INTO reunion(id, tipoPredefinido, fecha, hora, duracion, tipoDuracion, linkReunion, estado, nombre, horaInicio, horaTermino) VALUES ('$idReunion', '$tipoReunion','$fechaReunion','$horaFinal','$duracionReunion', '$tipoDuracion', '$linkReunion', '$estadoReunion', '$nombreReunion', '', '')";
+        $consulta = "INSERT INTO reunion(id, tipoPredefinido, fecha, hora, duracion, tipoDuracion, linkReunion, estado, nombre, horaInicio) VALUES ('$idReunion', '$tipoReunion','$fechaReunion','$horaFinal','$duracionReunion', '$tipoDuracion', '$linkReunion', '$estadoReunion', '$nombreReunion', '')";
         echo $result=mysqli_query($conexion,$consulta);
     }
   
