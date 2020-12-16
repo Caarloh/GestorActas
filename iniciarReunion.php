@@ -204,8 +204,8 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                         <td>'.$columna['nombre'].'</td>
 
                                         <td>'.$columna['tag'].'</td>
-                                        <td><a href="" class="buttonYellow edit" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'"> Editar </a>
-                                        <a href="" class="buttonBlue next" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion"> Acciones </a>
+                                        <td><a class="buttonYellow edit" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'"> Editar </a>
+                                        <a  class="buttonBlue next" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion"> Acciones </a>
                                         <a  class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a> </td>
                                     </tr>';
                                     
@@ -283,9 +283,10 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                         <input type="hidden" name="variable1" value="<?php echo $id;?>"/>
                         <div class="d-flex flex-row-reverse">
                             <div class="p-2">
-                            <button id="pdf" name="generate_pdf"  type="button" class="button-rojo">Terminar Reunión</button>
-                            <a  id="pdf" name="generate_pdf" class="button email">Generar Acta Comite Curricular</a>
-                            </div>
+
+                                <button id="pdf" name="generate_pdf" class="button-verde">Generar Acta Comite Curricular</button>
+
+                        </div>
                         </div>
                     </form>
                     
@@ -294,9 +295,13 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                     <form method="post" action="generate_pdf.php">                                        
                         <input type="hidden" name="variable1" value="<?php echo $id;?>"/>
                         <div class="d-flex flex-row-reverse">
+
+
+                        
                             <div class="p-2">
-                            <a id="pdf" name="generate_pdf" class="button email">Generar Acta Publica </a>
-                            </div>
+
+                            <button id="pdf" name="generate_pdf" class="button-verde">Generar Acta Publica</button>
+                        </div>
                         </div>
                     </form>
                 </div>
@@ -558,7 +563,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                 </div>
                 <div class="modal-footer">
 
-                    <a href="" class="buttonRed delete" data-dismiss="modal"> Cerrar </a>
+                    <a  class="buttonRed delete" data-dismiss="modal"> Cerrar </a>
                     <a class="button save" id="editarAccionModal"> Actualizar </a>
                 </div>
             </div>
@@ -672,9 +677,9 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <a href="" class="buttonRed delete" data-dismiss="modal"> Cerrar </a>
+                    <a class="buttonRed delete" data-dismiss="modal"> Cerrar </a>
 
-                    <a href="" class="button save" id="crearInvitadoBoton"> Guardar </a>
+                    <a class="button save" id="crearInvitadoBoton"> Guardar </a>
 
                 </div>
             </div>
