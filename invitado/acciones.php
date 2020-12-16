@@ -1,9 +1,9 @@
 <?php
     require "../baseDatos/conexion.php";
     session_start();
-    $correo = $_SESSION['correo'];
-    $contrasena = $_SESSION['contrasena'];
-    if (!isset($correo) || !isset($contrasena)) {
+    $correoSession = $_SESSION['correo'];
+    $contrasenaSession = $_SESSION['contrasena'];
+    if (!isset($correoSession) || !isset($contrasenaSession)) {
         session_destroy();
         $_SESSION = array();
         header("Location: ../inicioSesion.php");
@@ -170,7 +170,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $consulta_0 = "SELECT * FROM accion WHERE refinvitado='$correo' AND estado!='Terminado'";
+                                    $consulta_0 = "SELECT * FROM accion WHERE refinvitado='$correoSession' AND estado!='Terminado'";
                                     $resultado_0 = mysqli_query($conexion, $consulta_0) or die ( "Algo ha ido mal en la consulta a la base de datos1");
                                     while ($columna_0 = mysqli_fetch_array( $resultado_0 )){
                                         $refTema = $columna_0['reftema'];

@@ -1,9 +1,9 @@
 <?php
     require "../baseDatos/conexion.php";
     session_start();
-    $correo = $_SESSION['correo'];
-    $contrasena = $_SESSION['contrasena'];
-    if (!isset($correo) || !isset($contrasena)) {
+    $correoSession = $_SESSION['correo'];
+    $contrasenaSession = $_SESSION['contrasena'];
+    if (!isset($correoSession) || !isset($contrasenaSession)) {
         session_destroy();
         $_SESSION = array();
         header("Location: ../inicioSesion.php");
@@ -159,7 +159,7 @@
                    
                     <div class="grid-container">
                             <?php
-                                $consulta0 = "SELECT * FROM relacionreunioninvitado WHERE refcorreo='$correo'";
+                                $consulta0 = "SELECT * FROM relacionreunioninvitado WHERE refcorreo='$correoSession'";
                                 $resultado0 = mysqli_query($conexion, $consulta0) or die ( "Algo ha ido mal en la consulta a la base de datos1");
                                 while ($columna0 = mysqli_fetch_array( $resultado0 )){
                                     $idReunion0 = $columna0['refid'];
