@@ -2,7 +2,7 @@
   $user = 'root';
   $password = '';
   $basededatos = 'gestoractas';
-  $host = 'localhost:3307';
+  $host = 'localhost';
 
 
   $conexion = mysqli_connect($host, $user, $password) or die ("No se ha podido conectar al servidor de Base de datos");
