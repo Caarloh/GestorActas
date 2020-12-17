@@ -1,6 +1,5 @@
 <?php
     require "baseDatos/conexion.php";
-    session_destroy();
     session_set_cookie_params(0);
     session_start();
     
