@@ -74,7 +74,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         <h1 class="m-0 font-weight-bold text-primary">Reunión: <?php echo $name ?></h1>
         <div <?php echo "hidden"; ?>><input type="text" class="form-control" value="<?php echo $idReunion; ?>" id="idReunion" readonly></div>         
     </center>
-    <div class="grid-container">
+    <div class="grid-contenedor">
     <div class="col" style ="text-align: center;">
     <img src="https://1.bp.blogspot.com/-d0OHqC6htlI/X85zKl4ksbI/AAAAAAAACPY/hLqGbvYeYkME3fre5k-m0kxAs9Gq8342QCLcBGAsYHQ/s320/calendario.png" style="width:50%; float:none" alt="Girl in a jacket">
     <br>
