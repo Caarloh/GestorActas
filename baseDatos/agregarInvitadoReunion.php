@@ -8,7 +8,6 @@
     $crear = true;
     $nuevoUsuario = false;
     $contrasenaInvitado = "";
-    $nombre = "";
     
     $consulta = "SELECT * FROM invitado WHERE correo='$correo'";
     $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");

@@ -2,13 +2,13 @@
 SET time_zone = "+00:00";
 
 --
--- Database: `gestoractas`
+-- Base de datos: `gestoractas`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `accion`
+-- Estructura de tabla para la tabla `accion`
 --
 
 CREATE TABLE `accion` (
@@ -24,7 +24,7 @@ CREATE TABLE `accion` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `acta`
+-- Estructura de tabla para la tabla `acta`
 --
 
 CREATE TABLE `acta` (
@@ -35,7 +35,7 @@ CREATE TABLE `acta` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `consejo`
+-- Estructura de tabla para la tabla `consejo`
 --
 
 CREATE TABLE `consejo` (
@@ -48,7 +48,7 @@ CREATE TABLE `consejo` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `invitado`
+-- Estructura de tabla para la tabla `invitado`
 --
 
 CREATE TABLE `invitado` (
@@ -60,7 +60,7 @@ CREATE TABLE `invitado` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `relacionreunioninvitado`
+-- Estructura de tabla para la tabla `relacionreunioninvitado`
 --
 
 CREATE TABLE `relacionreunioninvitado` (
@@ -71,7 +71,7 @@ CREATE TABLE `relacionreunioninvitado` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reunion`
+-- Estructura de tabla para la tabla `reunion`
 --
 
 CREATE TABLE `reunion` (
@@ -84,22 +84,14 @@ CREATE TABLE `reunion` (
   `linkReunion` varchar(500) DEFAULT NULL,
   `estado` varchar(100) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `horaInicio` varchar(50) NOT NULL
+  `horaInicio` varchar(50) NOT NULL,
+  `horaTermino` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `reunion`
---
-
-INSERT INTO `reunion` (`id`, `tipoPredefinido`, `fecha`, `hora`, `duracion`, `tipoDuracion`, `linkReunion`, `estado`, `nombre`, `horaInicio`) VALUES
-(1124387998, 'Extraordinaria', '2020-11-20', '09:00', 3, 'Horas', '', 'En Proceso', 'Reu2', '09:01'),
-(1238353639, 'Regular', '2020-11-20', '09:00', 2, 'Horas', 'https://reuna.zoom.us/j/9975784070?pwd=dmQwMk1MWWFzME1FMWoxalZGUHQxQT09', '', '', ''),
-(2106383345, 'Extraordinaria', '2020-12-20', '02:00', 3, 'Horas', '', 'En Espera', 'Hola', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tema`
+-- Estructura de tabla para la tabla `tema`
 --
 
 CREATE TABLE `tema` (
@@ -110,18 +102,11 @@ CREATE TABLE `tema` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tema`
---
-
-INSERT INTO `tema` (`tag`, `refreunion`, `nombre`, `id`) VALUES
-('', 1124387998, 'Problemas Internos', 663380190);
-
---
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `accion`
+-- Indices de la tabla `accion`
 --
 ALTER TABLE `accion`
   ADD PRIMARY KEY (`id`),
@@ -130,63 +115,63 @@ ALTER TABLE `accion`
   ADD KEY `fktema` (`reftema`);
 
 --
--- Indexes for table `acta`
+-- Indices de la tabla `acta`
 --
 ALTER TABLE `acta`
   ADD KEY `fk_reunion` (`refreunion`);
 
 --
--- Indexes for table `consejo`
+-- Indices de la tabla `consejo`
 --
 ALTER TABLE `consejo`
   ADD PRIMARY KEY (`correo`);
 
 --
--- Indexes for table `invitado`
+-- Indices de la tabla `invitado`
 --
 ALTER TABLE `invitado`
   ADD PRIMARY KEY (`correo`);
 
 --
--- Indexes for table `relacionreunioninvitado`
+-- Indices de la tabla `relacionreunioninvitado`
 --
 ALTER TABLE `relacionreunioninvitado`
   ADD KEY `fkrelacioninvitado` (`refcorreo`),
   ADD KEY `fkrelacionreunion` (`refid`);
 
 --
--- Indexes for table `reunion`
+-- Indices de la tabla `reunion`
 --
 ALTER TABLE `reunion`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tema`
+-- Indices de la tabla `tema`
 --
 ALTER TABLE `tema`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fkreunion` (`refreunion`);
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `accion`
+-- Filtros para la tabla `accion`
 --
 ALTER TABLE `accion`
   ADD CONSTRAINT `fkreuniontema` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fktema` FOREIGN KEY (`reftema`) REFERENCES `tema` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `relacionreunioninvitado`
+-- Filtros para la tabla `relacionreunioninvitado`
 --
 ALTER TABLE `relacionreunioninvitado`
   ADD CONSTRAINT `fkrelacioninvitado` FOREIGN KEY (`refcorreo`) REFERENCES `invitado` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fkrelacionreunion` FOREIGN KEY (`refid`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tema`
+-- Filtros para la tabla `tema`
 --
 ALTER TABLE `tema`
   ADD CONSTRAINT `fkreunion` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
