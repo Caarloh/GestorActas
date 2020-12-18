@@ -104,6 +104,40 @@ function formEditarAccion(datos){
 }
 
 $(document).ready(function(){
+    $('#btnTerminarReunion').click(function(){
+        idReunion = $('#idReunion').val();
+
+
+        if(idReunion == "" || idReunion==" "){
+            alert("Error en Id Reunion");
+
+        }
+        else{
+            cadena = "idReunion=" + idReunion;
+            $.ajax({
+                type:"POST",
+                url:"baseDatos/terminarReunion.php",
+                data:cadena,
+                success:function(r){
+                  if(r==1){
+                    window.location="index.php";
+                    
+                  }else{
+                    if (r==3) {
+                        alertify.error("La reunión no se ha iniciado");
+                    }
+                    else if (r==6) {
+                        alertify.error("Reunion no fue encontrada");
+                    }
+                    else{
+                        alertify.error("Fallo en el servidor.");
+                    }
+                  }
+                }
+              });
+        }
+
+    });
     $('#crearAccionBoton').click(function(){
         nombreAccionModal = $('#nombreAccionModal').val();
         correoInvitadoAccion = $('#correoInvitadoAccion').val();
