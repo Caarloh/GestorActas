@@ -221,6 +221,23 @@ $(document).ready(function(){
         }
       
     });
+
+    $("#enviarCorreos").click(function(){
+    	
+    	idReunion = $('#ReunionID').val();
+    	console.log(idReunion);
+    	cadena = "idReunion=" + idReunion;
+    	$.ajax({
+            type:"POST",
+            url:"baseDatos/enviarcorreoInvitado.php",
+            data:cadena,
+            success:function(r){
+                console.log(r);
+                alertify.error("Se han mandado las invitaciones.");
+            }
+          });
+
+    });
     
 
     $( "#correoInvitadoModal" ).autocomplete({
@@ -240,5 +257,7 @@ $(document).ready(function(){
   
         });
       });
+
+
     
 });

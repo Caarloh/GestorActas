@@ -1,4 +1,4 @@
 <?php
     try{$mail->send();
-    } catch (Exception $e) {
+    } catch (Exception $e1) {
     }

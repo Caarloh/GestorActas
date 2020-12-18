@@ -155,6 +155,7 @@
                             <form>
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="idReunion" value="<?php echo $nombre;?>" readonly>
+                                    <input type="text" class="form-control" id="ReunionID" value="<?php echo $idReunion;?>" readonly>
                                 </div>
                             </form>
                         </div>
@@ -269,9 +270,9 @@
 
                     </div>
                     <div class="row">
-                        <a href="index.php">
-                            <button type="button" class="button-azul" data-toggle="modal" href="index.php">Guardar reunion</button>
-                        </a>
+                        <button type="button" class="button-azul" id="enviarCorreos">
+                            Guardar reunion
+                        </button>
                     </div>                                
                 </div>
                 <!-- /.container-fluid -->

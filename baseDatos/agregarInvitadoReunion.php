@@ -220,6 +220,27 @@
         </html>";
 
         $mail->Body    = $cuerpo;
+        
+        include '../envio_de_correos/inferiorenviarcorreo.php';
+
+
+    }
+
+    $copiarInvitado = true;
+    $consulta = "SELECT * FROM relacionreunioninvitado WHERE refcorreo='$correo' AND refid='$idReunion'";
+    $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+    while ($columna = mysqli_fetch_array( $resultado )){
+        $copiarInvitado=false;
+        
+    }
+
+    if($copiarInvitado){
+        $consulta = "INSERT INTO relacionreunioninvitado (refcorreo, refid) VALUES ('$correo', '$idReunion')";
+        echo $result=mysqli_query($conexion,$consulta);
+    }
+    else{
+        echo 6;
+    }
 
 
   
