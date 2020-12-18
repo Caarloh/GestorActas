@@ -92,6 +92,18 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
     </div>
 </li>
+<!-- Divider -->
+<hr class="sidebar-divider">
+
+<!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item ">
+    <a class="nav-link " href="acciones.php">
+    <i class="fas fa-marker"></i>
+        <span>Acciones</span>
+    </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    </div>
+</li>
 
 
 
