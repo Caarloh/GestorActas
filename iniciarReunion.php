@@ -552,8 +552,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                 <div class="col">
                                     <select class="form-control" id="estadoAccionModalEdicion" required>
                                         <option value="">Seleccione estado</option>
-                                        <option value="En Proceso">En proceso</option>
-                                        <option value="En Pausa">En pausa</option>
+                                        <option value="Pendiente">Pendiente</option>
                                         <option value="Terminado">Terminado</option>
                                     </select>
                                 </div>
