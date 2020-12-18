@@ -305,8 +305,15 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                         </div>
                     </form>
                 </div>
-                            <div class="col">
-                <center><button type="button" class="button-rojo">Terminar Reunión</button></center>
+                <div class="col">
+                <?php
+                    if($estado == "Terminado"){
+
+                    }
+                    else{
+                        echo '<center><button type="button" class="button-rojo" id="btnTerminarReunion">Terminar Reunión</button></center>';
+                    }
+                ?>                
 
 
             </div>                   
@@ -552,8 +559,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                 <div class="col">
                                     <select class="form-control" id="estadoAccionModalEdicion" required>
                                         <option value="">Seleccione estado</option>
-                                        <option value="En Proceso">En proceso</option>
-                                        <option value="En Pausa">En pausa</option>
+                                        <option value="Pendiente">Pendiente</option>
                                         <option value="Terminado">Terminado</option>
                                     </select>
                                 </div>
