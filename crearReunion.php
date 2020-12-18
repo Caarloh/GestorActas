@@ -3,6 +3,21 @@
     $idReunion = $_GET['id'];
     $existe = false;
 
+    session_start();
+    $correoSession = $_SESSION['correo'];
+    $contrasenaSession = $_SESSION['contrasena'];
+    if (!isset($correoSession) || !isset($contrasenaSession)) {
+        session_destroy();
+        $_SESSION = array();
+        header("Location: inicioSesion.php");
+    }
+
+    if (isset($_POST['salir'])) {
+        session_destroy();
+        $_SESSION = array();
+        header("Location: inicioSesion.php");
+    }
+
     $consulta = "SELECT * FROM reunion WHERE id='$idReunion'";
     $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
     while ($columna = mysqli_fetch_array( $resultado )){

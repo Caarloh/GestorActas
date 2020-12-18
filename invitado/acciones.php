@@ -1,9 +1,9 @@
 <?php
     require "../baseDatos/conexion.php";
     session_start();
-    $correo = $_SESSION['correo'];
-    $contrasena = $_SESSION['contrasena'];
-    if (!isset($correo) || !isset($contrasena)) {
+    $correoSession = $_SESSION['correo'];
+    $contrasenaSession = $_SESSION['contrasena'];
+    if (!isset($correoSession) || !isset($contrasenaSession)) {
         session_destroy();
         $_SESSION = array();
         header("Location: ../inicioSesion.php");
@@ -135,10 +135,13 @@
                         <img class="img-profile rounded-circle" src="https://cdn.discordapp.com/attachments/569659673792479252/569662825195372564/unknown.png">
                     </a>
                     <!-- Dropdown - User Information -->
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <form action="" method="POST">
-                            <button class="dropdown-item" name="salir"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Salir</button>
-                        </form>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Salir
+                        </a>
                     </div>
                 </li>
 
@@ -159,11 +162,10 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                <th scope="col">Nombre Acción</th>
-                                <th scope="col">Nombre Tema</th>
-                                <th scope="col">Nombre Reunión</th>
-                                <th scope="col">Tipo Reunión</th>
-                                <th scope="col">Fecha Termino Acción</th>
+                                <th scope="col">Reunión</th>
+                                <th scope="col">Tema</th>
+                                <th scope="col">Acción</th>
+                                <th scope="col">Limite Acción</th>
                                 <th scope="col">Estado Acción</th>
                                 <th scope="col">Acciones</th>
                                 </tr>
@@ -202,10 +204,22 @@
                                         }
 
                                         echo '<tr>
-                                            <td>'.$nombreAccion.'</td>
+                                            <td>
+                                                <form method="post" action="../generate_pdf.php">                                        
+                                                    <input type="hidden" name="variable1" value="'.$refReunion.'"/>
+                                                    <div class="d-flex flex-row-reverse">
+                    
+                    
+                                            
+                                                        <div class="p-2">
+                    
+                                                            <button id="pdf" name="generate_pdf" class="button-verde">Reunión</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
                                             <td>'.$nombreTema.'</td>
-                                            <td>'.$nombreReunion.'</td>
-                                            <td>'.$tipoReunion.'</td>
+                                            <td>'.$nombreAccion.'</td>
                                             <td>'.$fechaAccion.'</td>
                                             <td>'.$estadoAccion.'</td>
                                             <td><button type="button" class="button-amarillo" data-toggle="modal" data-target="#verAccion" onclick="'.$usarFuncion.'">Ver</button></td>
@@ -255,7 +269,9 @@
                         actual.</div>
                     <div class="modal-footer">
                         <button class="button-rojo" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
+                        <form action="" method="POST">
+                            <button class="btn btn-primary" name="salir">Cerrar sesión</button>
+                        </form>
                     </div>
                 </div>
             </div>

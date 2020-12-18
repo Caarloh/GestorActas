@@ -371,7 +371,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
 
 
  <!-- Logout Modal-->
- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -381,10 +381,14 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión actual.</div>
+                <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su
+                    sesión
+                    actual.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="button-azul" href="login.html">Cerrar sesión</a>
+                    <button class="button-rojo" type="button" data-dismiss="modal">Cancelar</button>
+                    <form action="" method="POST">
+                        <button class="btn btn-primary" name="salir">Cerrar sesión</button>
+                    </form>
                 </div>
             </div>
         </div>

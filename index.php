@@ -336,7 +336,9 @@
                         actual.</div>
                     <div class="modal-footer">
                         <button class="button-rojo" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
+                        <form action="" method="POST">
+                            <button class="btn btn-primary" name="salir">Cerrar sesión</button>
+                        </form>
                     </div>
                 </div>
             </div>

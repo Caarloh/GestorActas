@@ -1,3 +1,18 @@
+<?php
+session_start();
+$correoSession = $_SESSION['correo'];
+$contrasenaSession = $_SESSION['contrasena'];
+if (!isset($correoSession) || !isset($contrasenaSession)) {
+    session_destroy();
+    $_SESSION = array();
+    header("Location: inicioSesion.php");
+}
+if (isset($_POST['salir'])) {
+    session_destroy();
+    $_SESSION = array();
+    header("Location: inicioSesion.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
