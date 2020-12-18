@@ -234,6 +234,7 @@ $(document).ready(function(){
             success:function(r){
                 console.log(r);
                 alertify.error("Se han mandado las invitaciones.");
+                window.location = "index.php";
             }
           });
 
