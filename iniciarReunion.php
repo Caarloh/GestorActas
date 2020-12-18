@@ -174,7 +174,19 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         </div>
         <div class="bg-card-body">
             <div class="row">
-            <a href="" class="button add" data-toggle="modal" data-target="#crearTema">Agregar Tema</a>
+            <?php
+            if($estado=="Terminado"){
+                echo'';
+
+
+            }
+            else{
+
+                echo '<a href="" class="button add" data-toggle="modal" data-target="#crearTema">Agregar Tema</a>';
+
+
+            }
+            ?>
             </div>
             <br>
             <div class="row">
@@ -206,7 +218,20 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                         <td>'.$columna['tag'].'</td>
                                         <td><a class="buttonYellow edit" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'"> Editar </a>
                                         <a  class="buttonBlue next" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion"> Acciones </a>
-                                        <a  class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a> </td>
+
+                                        ';
+                                        if($estado == "Terminado"){
+
+
+
+                                        }
+                                        else{
+
+                                            echo'<a  class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a> </td>
+                                            ';
+                                        }
+
+                                        echo'
                                     </tr>';
                                     
                                 }
@@ -226,7 +251,20 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         </div>
         <div class="bg-card-body">
             <div class="row">
-            <a href="" class="button add" data-toggle="modal" data-target="#crearInvitado">Agregar Invitado</a>
+                <?php
+                    if($estado=="Terminado"){
+                        echo'';
+
+
+                    }
+                    else{
+
+                        echo '<a href="" class="button add" data-toggle="modal" data-target="#crearInvitado">Agregar Invitado</a>
+                        ';
+
+
+                    }
+                ?> 
             </div>
 
             <br>
@@ -238,7 +276,14 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                             <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Correo</th>
-                            <th scope="col">Acciones</th>
+                            <?php 
+                            if($estado== "Terminado"){
+
+                            }
+                            else{
+                                echo'<th scope="col">Acciones</th>';
+                            }
+                            ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -255,8 +300,21 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                         $usarFuncion = "preguntarSiNo('".$datos."')";
                                         echo '<tr>
                                             <td>'.$columna2['nombre'].'</td>
-                                            <td>'.$columna2['correo'].'</td>
-                                            <td><a class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a></td>
+                                            <td>'.$columna2['correo'].'</td>';
+                                            if($estado=="Terminado"){
+                                                echo'';
+                            
+                            
+                                            }
+                                            else{
+                            
+                                                echo '<td><a class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a></td>';
+                            
+                            
+                                                }
+                                            echo'
+
+
                                         </tr>';
                                     }
 

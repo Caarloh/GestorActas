@@ -144,16 +144,36 @@
 
                                                 if($fechaActual < $fecha){
 
-                                                    echo '
+
+                                                    if($estado =="Terminado"){
+
+                                                        echo '<a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'"  data-horita="'.$horaReunion.'" title="Add this item" class="open-AddBookDialog '.$colorBoton.' play " href="#alerta"> Ver Reunion </a>';
 
 
-                                                    <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'"  data-horita="'.$horaReunion.'" title="Add this item" class="open-AddBookDialog '.$colorBoton.' play " href="#alerta"> Iniciar Reunion </a>';
+                                                    }
+                                                    else{
+                                                        echo '<a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'"  data-horita="'.$horaReunion.'" title="Add this item" class="open-AddBookDialog '.$colorBoton.' play " href="#alerta"> Iniciar Reunion </a>';
+
+
+                                                    }
+
 
                                                 }
                                                 else{
 
-                                                    echo '
-                                                    <a href="iniciarReunion.php?variable1='.$id.'" class="'.$colorBoton.' play"  > Inician Reunion </a>';
+                                                    if($estado =="Terminado"){
+
+                                                        echo '
+                                                        <a href="iniciarReunion.php?variable1='.$id.'" class="'.$colorBoton.' play"  > Ver Reunion </a>';
+
+                                                    }
+                                                    else{
+                                                        echo '
+                                                        <a href="iniciarReunion.php?variable1='.$id.'" class="'.$colorBoton.' play"  > Iniciar Reunion </a>';
+
+
+                                                    }
+
                                                 }
                                                 echo'
                                             
