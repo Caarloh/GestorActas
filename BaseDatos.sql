@@ -2,13 +2,13 @@
 SET time_zone = "+00:00";
 
 --
--- Base de datos: `gestoractas`
+-- Database: `gestoractas`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `accion`
+-- Table structure for table `accion`
 --
 
 CREATE TABLE `accion` (
@@ -18,13 +18,14 @@ CREATE TABLE `accion` (
   `refinvitado` varchar(50) NOT NULL,
   `fechatermino` varchar(50) NOT NULL,
   `estado` varchar(50) NOT NULL,
-  `id` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `refeditor` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `acta`
+-- Table structure for table `acta`
 --
 
 CREATE TABLE `acta` (
@@ -35,7 +36,7 @@ CREATE TABLE `acta` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `consejo`
+-- Table structure for table `consejo`
 --
 
 CREATE TABLE `consejo` (
@@ -48,7 +49,7 @@ CREATE TABLE `consejo` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `invitado`
+-- Table structure for table `invitado`
 --
 
 CREATE TABLE `invitado` (
@@ -60,18 +61,19 @@ CREATE TABLE `invitado` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `relacionreunioninvitado`
+-- Table structure for table `relacionreunioninvitado`
 --
 
 CREATE TABLE `relacionreunioninvitado` (
   `refcorreo` varchar(50) NOT NULL,
-  `refid` int(11) NOT NULL
+  `refid` int(11) NOT NULL,
+  `asistencia` varchar(50) NOT NULL DEFAULT 'NO'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `reunion`
+-- Table structure for table `reunion`
 --
 
 CREATE TABLE `reunion` (
@@ -91,7 +93,7 @@ CREATE TABLE `reunion` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tema`
+-- Table structure for table `tema`
 --
 
 CREATE TABLE `tema` (
@@ -102,11 +104,11 @@ CREATE TABLE `tema` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `accion`
+-- Indexes for table `accion`
 --
 ALTER TABLE `accion`
   ADD PRIMARY KEY (`id`),
@@ -115,63 +117,63 @@ ALTER TABLE `accion`
   ADD KEY `fktema` (`reftema`);
 
 --
--- Indices de la tabla `acta`
+-- Indexes for table `acta`
 --
 ALTER TABLE `acta`
   ADD KEY `fk_reunion` (`refreunion`);
 
 --
--- Indices de la tabla `consejo`
+-- Indexes for table `consejo`
 --
 ALTER TABLE `consejo`
   ADD PRIMARY KEY (`correo`);
 
 --
--- Indices de la tabla `invitado`
+-- Indexes for table `invitado`
 --
 ALTER TABLE `invitado`
   ADD PRIMARY KEY (`correo`);
 
 --
--- Indices de la tabla `relacionreunioninvitado`
+-- Indexes for table `relacionreunioninvitado`
 --
 ALTER TABLE `relacionreunioninvitado`
   ADD KEY `fkrelacioninvitado` (`refcorreo`),
   ADD KEY `fkrelacionreunion` (`refid`);
 
 --
--- Indices de la tabla `reunion`
+-- Indexes for table `reunion`
 --
 ALTER TABLE `reunion`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `tema`
+-- Indexes for table `tema`
 --
 ALTER TABLE `tema`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fkreunion` (`refreunion`);
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `accion`
+-- Constraints for table `accion`
 --
 ALTER TABLE `accion`
   ADD CONSTRAINT `fkreuniontema` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fktema` FOREIGN KEY (`reftema`) REFERENCES `tema` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `relacionreunioninvitado`
+-- Constraints for table `relacionreunioninvitado`
 --
 ALTER TABLE `relacionreunioninvitado`
   ADD CONSTRAINT `fkrelacioninvitado` FOREIGN KEY (`refcorreo`) REFERENCES `invitado` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fkrelacionreunion` FOREIGN KEY (`refid`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `tema`
+-- Constraints for table `tema`
 --
 ALTER TABLE `tema`
   ADD CONSTRAINT `fkreunion` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

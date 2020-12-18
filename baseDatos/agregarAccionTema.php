@@ -37,8 +37,8 @@
     }
 
     if($crearAccion){
-        $consulta1 = "INSERT INTO accion (nombre, refreunion, reftema, refinvitado, fechatermino, estado, id) VALUES ('$nombre','$idReunion','$idTema','$encargadoAccionModal', '$fecha','Pendiente','$idAccion')";
-        echo $resultado = mysqli_query($conexion,$consulta1) or die ( "'$nombre','$idReunion','$idTema','$refInvitado', '$fecha','Pendiente','$idAccion'");
+        $consulta1 = "INSERT INTO accion (nombre, refreunion, reftema, refinvitado, fechatermino, estado, id, refeditor) VALUES ('$nombre','$idReunion','$idTema','$encargadoAccionModal', '$fecha','Pendiente','$idAccion')";
+        echo $resultado = mysqli_query($conexion,$consulta1) or die ( "'$nombre','$idReunion','$idTema','$refInvitado', '$fecha','Pendiente','$idAccion', ''");
     }
     else{
         echo 6;

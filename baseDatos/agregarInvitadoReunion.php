@@ -30,7 +30,7 @@
             }
         }while($contrasenaInvitado==0 || $existeContra);
 
-        $consulta = "INSERT INTO invitado (correo, nombre, codigoAcceso) VALUES ('$correo', '$nombre','$contrasenaInvitado')";
+        $consulta = "INSERT INTO invitado (correo, nombre, codigoAcceso, asistencia) VALUES ('$correo', '$nombre','$contrasenaInvitado', 'NO')";
         mysqli_query($conexion,$consulta);
         //Enviar Correo
         include '../envio_de_correos/superiorenviarcorreo.php';
