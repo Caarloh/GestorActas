@@ -23,7 +23,9 @@ try {
     $mail->Host       = 'smtp.gmail.com';                 
     $mail->SMTPAuth   = true;                                 
     $mail->Username   = 'pollorobot2020@gmail.com';                     //correo que envia el mail (hice un correo de ejemplo)
-    $mail->Password   = 'pollorobot_2020';                               // contraseña del correo
+    
+    $mail->Password   = 'PolloRobot_2020';                               // contraseña del correo
+
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;        
     $mail->Port       = 587;                                   
 
