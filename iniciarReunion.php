@@ -238,6 +238,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                             <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Correo</th>
+                            <th scope="col">Asistencia</th>
                             <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -245,6 +246,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                             <?php
                                 $consulta = "SELECT * FROM relacionreunioninvitado WHERE refid='$id'";
                                 $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                $contador = 0;
                                 while ($columna = mysqli_fetch_array( $resultado )){
                                     $refCorreo = $columna['refcorreo'];
 
@@ -256,8 +258,11 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                         echo '<tr>
                                             <td>'.$columna2['nombre'].'</td>
                                             <td>'.$columna2['correo'].'</td>
+                                            <td><input type="checkbox" name="'.$columna2['nombre'].'" value="'.$contador.'"></td>
                                             <td><a class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a></td>
+
                                         </tr>';
+                                        $contador = $contador + 1;
                                     }
 
                                     
