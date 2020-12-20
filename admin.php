@@ -7,7 +7,7 @@
     </div>
     <div class="bg-card">
         <div class="bg-card-body">
-            <h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-user-cog"></i>  Comite</h3>
+            <h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-user-friends"></i> Comite</h3>
             <br>
             <div class="row">
                 <div class="col">
@@ -70,7 +70,7 @@
 
     <div class="bg-card">
         <div class="bg-card-body">
-            <h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-user-cog"></i>  Invitados</h3>
+            <h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-users"></i>  Invitados</h3>
             <br>
             <div class="table-responsive">
                 <table class="table" id="tablaTema">
