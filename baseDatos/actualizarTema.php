@@ -5,7 +5,7 @@
     $nombreTema = $_POST['nombreTemaModalEdicion'];
     $seguir = false;
     
-    $consulta = "SELECT * FROM tema WHERE nombre='$nombreTema' AND id = '$idTema'";
+    $consulta = "SELECT * FROM tema WHERE id = '$idTema'";
     $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
     while ($columna = mysqli_fetch_array( $resultado )){
         $seguir=true;
