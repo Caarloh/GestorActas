@@ -222,6 +222,103 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
 
     <div class="bg-card">
         <div class="bg-card-head py-3">
+            <center><h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-smile-wink"></i> Comite</h3></center>
+        </div>
+        <div class="bg-card-body">
+
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Asistencia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $consulta = "SELECT * FROM consejo";
+                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                while ($columna = mysqli_fetch_array( $resultado )){
+                                    $correo = $columna['correo'];
+                                    $nombre = $columna['nombre'].' '.$columna['apellidos'];
+                                    $asistencia2 = "";
+                                    
+
+                                    $existeAsistencia = false;
+
+                                    $consulta2 = "SELECT * FROM asistenciacomite WHERE refcorreo='$correo' AND refid='$id'";
+                                    $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                    while ($columna2 = mysqli_fetch_array( $resultado2 )){
+                                        $existeAsistencia = true;
+                                        $asistencia2 = $columna2['asistencia'];
+                                        
+                                    }
+
+                                    if(!$existeAsistencia){
+                                        $consulta3 = "INSERT INTO asistenciacomite(refcorreo, refid, asistencia) VALUES ('$correo','$id','NO')";
+                                        mysqli_query($conexion, $consulta3);
+                                        $asistencia2 = "NO";
+                                    }
+
+                                    $botonAsistencia2 = "";
+                                    $datosAsistencia2 = $correo.'||'.$id;
+
+                                    $funcionAsistenciaTermi = "reunionTerminada()";
+                                    $funcionAsistenciaNoIniciada = "reunionNoIniciada()";
+
+                                    $funcionAsistencia2 = "modificarAsistenciaComite('".$datosAsistencia2."')";
+
+                                    if($asistencia2 == "SI" && $estado !="Terminado" && $horaInicio!="" && $horaInicio!=" "){
+                                        $botonAsistencia2 = '<a class="button save" onclick="'.$funcionAsistencia2.'"></a>';
+                                    }
+                                    else if($asistencia2 == "NO" && $estado !="Terminado" && $horaInicio!="" && $horaInicio!=" "){
+                                        $botonAsistencia2 = '<a class="buttonRed delete" onclick="'.$funcionAsistencia2.'"></a>';
+
+                                    }
+                                    else if($estado == "Terminado"){
+                                        if($asistencia2 == "SI"){
+                                            $botonAsistencia2 = '<a class="button save" onclick="'.$funcionAsistenciaTermi.'"></a>';
+                                        }
+                                        else{
+                                            $botonAsistencia2 = '<a class="buttonRed delete" onclick="'.$funcionAsistenciaTermi.'"></a>';
+                                        }
+                                        
+
+                                    }
+                                    else if($horaInicio == "" || $horaInicio == " "){
+                                        if($asistencia2 == "SI"){
+                                            $botonAsistencia2 = '<a class="button save" onclick="'.$funcionAsistenciaNoIniciada.'"></a>';
+                                        }
+                                        else{
+                                            $botonAsistencia2 = '<a class="buttonRed delete" onclick="'.$funcionAsistenciaNoIniciada.'"></a>';
+                                        }
+                                        
+
+                                    }
+
+
+                                    echo '<tr>
+                                            <td>'.$nombre.'</td>
+                                            <td>'.$correo.'</td>
+                                            <td>'.$botonAsistencia2.'</td>
+                                        </tr>';
+
+                                    
+                                }
+                            ?>
+                        </tbody>
+                        </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="bg-card">
+        <div class="bg-card-head py-3">
             <center><h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-smile-wink"></i> Invitados</h3></center>
         </div>
         <div class="bg-card-body">
@@ -238,6 +335,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                             <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Correo</th>
+                            <th scope="col">Asistencia</th>
                             <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -247,6 +345,41 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                 $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
                                 while ($columna = mysqli_fetch_array( $resultado )){
                                     $refCorreo = $columna['refcorreo'];
+                                    $asistencia = $columna['asistencia'];
+                                    $botonAsistencia = "";
+                                    $datosAsistencia = $refCorreo.'||'.$id;
+
+                                    $funcionAsistencia = "modificarAsistenciaInvitado('".$datosAsistencia."')";
+                                    $funcionAsistenciaTermi = "reunionTerminada()";
+                                    $funcionAsistenciaNoIniciada = "reunionNoIniciada()";
+
+                                    if($asistencia == "SI" && $estado !="Terminado" && $horaInicio!="" && $horaInicio!=" "){
+                                        $botonAsistencia = '<a class="button save" onclick="'.$funcionAsistencia.'"></a>';
+                                    }
+                                    else if($asistencia == "NO" && $estado !="Terminado" && $horaInicio!="" && $horaInicio!=" "){
+                                        $botonAsistencia = '<a class="buttonRed delete" onclick="'.$funcionAsistencia.'"></a>';
+
+                                    }
+                                    else if($estado == "Terminado"){
+                                        if($asistencia == "SI"){
+                                            $botonAsistencia = '<a class="button save" onclick="'.$funcionAsistenciaTermi.'"></a>';
+                                        }
+                                        else{
+                                            $botonAsistencia = '<a class="buttonRed delete" onclick="'.$funcionAsistenciaTermi.'"></a>';
+                                        }
+                                        
+
+                                    }
+                                    else if($horaInicio == "" || $horaInicio == " "){
+                                        if($asistencia == "SI"){
+                                            $botonAsistencia = '<a class="button save" onclick="'.$funcionAsistenciaNoIniciada.'"></a>';
+                                        }
+                                        else{
+                                            $botonAsistencia = '<a class="buttonRed delete" onclick="'.$funcionAsistenciaNoIniciada.'"></a>';
+                                        }
+                                        
+
+                                    }
 
                                     $consulta2 = "SELECT * FROM invitado WHERE correo='$refCorreo'";
                                     $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
@@ -256,6 +389,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                         echo '<tr>
                                             <td>'.$columna2['nombre'].'</td>
                                             <td>'.$columna2['correo'].'</td>
+                                            <td>'.$botonAsistencia.'</td>
                                             <td><a class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a></td>
                                         </tr>';
                                     }

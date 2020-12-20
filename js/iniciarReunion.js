@@ -69,6 +69,64 @@ function eliminarDatosTema(nombre, idReunion){
         }
     });
 }
+
+function modificarAsistenciaInvitado(datos){
+  d=datos.split("||");
+
+  cadena2="correo=" + d[0] +"&idReunion="+d[1];
+
+  $.ajax({
+      type:"POST",
+      url:"baseDatos/actualizarAsistenciaInvitado.php",
+      data:cadena2,
+      success:function(r){
+          if(r==1){
+              location.reload();
+          }else{
+              if(r==6){
+                alertify.error("Invitado no existe.");
+              }
+              else{
+                alertify.error("FALLO EN EL SERVIDOR");
+              }
+              
+          }
+      }
+  });
+}
+
+function modificarAsistenciaComite(datos){
+  d=datos.split("||");
+
+  cadena2="correo=" + d[0] +"&idReunion="+d[1];
+
+  $.ajax({
+      type:"POST",
+      url:"baseDatos/actualizarAsistenciaComite.php",
+      data:cadena2,
+      success:function(r){
+          if(r==1){
+              location.reload();
+          }else{
+              if(r==6){
+                alertify.error("Invitado no existe.");
+              }
+              else{
+                alertify.error("FALLO EN EL SERVIDOR");
+              }
+              
+          }
+      }
+  });
+}
+function reunionNoIniciada(){
+  alertify.error("LA REUNION NO SE HA INICIADO");
+}
+
+function reunionTerminada(){
+  alertify.error("LA REUNION SE ENCUENTRA TERMINADA");
+
+}
 function eliminarDatosAccion(idAccion){
 
     cadena2="&idAccion="+idAccion;

@@ -15,11 +15,12 @@ CREATE TABLE `accion` (
   `nombre` varchar(50) NOT NULL,
   `refreunion` int(11) NOT NULL,
   `reftema` int(11) NOT NULL,
-  `refinvitado` varchar(50) NOT NULL,
+  `refinvitado` varchar(50) DEFAULT NULL,
   `fechatermino` varchar(50) NOT NULL,
   `estado` varchar(50) NOT NULL,
   `id` int(11) NOT NULL,
-  `refeditor` varchar(50) NOT NULL
+  `refeditor` varchar(50) DEFAULT NULL,
+  `comentario` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -31,6 +32,28 @@ CREATE TABLE `accion` (
 CREATE TABLE `acta` (
   `titulo` int(11) NOT NULL,
   `refreunion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `correo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistenciacomite`
+--
+
+CREATE TABLE `asistenciacomite` (
+  `refcorreo` varchar(50) NOT NULL,
+  `refid` int(11) NOT NULL,
+  `asistencia` varchar(50) NOT NULL DEFAULT 'NO'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -113,14 +136,27 @@ CREATE TABLE `tema` (
 ALTER TABLE `accion`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fkreuniontema` (`refreunion`),
-  ADD KEY `fkinvitado` (`refinvitado`),
-  ADD KEY `fktema` (`reftema`);
+  ADD KEY `fktema` (`reftema`),
+  ADD KEY `fkinvitado` (`refinvitado`);
 
 --
 -- Indexes for table `acta`
 --
 ALTER TABLE `acta`
   ADD KEY `fk_reunion` (`refreunion`);
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`correo`);
+
+--
+-- Indexes for table `asistenciacomite`
+--
+ALTER TABLE `asistenciacomite`
+  ADD KEY `fkasistenciacorreo` (`refcorreo`),
+  ADD KEY `fkasistenciareunion` (`refid`);
 
 --
 -- Indexes for table `consejo`
@@ -162,8 +198,22 @@ ALTER TABLE `tema`
 -- Constraints for table `accion`
 --
 ALTER TABLE `accion`
+  ADD CONSTRAINT `fkinvitado` FOREIGN KEY (`refinvitado`) REFERENCES `invitado` (`correo`) ON DELETE SET NULL ON UPDATE NO ACTION,
   ADD CONSTRAINT `fkreuniontema` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fktema` FOREIGN KEY (`reftema`) REFERENCES `tema` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `admin`
+--
+ALTER TABLE `admin`
+  ADD CONSTRAINT `fkadmin` FOREIGN KEY (`correo`) REFERENCES `consejo` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `asistenciacomite`
+--
+ALTER TABLE `asistenciacomite`
+  ADD CONSTRAINT `fkasistenciacorreo` FOREIGN KEY (`refcorreo`) REFERENCES `consejo` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fkasistenciareunion` FOREIGN KEY (`refid`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `relacionreunioninvitado`

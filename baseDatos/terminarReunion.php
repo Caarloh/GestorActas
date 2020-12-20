@@ -258,7 +258,7 @@
 
             include '../envio_de_correos/inferiorenviarcorreo.php';
 
-            include '../envio_de_correos/superiorenviarcorreo.php';	
+            $mail->ClearAllRecipients();
 
             //Contenido del correo
             $mail->isHTML(true);
