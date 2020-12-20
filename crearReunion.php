@@ -18,6 +18,36 @@
         header("Location: inicioSesion.php");
     }
 
+    if (isset($_POST['cambiarContrasena'])) {
+        $contrasena = $_POST['contrasenaUsuario'];
+        $verificacionContrasena = $_POST['verificacionContrasenaUsuario'];
+    
+        if($contrasena == $verificacionContrasena){
+            $consulta = "UPDATE consejo SET contrasena='$contrasena' WHERE correo='$correoSession'";
+            $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+            $_SESSION['contrasena'] = $contrasena;
+            echo '<script>alert("Contraseña cambiada con exito");</script>';
+        }
+        else{
+            echo '<script>alert("Contraseñas no coinciden");</script>';
+        }
+        
+    }
+
+    $encontro = false;
+    $consulta = "SELECT * FROM consejo WHERE correo='$correoSession'";
+    $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+    while ($columna = mysqli_fetch_array( $resultado )){
+        $nombreSession = $columna['nombre'];
+        $encontro = true;
+    }
+    if(!$encontro){
+        session_destroy();
+        $_SESSION = array();
+        header("Location: inicioSesion.php");
+    }
+    
+
     $consulta = "SELECT * FROM reunion WHERE id='$idReunion'";
     $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
     while ($columna = mysqli_fetch_array( $resultado )){
@@ -135,19 +165,18 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nombre Usuario</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hola <?php echo $nombreSession; ?></span>
+                                <img class="img-profile rounded-circle" src="https://cdn.discordapp.com/attachments/569659673792479252/569662825195372564/unknown.png">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" data-toggle="modal" data-target="#perfilModal">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Salir
                                 </a>
@@ -580,6 +609,50 @@
             </div>
         </div>
     </div>
+
+     <!-- Perfil Modal-->
+  <div class="modal fade" id="perfilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Mis Datos</h5>
+                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+              </div>
+              <form action="" method="POST">
+                <div class="modal-body">
+                  
+                  <div class="form-group">
+                      <div class="row">
+                          <div class="col">
+                              <label>Contraseña</label>
+                          </div>
+                          <div class="col">
+                              <input type="password" class="form-control" name="contrasenaUsuario" value="<?php echo $contrasenaSession?>">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="row">
+                          <div class="col">
+                              <label>Verificación Contraseña</label>
+                          </div>
+                          <div class="col">
+                              <input type="password" class="form-control" name="verificacionContrasenaUsuario" value="<?php echo $contrasenaSession?>">
+                          </div>
+                      </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" name="cambiarContrasena">Cambiar Contraseña</button>
+                </div>
+              </form>
+          </div>
+      </div>
+  </div>
     
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

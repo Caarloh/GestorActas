@@ -45,6 +45,50 @@
           </div>
       </div>
   </div>
+
+  <!-- Perfil Modal-->
+  <div class="modal fade" id="perfilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Mis Datos</h5>
+                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+              </div>
+              <form action="" method="POST">
+                <div class="modal-body">
+                  
+                  <div class="form-group">
+                      <div class="row">
+                          <div class="col">
+                              <label>Contraseña</label>
+                          </div>
+                          <div class="col">
+                              <input type="password" class="form-control" name="contrasenaUsuario" value="<?php echo $contrasenaSession?>">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="row">
+                          <div class="col">
+                              <label>Verificación Contraseña</label>
+                          </div>
+                          <div class="col">
+                              <input type="password" class="form-control" name="verificacionContrasenaUsuario" value="<?php echo $contrasenaSession?>">
+                          </div>
+                      </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" name="cambiarContrasena">Cambiar Contraseña</button>
+                </div>
+              </form>
+          </div>
+      </div>
+  </div>
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -63,6 +107,7 @@
     <script type="text/javascript" src="js/acta.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/alerta.js"></script>
+    <script type="text/javascript" src="js/admin.js"></script>
    
 </body>
 
