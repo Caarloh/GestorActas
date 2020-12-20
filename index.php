@@ -7,9 +7,22 @@
 
 
                 <!-- Begin Page Content -->
+
+
+  
+
+
+
+
+
+
                 <div class="container-fluid">
+
+
+
+
                     <center>
-                        <h1 class="h3 mb-0 text-gray-800">Reuniones</h1>
+                        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-users"></i>  Reuniones</h1>
                         
                     </center>
 
@@ -30,7 +43,8 @@
                                         <input type="date" class="form-control" id="fechaReunionCalendar" requiered>
                                     </div>
                                     <div class="col">
-                        <button class="button-crear fa fa-plus" data-toggle="modal"data-target="#crearReunion"> Crear Reunion</button>
+
+                                    <a href="" class="button add" data-toggle="modal" data-target="#crearReunion"> Crear Reunion </a>
                         </div>
                                 </div>
                               </div>
@@ -46,84 +60,121 @@
 
                                             $id = $columna['id'];
                                             $linkReunion = $columna['linkReunion'];
-                                            $colorCard = "bg-create";
+                                            $colorCard = "#4065FE";
                                             $horaReunion= $columna['hora'];
-                                            $colorBoton = "btn-primary";
+                                            $colorBoton = "buttonBlue";
                                             $fecha = $columna['fecha'];
                                             $estado = $columna['estado'];
                                             $fechaActual = date("Y-m-d");
                     
                                             if($estado == "Terminado"){
-                                                $colorCard = "bg-success";
-                                                $colorBoton = "btn-success";
+                                                $colorCard = "#58D68D";
+                                                $colorBoton = "button";
                                             }
                                             else if($estado=="En Proceso"){
-                                                $colorCard = "bg-info";
-                                                $colorBoton = "btn-info";
+                                                $colorCard = "#FFC300";
+                                                $colorBoton = "buttonYellow";
 
                                             }
                                             else if($estado=="En Espera"){
-                                                $colorCard = "bg-danger";
-                                                $colorBoton = "btn-danger";
+                                                $colorCard = "#FF3333";
+                                                $colorBoton = "buttonRed";
 
 
                                             }
 
                                             echo '
 
+                                            <div class="wrapper2"   style="background-color: '.$colorCard.'">
+                                            ';
+                                            if($estado == "Terminado"){
 
-                                            
-                                                    <div class="card text-white '.$colorCard.' mb-3">
-                                                        <div class="d-flex bd-highlight mb-3">
-                                                            <div class="mr-auto p-2 bd-highlight"><h5 class="card-title"> Nombre: '.$columna['nombre'].'</h5></div>
-                                                            ';
-                                                            if($estado == "Terminado"){
-
-                                                            }
-                                                            else{
-                                                                echo '<div class="p-2 bd-highlight"><button id="btnEditarReunionIndex" class="btn-sm btn-info"data-toggle="modal" data-target="#editarReunionIndex" onclick="'.$usarFuncion.'"><i class="fas fa-pen"></i></button></div>';
-                                                            }
-                                                        echo '
-                                                        </div> 
-
-                                                        <div class="card-body">
-                                                            <h6 class="m-b-20">Reunión: '.$columna['tipoPredefinido'].'</h6>
-                                                            
-                                                            <h5 class="card-title"><i class="far fa-calendar"></i> '.$columna['fecha'].'</h5>
-                                                            <h5 class="card-title"><i class="far fa-clock"></i> '.$columna['hora'].'</h5>
-                                                            <h5 class="card-title"><i class="fas fa-stopwatch"></i> '.$columna['duracion'].' '.$columna['tipoDuracion'].'</h5>';
-                                                            
-                                                            if($linkReunion == "" || $linkReunion==" "){
-                                                                echo '<h5 class="card-title"><i class="fas fa-link"></i><a class="btn '.$colorBoton.'" href=""></a></h5>';
-                                                            }
-                                                            else {
-                                                                echo ' 
-                                                                       <a href="'.$linkReunion.'" class="btn '.$colorBoton.'" id="copy-button" data-clipboard-target="#G'.$id.'"><i class="fas fa-chevron-right"></i>Link Reunion</a>';
-                                                            }
-                                                           
-                                                            echo'
-
-                                                           
-
-                                                            
-                                                        
-                                                        </div>';
-                                                        if($fechaActual < $fecha){
-
-                                                            echo '
-                                                            <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'"  data-horita="'.$horaReunion.'" title="Add this item" class="open-AddBookDialog btn '.$colorBoton.'" href="#alerta"><i class="fas fa-chevron-right"></i>Ingresar a Reunion</a>';
-
-                                                        }
-                                                        else{
-        
-                                                            echo '
-                                                            <a href="iniciarReunion.php?variable1='.$id.'" class="btn '.$colorBoton.'"><i class="fas fa-chevron-right"></i>Ingresar a Reunion</a>';
-                                                        }
-                                                        echo'
-                                                
-                                                            
-                                                    </div>
+                                            }
+                                            else{
+                                                echo '
+                                                <a id="btnEditarReunionIndex" class="'.$colorBoton.'  edit" style="width:60%" data-toggle="modal" data-target="#editarReunionIndex" onclick="'.$usarFuncion.'">Editar</a>
                                                 ';
+                                                
+                                                
+                                            }
+                                        echo '
+                                            
+                                            <h2 class="upper">Reunion: '.$columna['tipoPredefinido'].'</h2>
+                                            <h2 class="meetup">'.$columna['nombre'].'</h2>
+                                            <br>
+                                            <p class="details">
+                                              <span class="row2">
+                                                <i class="material-icons far fa-calendar"></i>
+                                                <span class="row2-item">
+                                                <time> '.$columna['fecha'].' a las  '.$columna['hora'].'</time>
+                                                </span>
+                                              </span>
+                                            
+                                              <span class="row2">
+                                                <i class="material-icons fas fa-stopwatch"></i>
+                                                <span class="row2-item">
+                                                <strong>'.$columna['duracion'].' '.$columna['tipoDuracion'].'</strong>
+                                                </span>
+                                              </span>
+                                            
+                                              <span class="row2">
+                                                <i class="material-icons fas fa-link"></i>
+                                                
+                                                <span class="row2-item">';
+                                                if($linkReunion == "" || $linkReunion==" "){
+                                                    echo ' <a href="" style="color: white">Link no disponible</a>
+                                                    ';
+                                                }
+                                                else {
+                                                    echo ' 
+                                                    <a href="'.$linkReunion.'" style="color: white">Link Reunion</a>
+                                                    ';
+                                                }
+                                               
+                                                echo'
+                                                
+                                            
+                                                </span>
+                                            
+                                                </span>
+                                            
+                                              <span class="row2">
+                                                <i class="material-icons"></i>
+                                                <span class="row2-item">';
+
+                                                if($fechaActual < $fecha){
+
+                                                    echo '
+
+
+                                                    <a data-toggle="modal" data-id="'.$fecha.'" data-condicion="programado" data-reunion="'.$id.'"  data-horita="'.$horaReunion.'" title="Add this item" class="open-AddBookDialog '.$colorBoton.' play " href="#alerta"> Iniciar Reunion </a>';
+
+                                                }
+                                                else{
+
+                                                    echo '
+                                                    <a href="iniciarReunion.php?variable1='.$id.'" class="'.$colorBoton.' play"  > Inician Reunion </a>';
+                                                }
+                                                echo'
+                                            
+                                                </span>
+                                            
+                                                </span>
+                                            
+                                            </p>
+
+
+                                                    
+                                               
+
+
+                                            </div>
+                                            
+                                                   
+                                                ';
+
+
+
                                                
                      
                                         }
@@ -577,8 +628,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="button-rojo" data-dismiss="modal" id="cerrar">Cerrar</button>
-                        <button type="button" class="button-azul" id="siguientePaso">Siguiente Paso</button>
+                         <a class = "buttonRed delete" data-dismiss="modal" id="cerrar">Cerrar </a>
+                         <a class = "button next" data-dismiss="modal" id="siguientePaso"> Siguiente Paso </a>
                     </div>
                 </div>
             </div>

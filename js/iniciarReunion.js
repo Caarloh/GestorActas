@@ -98,9 +98,46 @@ function formEditarAccion(datos){
     d=datos.split('||');
     $('#idAccionModalEdicion').val(d[0]);
     $('#nombreAccionModalEdicion').val(d[1]);
+    $('#encargadoAccionModalEdicion').val(d[2]);
+    $('#estadoAccionModalEdicion').val(d[3]);
+    $('#fechanuevaterminoAccion').val(d[4]);
 }
 
 $(document).ready(function(){
+    $('#btnTerminarReunion').click(function(){
+        idReunion = $('#idReunion').val();
+
+
+        if(idReunion == "" || idReunion==" "){
+            alert("Error en Id Reunion");
+
+        }
+        else{
+            cadena = "idReunion=" + idReunion;
+            $.ajax({
+                type:"POST",
+                url:"baseDatos/terminarReunion.php",
+                data:cadena,
+                success:function(r){
+                  if(r==1){
+                    window.location="index.php";
+                    
+                  }else{
+                    if (r==3) {
+                        alertify.error("La reunión no se ha iniciado");
+                    }
+                    else if (r==6) {
+                        alertify.error("Reunion no fue encontrada");
+                    }
+                    else{
+                        alertify.error("Fallo en el servidor.");
+                    }
+                  }
+                }
+              });
+        }
+
+    });
     $('#crearAccionBoton').click(function(){
         nombreAccionModal = $('#nombreAccionModal').val();
         correoInvitadoAccion = $('#correoInvitadoAccion').val();
@@ -295,9 +332,9 @@ $(document).ready(function(){
         fechaAccionModal= $('#fechanuevaterminoAccion').val();
         estadoAccionModal= $('#estadoAccionModalEdicion').val();
 
-        //cadena = "idAccionModalEdicion=" + idAccion+ "&nombreAccionModalEdicion=" + nombreAccionModal + "&encargadoAccionModalEdicion=" +encargadoAccionModal+
-        //"&fechanuevaterminoAccion=" + fechaAccionModal + "&estadoAccionModalEdicion=" + estadoAccionModal;
-        cadena = "idAccionModalEdicion=" + idAccion+ "&nombreAccionModalEdicion=" + nombreAccionModal;
+        cadena = "idAccionModalEdicion=" + idAccion+ "&nombreAccionModalEdicion=" + nombreAccionModal + "&encargadoAccionModalEdicion=" +encargadoAccionModal+
+        "&fechanuevaterminoAccion=" + fechaAccionModal + "&estadoAccionModalEdicion=" + estadoAccionModal;
+        //cadena = "idAccionModalEdicion=" + idAccion+ "&nombreAccionModalEdicion=" + nombreAccionModal;
         if(nombreTemaModal == "" || nombreTemaModal==" "){
             alert("Completar nombre del tema");
         }
