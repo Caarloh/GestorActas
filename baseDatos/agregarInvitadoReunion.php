@@ -30,7 +30,7 @@
             }
         }while($contrasenaInvitado==0 || $existeContra);
 
-        $consulta = "INSERT INTO invitado (correo, nombre, codigoAcceso, asistencia) VALUES ('$correo', '$nombre','$contrasenaInvitado', 'NO')";
+        $consulta = "INSERT INTO invitado (correo, nombre, codigoAcceso) VALUES ('$correo', '$nombre','$contrasenaInvitado')";
         mysqli_query($conexion,$consulta);
         //Enviar Correo
         include '../envio_de_correos/superiorenviarcorreo.php';
@@ -234,7 +234,7 @@
     }
 
     if($copiarInvitado){
-        $consulta = "INSERT INTO relacionreunioninvitado (refcorreo, refid) VALUES ('$correo', '$idReunion')";
+        $consulta = "INSERT INTO relacionreunioninvitado (refcorreo, refid, asistencia) VALUES ('$correo', '$idReunion', 'NO')";
         echo $result=mysqli_query($conexion,$consulta);
     }
     else{

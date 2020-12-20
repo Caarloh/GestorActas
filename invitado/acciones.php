@@ -172,7 +172,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $consulta_0 = "SELECT * FROM accion WHERE refinvitado='$correo' AND estado!='Terminado'";
+                                    $consulta_0 = "SELECT * FROM accion WHERE refinvitado='$correoSession' AND estado!='Terminado'";
                                     $resultado_0 = mysqli_query($conexion, $consulta_0) or die ( "Algo ha ido mal en la consulta a la base de datos1");
                                     while ($columna_0 = mysqli_fetch_array( $resultado_0 )){
                                         $refTema = $columna_0['reftema'];
@@ -185,7 +185,7 @@
                                         $tipoReunion = "";
 
 
-                                        $datos = $columna_0["id"].'||'.$columna_0['nombre'].'||'.$columna_0["fechatermino"].'||'.$columna_0["estado"];
+                                        $datos = $columna_0["id"].'||'.$columna_0['nombre'].'||'.$columna_0["fechatermino"].'||'.$columna_0["estado"]."||".$columna_0["comentario"];
                                         $usarFuncion = "formVerAccion('".$datos."')";
 
                                         $consulta_1 = "SELECT * FROM tema WHERE id='$refTema'";
@@ -373,12 +373,10 @@
 
                         </div>
                         <div class="form-group">
-                            <div class="row">
-                                <div class="col">
-                                    <label>Archivo</label>
-                                </div>
-                            </div>
-
+                            <label>Comentarios</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="comentarioInvitado" cols="30" rows="10"></textarea>
                         </div>
 
                     </form>
@@ -402,16 +400,23 @@
   
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="../js/accionesInvitado.js"></script>
   <script>
+    function formVerAccion(datos){
+      d=datos.split('||');
+      $('#idAccion').val(d[0]);
+      $('#nombreAccion').val(d[1]);
+      $('#fechaTermino').val(d[2]);
+      $('#estadoAccion').val(d[3]);
+      $('#comentarioInvitado').val(d[4]);
+    }
   $(document).ready(function(){
   $('#guardarAccion').click(function(){
       
         idAccion = $('#idAccion').val();
         nombreAccion = $('#nombreAccion').val();
         estadoAccion= $('#estadoAccion').val();
-
-
+        comentarioAccion= $('#comentarioInvitado').val();
+        correoUsuario = '<?php echo $correoSession; ?>';
         
 
 
@@ -419,8 +424,11 @@
             alert("Error, nombre accion en blanco.");
 
         }
+        else if(estadoAccion == "Terminado" && (comentarioAccion == "" || comentarioAccion == " ")){
+            alert("Error, se debe escribir un comentario");
+        }
         else{
-            cadena = "idAccion=" + idAccion + "&nombreAccion=" + nombreAccion + "&estadoAccion=" + estadoAccion;
+            cadena = "idAccion=" + idAccion + "&nombreAccion=" + nombreAccion + "&estadoAccion=" + estadoAccion + "&comentarioAccion=" + comentarioAccion + "&refEditor=" + correoUsuario;
             $.ajax({
                 type:"POST",
                 url:"../baseDatos/actualizarAccionInvitado.php",
