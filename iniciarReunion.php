@@ -330,6 +330,69 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         </div>
     </div>
 
+
+
+    <div class="bg-card">
+        <div class="bg-card-head py-3">
+            <center><h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-book"></i> Resumen Reunión</h3></center>
+        </div>
+        <div class = "bg-card-body">
+        <table class="table" id="tableMain">
+                                    <thead>
+                                        <tr class="tableheader">
+                                          <th>Tema</th>
+                                          <th></th>
+                                          <th></th>
+                                          <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+        <?php
+                                $idReunion = $id;
+                                $consulta = "SELECT * FROM tema WHERE refreunion='$idReunion'";
+                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                while ($columna = mysqli_fetch_array( $resultado )){
+                                    $reftemas = $columna['id'];
+
+                                    echo'
+                                    
+                                    <tr class="breakrow"><td>'.$columna['nombre'].'</td><td></td><td></td><td></td></tr>
+                                    <tr class="datarow" data-class="hidden" style ="background-color: #148F77; color:white;"><td>Accion</td><td>Encargado</td><td>Estado</td><td>Fecha de Termino</td></tr>
+
+                                  
+                    
+                                
+                            ';
+                                  
+                                            $consulta2 = "SELECT * FROM accion WHERE reftema='$reftemas'";
+                                            $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                            while ($columna = mysqli_fetch_array( $resultado2 )){
+                                                echo'
+                                                <tr class="datarow"><td>'.$columna['nombre'].'</td><td>'.$columna['refinvitado'].'</td><td>'.$columna['estado'].'</td><td>'.$columna['fechatermino'].'</td></tr>
+                  
+                                
+                                            
+                                        ';
+                                            }
+                                        }
+
+                                  
+                            ?>
+                                                                </tbody>
+
+                            </table>
+
+       
+
+
+
+
+                            </div>          
+    </div>
+
+ 
+
+
     <div class="bg-card">
         <div class="bg-card-head py-3">
             <center><h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-book-reader"></i> Actas</h3></center>
@@ -749,6 +812,21 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+    <script>
+        $( document ).ready(function() {
+
+
+            //collapse and expand sections
+
+            //$('.breakrow').click(function(){
+			$('#tableMain').on('click', 'tr.breakrow',function(){
+                $(this).nextUntil('tr.breakrow').slideToggle(200);
+            });
+        });
+    </script>
 
 
 <?php require_once "vistas/parteinferior.php"?>
