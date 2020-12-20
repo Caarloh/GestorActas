@@ -457,12 +457,22 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                 <div class="col">
                                     <label>Encargado</label>
                                         <select class="form-control" id="encargadoAccionModal" required>
-                                            <option value="">Seleccionar invitado</option>
+                                            <option value="">Seleccionar encargado</option>
                                             <?php
+                                                echo '<option value="">-- Invitados --</option>';
                                                 $consulta2 = "SELECT * FROM relacionreunioninvitado WHERE refid='$idReunion'";
                                                 $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
                                                 while ($columna = mysqli_fetch_array($resultado2)){
                                                     $refCorreo = $columna['refcorreo'];
+                                                    $nombre = $columna['nombre'];
+                                                    echo '<option value="'.$refCorreo.'">'.$refCorreo .'</option>';
+                                                }
+                                                echo '<option value="">-- Miembros del consejo --</option>';
+                                                $consulta3 = "SELECT * FROM consejo";
+                                                $resultado3 = mysqli_query($conexion, $consulta3) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                                while ($columna = mysqli_fetch_array($resultado3)){
+                                                    $refCorreo = $columna['correo'];
+                                                    $nombre = $columna['nombre'];
                                                     echo '<option value="'.$refCorreo.'">'.$refCorreo .'</option>';
                                                 }
                                             ?>
@@ -530,13 +540,23 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                     <select class="form-control" id="encargadoAccionModalEdicion" required>
                                         <option value="">Seleccione nuevo encargado</option>
                                         <?php
-                                            $consulta2 = "SELECT * FROM relacionreunioninvitado WHERE refid='$idReunion'";
-                                            $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
-                                            while ($columna = mysqli_fetch_array($resultado2)){
-                                                $refCorreo = $columna['refcorreo'];
-                                                echo '<option value="'.$refCorreo.'">'.$refCorreo .'</option>';
-                                            }
-                                        ?>
+                                                echo '<option value="">-- Invitados --</option>';
+                                                $consulta2 = "SELECT * FROM relacionreunioninvitado WHERE refid='$idReunion'";
+                                                $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                                while ($columna = mysqli_fetch_array($resultado2)){
+                                                    $refCorreo = $columna['refcorreo'];
+                                                    $nombre = $columna['nombre'];
+                                                    echo '<option value="'.$refCorreo.'">'.$refCorreo .'</option>';
+                                                }
+                                                echo '<option value="">-- Miembros del consejo --</option>';
+                                                $consulta3 = "SELECT * FROM consejo";
+                                                $resultado3 = mysqli_query($conexion, $consulta3) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                                while ($columna = mysqli_fetch_array($resultado3)){
+                                                    $refCorreo = $columna['correo'];
+                                                    $nombre = $columna['nombre'];
+                                                    echo '<option value="'.$refCorreo.'">'.$refCorreo .'</option>';
+                                                }
+                                            ?>
                                     </select>
                                 </div>
                             </div>
