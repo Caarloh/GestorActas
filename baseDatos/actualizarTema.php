@@ -12,7 +12,7 @@
         
     }
     
-    if (!$seguir) {
+    if ($seguir) {
         $consulta = "UPDATE tema SET tag='Editado', nombre='$nombreTema' WHERE id='$idTema'";
         echo $result=mysqli_query($conexion,$consulta);
     }
