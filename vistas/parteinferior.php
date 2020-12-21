@@ -23,22 +23,71 @@
     <i class="fas fa-angle-up"></i>
   </a>
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">¿Listo para salir?</h5>
+                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+              </div>
+              <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su
+                  sesión
+                  actual.</div>
+              <div class="modal-footer">
+                  <button class="button-rojo" type="button" data-dismiss="modal">Cancelar</button>
+                  <form action="" method="POST">
+                      <button class="btn btn-primary" name="salir">Cerrar sesión</button>
+                  </form>
+              </div>
+          </div>
       </div>
-    </div>
+  </div>
+
+  <!-- Perfil Modal-->
+  <div class="modal fade" id="perfilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Mis Datos</h5>
+                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+              </div>
+              <form action="" method="POST">
+                <div class="modal-body">
+                  
+                  <div class="form-group">
+                      <div class="row">
+                          <div class="col">
+                              <label>Contraseña</label>
+                          </div>
+                          <div class="col">
+                              <input type="password" class="form-control" name="contrasenaUsuario" value="<?php echo $contrasenaSession?>">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="row">
+                          <div class="col">
+                              <label>Verificación Contraseña</label>
+                          </div>
+                          <div class="col">
+                              <input type="password" class="form-control" name="verificacionContrasenaUsuario" value="<?php echo $contrasenaSession?>">
+                          </div>
+                      </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" name="cambiarContrasena">Cambiar Contraseña</button>
+                </div>
+              </form>
+          </div>
+      </div>
   </div>
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -49,15 +98,18 @@
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
   <script src="js/iniciarReunion.js"></script>
+  <script src="js/app.js"></script>
 
   
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
     <!-- código propio JS --> 
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="js/acta.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/alerta.js"></script>
+    <script type="text/javascript" src="js/admin.js"></script>
    
 </body>
 

@@ -4,6 +4,8 @@
     $idAccion = $_POST['idAccion'];
     $nombreAccion = $_POST['nombreAccion'];
     $estadoAccion = $_POST['estadoAccion'];
+    $comentarioAccion = $_POST['comentarioAccion'];
+    $refEditor = $_POST['refEditor'];
     $seguir = false;
     
     $consulta = "SELECT * FROM accion WHERE nombre='$nombreAccion' AND id = '$idAccion'";
@@ -14,7 +16,7 @@
     }
     
     if ($seguir) {
-        $consulta = "UPDATE accion SET estado='$estadoAccion' WHERE id='$idAccion'";
+        $consulta = "UPDATE accion SET estado='$estadoAccion', comentario='$comentarioAccion', refeditor='$refEditor' WHERE id='$idAccion'";
         echo $result=mysqli_query($conexion,$consulta);
     }
     else{

@@ -174,7 +174,19 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         </div>
         <div class="bg-card-body">
             <div class="row">
-            <a href="" class="button add" data-toggle="modal" data-target="#crearTema">Agregar Tema</a>
+            <?php
+            if($estado=="Terminado"){
+                echo'';
+
+
+            }
+            else{
+
+                echo '<a href="" class="button add" data-toggle="modal" data-target="#crearTema">Agregar Tema</a>';
+
+
+            }
+            ?>
             </div>
             <br>
             <div class="row">
@@ -206,8 +218,118 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                         <td>'.$columna['tag'].'</td>
                                         <td><a class="buttonYellow edit" data-toggle="modal" data-target="#editarTema" onclick="'.$usarFuncion2.'"> Editar </a>
                                         <a  class="buttonBlue next" onclick="'.$accionFuncion.'" data-toggle="modal" data-target="#adminAccion"> Acciones </a>
-                                        <a  class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a> </td>
+
+                                        ';
+                                        if($estado == "Terminado"){
+
+
+
+                                        }
+                                        else{
+
+                                            echo'<a  class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a> </td>
+                                            ';
+                                        }
+
+                                        echo'
                                     </tr>';
+                                    
+                                }
+                            ?>
+                        </tbody>
+                        </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="bg-card">
+        <div class="bg-card-head py-3">
+            <center><h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-smile-wink"></i> Comite</h3></center>
+        </div>
+        <div class="bg-card-body">
+
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Asistencia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $consulta = "SELECT * FROM consejo";
+                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                while ($columna = mysqli_fetch_array( $resultado )){
+                                    $correo = $columna['correo'];
+                                    $nombre = $columna['nombre'].' '.$columna['apellidos'];
+                                    $asistencia2 = "";
+                                    
+
+                                    $existeAsistencia = false;
+
+                                    $consulta2 = "SELECT * FROM asistenciacomite WHERE refcorreo='$correo' AND refid='$id'";
+                                    $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                    while ($columna2 = mysqli_fetch_array( $resultado2 )){
+                                        $existeAsistencia = true;
+                                        $asistencia2 = $columna2['asistencia'];
+                                        
+                                    }
+
+                                    if(!$existeAsistencia){
+                                        $consulta3 = "INSERT INTO asistenciacomite(refcorreo, refid, asistencia) VALUES ('$correo','$id','NO')";
+                                        mysqli_query($conexion, $consulta3);
+                                        $asistencia2 = "NO";
+                                    }
+
+                                    $botonAsistencia2 = "";
+                                    $datosAsistencia2 = $correo.'||'.$id;
+
+                                    $funcionAsistenciaTermi = "reunionTerminada()";
+                                    $funcionAsistenciaNoIniciada = "reunionNoIniciada()";
+
+                                    $funcionAsistencia2 = "modificarAsistenciaComite('".$datosAsistencia2."')";
+
+                                    if($asistencia2 == "SI" && $estado !="Terminado" && $horaInicio!="" && $horaInicio!=" "){
+                                        $botonAsistencia2 = '<a class="button save" onclick="'.$funcionAsistencia2.'"></a>';
+                                    }
+                                    else if($asistencia2 == "NO" && $estado !="Terminado" && $horaInicio!="" && $horaInicio!=" "){
+                                        $botonAsistencia2 = '<a class="buttonRed delete" onclick="'.$funcionAsistencia2.'"></a>';
+
+                                    }
+                                    else if($estado == "Terminado"){
+                                        if($asistencia2 == "SI"){
+                                            $botonAsistencia2 = '<a class="button save" onclick="'.$funcionAsistenciaTermi.'"></a>';
+                                        }
+                                        else{
+                                            $botonAsistencia2 = '<a class="buttonRed delete" onclick="'.$funcionAsistenciaTermi.'"></a>';
+                                        }
+                                        
+
+                                    }
+                                    else if($horaInicio == "" || $horaInicio == " "){
+                                        if($asistencia2 == "SI"){
+                                            $botonAsistencia2 = '<a class="button save" onclick="'.$funcionAsistenciaNoIniciada.'"></a>';
+                                        }
+                                        else{
+                                            $botonAsistencia2 = '<a class="buttonRed delete" onclick="'.$funcionAsistenciaNoIniciada.'"></a>';
+                                        }
+                                        
+
+                                    }
+
+
+                                    echo '<tr>
+                                            <td>'.$nombre.'</td>
+                                            <td>'.$correo.'</td>
+                                            <td>'.$botonAsistencia2.'</td>
+                                        </tr>';
+
                                     
                                 }
                             ?>
@@ -226,7 +348,20 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         </div>
         <div class="bg-card-body">
             <div class="row">
-            <a href="" class="button add" data-toggle="modal" data-target="#crearInvitado">Agregar Invitado</a>
+                <?php
+                    if($estado=="Terminado"){
+                        echo'';
+
+
+                    }
+                    else{
+
+                        echo '<a href="" class="button add" data-toggle="modal" data-target="#crearInvitado">Agregar Invitado</a>
+                        ';
+
+
+                    }
+                ?> 
             </div>
 
             <br>
@@ -238,15 +373,59 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                             <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Correo</th>
-                            <th scope="col">Acciones</th>
+                            <?php 
+                            if($estado== "Terminado"){
+
+                            }
+                            else{
+                                echo'<th scope="col">Acciones</th>';
+                            }
+                            ?>
+                            <th scope="col">Asistencia</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                                 $consulta = "SELECT * FROM relacionreunioninvitado WHERE refid='$id'";
                                 $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                $contador = 0;
                                 while ($columna = mysqli_fetch_array( $resultado )){
                                     $refCorreo = $columna['refcorreo'];
+                                    $asistencia = $columna['asistencia'];
+                                    $botonAsistencia = "";
+                                    $datosAsistencia = $refCorreo.'||'.$id;
+
+                                    $funcionAsistencia = "modificarAsistenciaInvitado('".$datosAsistencia."')";
+                                    $funcionAsistenciaTermi = "reunionTerminada()";
+                                    $funcionAsistenciaNoIniciada = "reunionNoIniciada()";
+
+                                    if($asistencia == "SI" && $estado !="Terminado" && $horaInicio!="" && $horaInicio!=" "){
+                                        $botonAsistencia = '<a class="button save" onclick="'.$funcionAsistencia.'"></a>';
+                                    }
+                                    else if($asistencia == "NO" && $estado !="Terminado" && $horaInicio!="" && $horaInicio!=" "){
+                                        $botonAsistencia = '<a class="buttonRed delete" onclick="'.$funcionAsistencia.'"></a>';
+
+                                    }
+                                    else if($estado == "Terminado"){
+                                        if($asistencia == "SI"){
+                                            $botonAsistencia = '<a class="button save" onclick="'.$funcionAsistenciaTermi.'"></a>';
+                                        }
+                                        else{
+                                            $botonAsistencia = '<a class="buttonRed delete" onclick="'.$funcionAsistenciaTermi.'"></a>';
+                                        }
+                                        
+
+                                    }
+                                    else if($horaInicio == "" || $horaInicio == " "){
+                                        if($asistencia == "SI"){
+                                            $botonAsistencia = '<a class="button save" onclick="'.$funcionAsistenciaNoIniciada.'"></a>';
+                                        }
+                                        else{
+                                            $botonAsistencia = '<a class="buttonRed delete" onclick="'.$funcionAsistenciaNoIniciada.'"></a>';
+                                        }
+                                        
+
+                                    }
 
                                     $consulta2 = "SELECT * FROM invitado WHERE correo='$refCorreo'";
                                     $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
@@ -255,9 +434,25 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                         $usarFuncion = "preguntarSiNo('".$datos."')";
                                         echo '<tr>
                                             <td>'.$columna2['nombre'].'</td>
-                                            <td>'.$columna2['correo'].'</td>
-                                            <td><a class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a></td>
+                                            <td>'.$columna2['correo'].'</td>';
+                                            if($estado=="Terminado"){
+                                                echo'';
+                            
+                            
+                                            }
+                                            else{
+                            
+                                                echo '<td><a class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a></td>';
+                            
+                            
+                                                }
+                                            echo'
+
+
+                                            <td>'.$botonAsistencia.'</td>
+
                                         </tr>';
+                                        $contador = $contador + 1;
                                     }
 
                                     
@@ -271,6 +466,69 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
 
         </div>
     </div>
+
+
+
+    <div class="bg-card">
+        <div class="bg-card-head py-3">
+            <center><h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-book"></i> Resumen Reunión</h3></center>
+        </div>
+        <div class = "bg-card-body">
+        <table class="table" id="tableMain">
+                                    <thead>
+                                        <tr class="tableheader">
+                                          <th>Tema</th>
+                                          <th></th>
+                                          <th></th>
+                                          <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+        <?php
+                                $idReunion = $id;
+                                $consulta = "SELECT * FROM tema WHERE refreunion='$idReunion'";
+                                $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                while ($columna = mysqli_fetch_array( $resultado )){
+                                    $reftemas = $columna['id'];
+
+                                    echo'
+                                    
+                                    <tr class="breakrow"><td>'.$columna['nombre'].'</td><td></td><td></td><td></td></tr>
+                                    <tr class="datarow" data-class="hidden" style ="background-color: #148F77; color:white;"><td>Accion</td><td>Encargado</td><td>Estado</td><td>Fecha de Termino</td></tr>
+
+                                  
+                    
+                                
+                            ';
+                                  
+                                            $consulta2 = "SELECT * FROM accion WHERE reftema='$reftemas'";
+                                            $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                            while ($columna = mysqli_fetch_array( $resultado2 )){
+                                                echo'
+                                                <tr class="datarow"><td>'.$columna['nombre'].'</td><td>'.$columna['refinvitado'].'</td><td>'.$columna['estado'].'</td><td>'.$columna['fechatermino'].'</td></tr>
+                  
+                                
+                                            
+                                        ';
+                                            }
+                                        }
+
+                                  
+                            ?>
+                                                                </tbody>
+
+                            </table>
+
+       
+
+
+
+
+                            </div>          
+    </div>
+
+ 
+
 
     <div class="bg-card">
         <div class="bg-card-head py-3">
@@ -371,7 +629,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
 
 
  <!-- Logout Modal-->
- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -381,10 +639,14 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión actual.</div>
+                <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su
+                    sesión
+                    actual.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="button-azul" href="login.html">Cerrar sesión</a>
+                    <button class="button-rojo" type="button" data-dismiss="modal">Cancelar</button>
+                    <form action="" method="POST">
+                        <button class="btn btn-primary" name="salir">Cerrar sesión</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -691,6 +953,21 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+    <script>
+        $( document ).ready(function() {
+
+
+            //collapse and expand sections
+
+            //$('.breakrow').click(function(){
+			$('#tableMain').on('click', 'tr.breakrow',function(){
+                $(this).nextUntil('tr.breakrow').slideToggle(200);
+            });
+        });
+    </script>
 
 
 <?php require_once "vistas/parteinferior.php"?>

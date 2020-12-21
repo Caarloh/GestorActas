@@ -43,7 +43,7 @@
         $topico = "Bienvenido al Gestor De Actas";                                  
         $mail->Subject = $topico;
         
-        $cuerpo = "Estimado $nombre, se ha creado una cuenta para el correo $correo con la siguiente contraseña $contrasenaInvitado";
+        $cuerpo = "Estimado $nombre, se ha creado una cuenta para el correo $correo con la siguiente contraseña $contrasenaInvitado, página para iniciar sesión ingresar a <a href='http://localhost/GestorActas/inicioSesion.php' target='_blank' style='color: #3AA849;'>http://localhost/GestorActas/inicioSesion.php</a>";
         $cuerpo = "<!DOCTYPE html>
         <html>
         <head>
@@ -118,9 +118,7 @@
         <body style='background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;'>
         
         <!-- HIDDEN PREHEADER TEXT -->
-        <div style='display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;'>
-            We're thrilled to have you here! Get ready to dive into your new account.
-        </div>
+        
         
         <table border='0' cellpadding='0' cellspacing='0' width='100%'>
             <!-- LOGO -->
@@ -234,7 +232,7 @@
     }
 
     if($copiarInvitado){
-        $consulta = "INSERT INTO relacionreunioninvitado (refcorreo, refid) VALUES ('$correo', '$idReunion')";
+        $consulta = "INSERT INTO relacionreunioninvitado (refcorreo, refid, asistencia) VALUES ('$correo', '$idReunion', 'NO')";
         echo $result=mysqli_query($conexion,$consulta);
     }
     else{

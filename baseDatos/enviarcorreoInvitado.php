@@ -14,7 +14,7 @@
     $resultadotemas = mysqli_query($conexion, $consultatemas) or die ( "Algo ha ido mal en la consulta a la base de datos1");
     while ($columnatemas = mysqli_fetch_array( $resultadotemas )){
         $datostemas = $columnatemas["nombre"];
-        $temas = "$temas \n <p style='margin: 0;'> .- $datos2 </p>";
+        $temas = "$temas \n <p style='margin: 0;'> .- $datostemas </p>";
     }
 
     $linkreunion = $columna['linkReunion'];
@@ -167,10 +167,9 @@
                     <table border='0' cellspacing='0' cellpadding='0'>
                     <tr>
                         <td align='center' style='border-radius: 3px;' bgcolor='#3AA849'>
-                            <a href='".$columna['linkReunion']. "' target='_blank' style='font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #3AA849; display: inline-block;'>
-                                
-                            Enlace a reunión
-                            </a>
+                            <button type='button' href='".$columna['linkReunion']. "' target='_blank' style='font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #3AA849; text-decoration: none; color: #3AA849; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #3AA849; display: inline-block;'>
+                                Enlace a reunión
+                            </button>    
                         </td>
                     </tr>
                     </table>

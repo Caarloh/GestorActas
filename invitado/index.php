@@ -1,9 +1,9 @@
 <?php
     require "../baseDatos/conexion.php";
     session_start();
-    $correo = $_SESSION['correo'];
-    $contrasena = $_SESSION['contrasena'];
-    if (!isset($correo) || !isset($contrasena)) {
+    $correoSession = $_SESSION['correo'];
+    $contrasenaSession = $_SESSION['contrasena'];
+    if (!isset($correoSession) || !isset($contrasenaSession)) {
         session_destroy();
         $_SESSION = array();
         header("Location: ../inicioSesion.php");
@@ -135,10 +135,13 @@
                         <img class="img-profile rounded-circle" src="https://cdn.discordapp.com/attachments/569659673792479252/569662825195372564/unknown.png">
                     </a>
                     <!-- Dropdown - User Information -->
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <form action="" method="POST">
-                            <button class="dropdown-item" name="salir"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Salir</button>
-                        </form>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Salir
+                        </a>
                     </div>
                 </li>
 
@@ -159,7 +162,7 @@
                    
                     <div class="grid-container">
                             <?php
-                                $consulta0 = "SELECT * FROM relacionreunioninvitado WHERE refcorreo='$correo'";
+                                $consulta0 = "SELECT * FROM relacionreunioninvitado WHERE refcorreo='$correoSession'";
                                 $resultado0 = mysqli_query($conexion, $consulta0) or die ( "Algo ha ido mal en la consulta a la base de datos1");
                                 while ($columna0 = mysqli_fetch_array( $resultado0 )){
                                     $idReunion0 = $columna0['refid'];
@@ -282,7 +285,9 @@
                         actual.</div>
                     <div class="modal-footer">
                         <button class="button-rojo" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
+                        <form action="" method="POST">
+                            <button class="btn btn-primary" name="salir">Cerrar sesión</button>
+                        </form>
                     </div>
                 </div>
             </div>
