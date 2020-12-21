@@ -241,7 +241,7 @@ $(document).ready(function(){
             "&correo=" + correoInvitadoModal;
             $.ajax({
                 type:"POST",
-                url:"baseDatos/agregarInvitadoReunion.php",
+                url:"baseDatos/agregarInvitadoReunionActual.php",
                 data:cadena,
                 success:function(r){
                   if(r==1){

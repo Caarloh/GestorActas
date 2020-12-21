@@ -284,12 +284,14 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                 echo'<th scope="col">Acciones</th>';
                             }
                             ?>
+                            <th scope="col">Asistencia</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                                 $consulta = "SELECT * FROM relacionreunioninvitado WHERE refid='$id'";
                                 $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                $contador = 0;
                                 while ($columna = mysqli_fetch_array( $resultado )){
                                     $refCorreo = $columna['refcorreo'];
 
@@ -314,8 +316,8 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                                 }
                                             echo'
 
-
                                         </tr>';
+                                        $contador = $contador + 1;
                                     }
 
                                     
