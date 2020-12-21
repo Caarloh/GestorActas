@@ -45,6 +45,7 @@ require 'conexion.php';
         $nombreoriginal=$nombreReunion;
         $nuevoNombre="";
         do{
+            $existe = false;
             $i=$i+1;
             $nuevoNombre=$nombreReunion." ($i)";
             $consultaNuevonombre = "SELECT * FROM reunion WHERE nombre='$nuevoNombre'";
@@ -52,7 +53,7 @@ require 'conexion.php';
             while ($columnaNuevonombre = mysqli_fetch_array( $resultadoNuevonombre )){
                 $existe=true;
             }
-        }while($nuevoNombre==$nombreReunion || $existe);
+        }while( $existe);
 
             
 
