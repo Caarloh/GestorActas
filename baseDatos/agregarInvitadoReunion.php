@@ -232,7 +232,7 @@
     }
 
     if($copiarInvitado){
-        $consulta = "INSERT INTO relacionreunioninvitado (refcorreo, refid) VALUES ('$correo', '$idReunion')";
+        $consulta = "INSERT INTO relacionreunioninvitado (refcorreo, refid, asistencia) VALUES ('$correo', '$idReunion', 'NO')";
         echo $result=mysqli_query($conexion,$consulta);
     }
     else{
