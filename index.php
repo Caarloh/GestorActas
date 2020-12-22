@@ -528,7 +528,7 @@
                                 }
                             }while($idReunion==0 || $existe);
                         ?>
-                            <div class="form-group">
+                            <div <?php echo "hidden";?> class="form-group">
                                 <input type="text" class="form-control" id="idReunion" value="<?php echo $idReunion;?>"
                                     readonly>
                             </div>
