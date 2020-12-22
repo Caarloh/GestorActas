@@ -373,14 +373,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                             <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Correo</th>
-                            <?php 
-                            if($estado== "Terminado"){
-
-                            }
-                            else{
-                                echo'<th scope="col">Acciones</th>';
-                            }
-                            ?>
+                            
                             <th scope="col">Asistencia</th>
                             </tr>
                         </thead>
@@ -434,19 +427,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                         $usarFuncion = "preguntarSiNo('".$datos."')";
                                         echo '<tr>
                                             <td>'.$columna2['nombre'].'</td>
-                                            <td>'.$columna2['correo'].'</td>';
-                                            if($estado=="Terminado"){
-                                                echo'';
-                            
-                            
-                                            }
-                                            else{
-                            
-                                                echo '<td><a class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a></td>';
-                            
-                            
-                                                }
-                                            echo'
+                                            <td>'.$columna2['correo'].'</td>
 
 
                                             <td>'.$botonAsistencia.'</td>
@@ -537,7 +518,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         <div class="bg-card-body">
          <div class="row row-cols-3">
                 <div class="col">
-                    <form method="post" action="generate_pdf.php">                                        
+                    <form method="post" action="generate_pdfcc.php">                                        
                         <input type="hidden" name="variable1" value="<?php echo $id;?>"/>
                         <div class="d-flex flex-row-reverse">
                             <div class="p-2">
@@ -597,7 +578,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
+                        <div <?php echo "hidden";?> class="form-group" >
                             <div class="row">
                                 <div class="col">
                                     <label for="correoInvitadoModal">ID Tema</label>
@@ -773,7 +754,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
+                        <div <?php echo "hidden";?> class="form-group">
                             <div class="row">
                                 <div class="col">
                                     <label for="idAccionModalEdicion">ID Accion</label>
@@ -871,7 +852,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                 </div>
                 <div class="modal-body">
                     <form>   
-                        <div class="form-group">
+                        <div <?php echo "hidden";?> class="form-group">
                             <input type="text" class="form-control" id="idReunionTemaModal" value="<?php echo $id;?>" readonly>
                         </div>
                         <?php
@@ -888,8 +869,8 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                             }while($idTema==0 || $existe);
                         ?>
                         <div class="form-group">
-                            <label>Id tema</label>
-                            <input type="text" class="form-control" id="idTemaCrear" value="<?php echo $idTema;?>" readonly>
+                        
+                            <input type="hidden" class="form-control" id="idTemaCrear" value="<?php echo $idTema;?>" readonly>
                         </div>
                         <div class="form-group">
                             <div class="row">
@@ -936,7 +917,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
+                        <div <?php echo "hidden";?> class="form-group">
                             <input type="text" class="form-control" id="idReunionInvitadoModal" value="<?php echo $id;?>" readonly>
                         </div>
                         <div class="form-group">

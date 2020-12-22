@@ -1,14 +1,30 @@
-﻿SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+-- phpMyAdmin SQL Dump
+-- version 5.0.3
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 22-12-2020 a las 03:11:48
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.4.11
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
--- Database: `gestoractas`
+-- Base de datos: `gestoractas`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `accion`
+-- Estructura de tabla para la tabla `accion`
 --
 
 CREATE TABLE `accion` (
@@ -26,7 +42,7 @@ CREATE TABLE `accion` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `acta`
+-- Estructura de tabla para la tabla `acta`
 --
 
 CREATE TABLE `acta` (
@@ -34,20 +50,40 @@ CREATE TABLE `acta` (
   `refreunion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `acta`
+--
+
+INSERT INTO `acta` (`titulo`, `refreunion`) VALUES
+(0, 2101812214),
+(0, 1466521181),
+(0, 1466521181),
+(0, 1169736797),
+(0, 341969361),
+(0, 1620250233),
+(0, 1158382682);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Estructura de tabla para la tabla `admin`
 --
 
 CREATE TABLE `admin` (
   `correo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `admin`
+--
+
+INSERT INTO `admin` (`correo`) VALUES
+('danmoreno@utalca.cl');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `asistenciacomite`
+-- Estructura de tabla para la tabla `asistenciacomite`
 --
 
 CREATE TABLE `asistenciacomite` (
@@ -59,7 +95,7 @@ CREATE TABLE `asistenciacomite` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `consejo`
+-- Estructura de tabla para la tabla `consejo`
 --
 
 CREATE TABLE `consejo` (
@@ -69,10 +105,17 @@ CREATE TABLE `consejo` (
   `contrasena` varchar(400) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `consejo`
+--
+
+INSERT INTO `consejo` (`correo`, `nombre`, `apellidos`, `contrasena`) VALUES
+('danmoreno@utalca.cl', 'Daniel', 'Moreno', 'danmoreno123');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `invitado`
+-- Estructura de tabla para la tabla `invitado`
 --
 
 CREATE TABLE `invitado` (
@@ -84,7 +127,7 @@ CREATE TABLE `invitado` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `relacionreunioninvitado`
+-- Estructura de tabla para la tabla `relacionreunioninvitado`
 --
 
 CREATE TABLE `relacionreunioninvitado` (
@@ -96,7 +139,7 @@ CREATE TABLE `relacionreunioninvitado` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reunion`
+-- Estructura de tabla para la tabla `reunion`
 --
 
 CREATE TABLE `reunion` (
@@ -116,7 +159,7 @@ CREATE TABLE `reunion` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tema`
+-- Estructura de tabla para la tabla `tema`
 --
 
 CREATE TABLE `tema` (
@@ -127,103 +170,106 @@ CREATE TABLE `tema` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `accion`
+-- Indices de la tabla `accion`
 --
 ALTER TABLE `accion`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fkreuniontema` (`refreunion`),
-  ADD KEY `fktema` (`reftema`),
-  ADD KEY `fkinvitado` (`refinvitado`);
+  ADD KEY `fktema` (`reftema`);
 
 --
--- Indexes for table `acta`
+-- Indices de la tabla `acta`
 --
 ALTER TABLE `acta`
   ADD KEY `fk_reunion` (`refreunion`);
 
 --
--- Indexes for table `admin`
+-- Indices de la tabla `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`correo`);
 
 --
--- Indexes for table `asistenciacomite`
+-- Indices de la tabla `asistenciacomite`
 --
 ALTER TABLE `asistenciacomite`
   ADD KEY `fkasistenciacorreo` (`refcorreo`),
   ADD KEY `fkasistenciareunion` (`refid`);
 
 --
--- Indexes for table `consejo`
+-- Indices de la tabla `consejo`
 --
 ALTER TABLE `consejo`
   ADD PRIMARY KEY (`correo`);
 
 --
--- Indexes for table `invitado`
+-- Indices de la tabla `invitado`
 --
 ALTER TABLE `invitado`
   ADD PRIMARY KEY (`correo`);
 
 --
--- Indexes for table `relacionreunioninvitado`
+-- Indices de la tabla `relacionreunioninvitado`
 --
 ALTER TABLE `relacionreunioninvitado`
   ADD KEY `fkrelacioninvitado` (`refcorreo`),
   ADD KEY `fkrelacionreunion` (`refid`);
 
 --
--- Indexes for table `reunion`
+-- Indices de la tabla `reunion`
 --
 ALTER TABLE `reunion`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tema`
+-- Indices de la tabla `tema`
 --
 ALTER TABLE `tema`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fkreunion` (`refreunion`);
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `accion`
+-- Filtros para la tabla `accion`
 --
 ALTER TABLE `accion`
-  ADD CONSTRAINT `fkinvitado` FOREIGN KEY (`refinvitado`) REFERENCES `invitado` (`correo`) ON DELETE SET NULL ON UPDATE NO ACTION,
   ADD CONSTRAINT `fkreuniontema` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fktema` FOREIGN KEY (`reftema`) REFERENCES `tema` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `admin`
+-- Filtros para la tabla `admin`
 --
 ALTER TABLE `admin`
   ADD CONSTRAINT `fkadmin` FOREIGN KEY (`correo`) REFERENCES `consejo` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `asistenciacomite`
+-- Filtros para la tabla `asistenciacomite`
 --
 ALTER TABLE `asistenciacomite`
   ADD CONSTRAINT `fkasistenciacorreo` FOREIGN KEY (`refcorreo`) REFERENCES `consejo` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fkasistenciareunion` FOREIGN KEY (`refid`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `relacionreunioninvitado`
+-- Filtros para la tabla `relacionreunioninvitado`
 --
 ALTER TABLE `relacionreunioninvitado`
   ADD CONSTRAINT `fkrelacioninvitado` FOREIGN KEY (`refcorreo`) REFERENCES `invitado` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fkrelacionreunion` FOREIGN KEY (`refid`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tema`
+-- Filtros para la tabla `tema`
 --
 ALTER TABLE `tema`
   ADD CONSTRAINT `fkreunion` FOREIGN KEY (`refreunion`) REFERENCES `reunion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
