@@ -7,7 +7,7 @@
     $nombre = $_POST['nombre'];
     $idTema = $_POST['idTema'];
     $idReunion = $_POST['idReunion'];
-    $refInvitado = $_POST['correo'];
+    $refInvitado = $_POST['encargadoAccionModal'];
     $fecha = $_POST['fecha'];
     $idAccion = 0;
     $existe = false;
@@ -37,7 +37,7 @@
     }
 
     if($crearAccion){
-        $consulta1 = "INSERT INTO accion (nombre, refreunion, reftema, refinvitado, fechatermino, estado, id, refeditor) VALUES ('$nombre','$idReunion','$idTema','$encargadoAccionModal', '$fecha','Pendiente','$idAccion', '')";
+        $consulta1 = "INSERT INTO accion (nombre, refreunion, reftema, refinvitado, fechatermino, estado, id, refeditor, comentario) VALUES ('$nombre','$idReunion','$idTema','$encargadoAccionModal', '$fecha','Pendiente','$idAccion', '', '')";
         echo $resultado = mysqli_query($conexion,$consulta1) or die ( "'$nombre','$idReunion','$idTema','$refInvitado', '$fecha','Pendiente','$idAccion', ''");
     }
     else{
