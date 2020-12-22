@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-12-2020 a las 03:06:32
+-- Tiempo de generación: 22-12-2020 a las 03:11:48
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.11
 
@@ -38,19 +38,6 @@ CREATE TABLE `accion` (
   `refeditor` varchar(50) DEFAULT NULL,
   `comentario` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `accion`
---
-
-INSERT INTO `accion` (`nombre`, `refreunion`, `reftema`, `refinvitado`, `fechatermino`, `estado`, `id`, `refeditor`, `comentario`) VALUES
-('con caca con caca', 712741942, 406471310, 'evalenzuela17@alumnos.utalca.cl', '2020-12-23', 'Pendiente', 68467485, '', ''),
-('sdadas', 1147321168, 197341747, 'sretamales17@alumnos.utalca.cl', '2021-01-01', 'Pendiente', 499980869, '', ''),
-('asdasd', 664128748, 779814368, 'sretamales17@alumnos.utalca.cl', '2020-12-30', 'Pendiente', 1066221764, '', ''),
-('asd', 664128748, 1106834048, 'evalenzuela17@alumnos.utalca.cl', '2021-01-07', 'Pendiente', 1232228186, '', ''),
-('con caca con caca', 664128748, 779814368, 'pvalenzuela17@alumnos.utalca.cl', '2020-12-30', 'Pendiente', 1625569155, '', ''),
-('con caca con caca', 985995937, 516003718, 'sretamales17@alumnos.utalca.cl', '2020-12-22', 'Terminado', 1758405846, 'sretamales17@alumnos.utalca.cl', 'me gustan me gustan'),
-('poto', 664128748, 779814368, 'pvalenzuela17@alumnos.utalca.cl', '2021-01-06', 'Pendiente', 2027695564, '', '');
 
 -- --------------------------------------------------------
 
@@ -91,7 +78,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`correo`) VALUES
-('pvalenzuela17@alumnos.utalca.cl');
+('danmoreno@utalca.cl');
 
 -- --------------------------------------------------------
 
@@ -104,16 +91,6 @@ CREATE TABLE `asistenciacomite` (
   `refid` int(11) NOT NULL,
   `asistencia` varchar(50) NOT NULL DEFAULT 'NO'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `asistenciacomite`
---
-
-INSERT INTO `asistenciacomite` (`refcorreo`, `refid`, `asistencia`) VALUES
-('pvalenzuela17@alumnos.utalca.cl', 678221694, 'NO'),
-('pvalenzuela17@alumnos.utalca.cl', 1147321168, 'NO'),
-('pvalenzuela17@alumnos.utalca.cl', 1950232597, 'NO'),
-('pvalenzuela17@alumnos.utalca.cl', 664128748, 'NO');
 
 -- --------------------------------------------------------
 
@@ -133,7 +110,7 @@ CREATE TABLE `consejo` (
 --
 
 INSERT INTO `consejo` (`correo`, `nombre`, `apellidos`, `contrasena`) VALUES
-('pvalenzuela17@alumnos.utalca.cl', 'Pablo', 'Valenzuela', '123');
+('danmoreno@utalca.cl', 'Daniel', 'Moreno', 'danmoreno123');
 
 -- --------------------------------------------------------
 
@@ -147,15 +124,6 @@ CREATE TABLE `invitado` (
   `codigoAcceso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `invitado`
---
-
-INSERT INTO `invitado` (`correo`, `nombre`, `codigoAcceso`) VALUES
-('evalenzuela17@alumnos.utalca.cl', 'Edu', 85613421),
-('sretamales17@alumnos.utalca.cl', 'Sea', 210915947),
-('th3gr1ml0ck@gmail.com', 'Carlos2', 1227030944);
-
 -- --------------------------------------------------------
 
 --
@@ -167,20 +135,6 @@ CREATE TABLE `relacionreunioninvitado` (
   `refid` int(11) NOT NULL,
   `asistencia` varchar(50) NOT NULL DEFAULT 'NO'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `relacionreunioninvitado`
---
-
-INSERT INTO `relacionreunioninvitado` (`refcorreo`, `refid`, `asistencia`) VALUES
-('th3gr1ml0ck@gmail.com', 992693321, 'NO'),
-('sretamales17@alumnos.utalca.cl', 985995937, 'SI'),
-('evalenzuela17@alumnos.utalca.cl', 712741942, 'SI'),
-('sretamales17@alumnos.utalca.cl', 1147321168, 'NO'),
-('sretamales17@alumnos.utalca.cl', 1950232597, 'NO'),
-('evalenzuela17@alumnos.utalca.cl', 1950232597, 'NO'),
-('sretamales17@alumnos.utalca.cl', 664128748, 'NO'),
-('evalenzuela17@alumnos.utalca.cl', 664128748, 'NO');
 
 -- --------------------------------------------------------
 
@@ -202,22 +156,6 @@ CREATE TABLE `reunion` (
   `horaTermino` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `reunion`
---
-
-INSERT INTO `reunion` (`id`, `tipoPredefinido`, `fecha`, `hora`, `duracion`, `tipoDuracion`, `linkReunion`, `estado`, `nombre`, `horaInicio`, `horaTermino`) VALUES
-(664128748, 'Consejo de Escuela', '2020-12-21', '22:01', 1, 'Horas', 'asdasd', 'En Espera', 'asdasd (1)', '', ''),
-(678221694, 'Regular', '2020-12-21', '19:26', 2, 'Horas', 'https://www.pcfactory.cl/producto/36317-gear-desktop-intel-core-i7-9700f-8gb-1tb', 'Terminado', 'Hola (1)', '16:11', '19:34'),
-(712741942, 'Regular', '2020-12-21', '19:28', 2, 'Horas', 'https://www.pcfactory.cl/producto/36317-gear-desktop-intel-core-i7-9700f-8gb-1tb', 'Terminado', 'Hola (4)', '20:00', '19:29'),
-(847421058, 'Regular', '2020-12-22', '10:50', 2, 'Horas', 'https://www.pcfactory.cl/producto/36317-gear-desktop-intel-core-i7-9700f-8gb-1tb', 'En Espera', 'Hola', '', ''),
-(985995937, 'Regular', '2020-12-22', '12:30', 2, 'Horas', 'https://www.pcfactory.cl/producto/36317-gear-desktop-intel-core-i7-9700f-8gb-1tb', 'Terminado', 'Hola', '07:02', '19:19'),
-(992693321, 'Regular', '2020-12-22', '12:30', 2, 'Horas', 'https://www.pcfactory.cl/producto/36317-gear-desktop-intel-core-i7-9700f-8gb-1tb', 'Terminado', 'Hola', '19:10', '19:14'),
-(1147321168, 'Regular', '2020-12-21', '19:28', 2, 'Horas', 'https://www.pcfactory.cl/producto/36317-gear-desktop-intel-core-i7-9700f-8gb-1tb', 'En Espera', 'Hola (3)', '', ''),
-(1294339821, 'Regular', '2021-01-06', '03:00', 2, 'Horas', 'asdasdas', 'En Espera', 'asdasdas', '', ''),
-(1414508297, 'Regular', '2020-12-21', '19:28', 2, 'Horas', 'https://www.pcfactory.cl/producto/36317-gear-desktop-intel-core-i7-9700f-8gb-1tb', 'En Espera', 'Hola (2)', '', ''),
-(1950232597, 'Consejo de Escuela', '2020-12-25', '07:05', 1, 'Horas', 'asdasd', 'En Espera', 'asdasd', '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -230,24 +168,6 @@ CREATE TABLE `tema` (
   `nombre` varchar(50) NOT NULL,
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tema`
---
-
-INSERT INTO `tema` (`tag`, `refreunion`, `nombre`, `id`) VALUES
-('Editado', 1147321168, 'José', 197341747),
-('Editado', 712741942, 'José', 406471310),
-('Editado', 678221694, 'José', 411345838),
-('', 985995937, 'chrimoyas con caca', 516003718),
-('', 664128748, 'asdasaswd', 779814368),
-('', 1950232597, 'asdasaswd', 860977191),
-('Editado', 1414508297, 'José', 1022869303),
-('', 992693321, 'sadasd', 1060333636),
-('', 664128748, 'asdqweqwed', 1106834048),
-('', 664128748, 'dasdasd', 1265985176),
-('Editado', 847421058, 'José', 1276659114),
-('', 1294339821, 'asdasdas', 2017435351);
 
 --
 -- Índices para tablas volcadas
