@@ -164,6 +164,7 @@ function formEditarAccion(datos){
     $('#encargadoAccionModalEdicion').val(d[2]);
     $('#estadoAccionModalEdicion').val(d[3]);
     $('#fechanuevaterminoAccion').val(d[4]);
+    $('#comentarioAccionModalEdicion').val(d[5]);
 }
 
 $(document).ready(function(){
@@ -394,9 +395,10 @@ $(document).ready(function(){
         encargadoAccionModal= $('#encargadoAccionModalEdicion').val();        
         fechaAccionModal= $('#fechanuevaterminoAccion').val();
         estadoAccionModal= $('#estadoAccionModalEdicion').val();
-
+        comentarioAccionModal= $('#comentarioAccionModalEdicion').val();
+        correoSesionModalEdicion = $('#correoSesionModalEdicion').val();
         cadena = "idAccionModalEdicion=" + idAccion+ "&nombreAccionModalEdicion=" + nombreAccionModal + "&encargadoAccionModalEdicion=" +encargadoAccionModal+
-        "&fechanuevaterminoAccion=" + fechaAccionModal + "&estadoAccionModalEdicion=" + estadoAccionModal;
+        "&fechanuevaterminoAccion=" + fechaAccionModal + "&estadoAccionModalEdicion=" + estadoAccionModal + "&comentarioAccionModal=" + comentarioAccionModal + "&correoSesionModalEdicion=" + correoSesionModalEdicion;
         //cadena = "idAccionModalEdicion=" + idAccion+ "&nombreAccionModalEdicion=" + nombreAccionModal;
         if(nombreTemaModal == "" || nombreTemaModal==" "){
             alert("Completar nombre del tema");
@@ -408,7 +410,8 @@ $(document).ready(function(){
                 data:cadena,
                 success:function(r){
                   if(r==1){
-                    location.reload();
+                    alert(r);
+                    //location.reload();
                   }else{
                     if (r==6) {
                         alertify.error("Error");

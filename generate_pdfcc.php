@@ -4,7 +4,11 @@ require_once "vendor/autoload.php";
 
 $css = file_get_contents('css/plantillaActa.css');
 
-
+$html = selectReunion();
+$mpdf = new \Mpdf\Mpdf([]);
+$mpdf->WriteHTML($css,\Mpdf\HTMLParserMode::HEADER_CSS);
+$mpdf->WriteHTML($html);
+$mpdf->Output();
 
 
 
@@ -13,7 +17,7 @@ function selectReunion(){
     $conexion = mysqli_connect("localhost", "root", "", "gestoractas");
     $consulta = "SELECT * FROM reunion, tema WHERE reunion.id='$v1'  AND reunion.id=refreunion";
     $resultado = mysqli_query($conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos1");
-    
+
     $datosNombres ="";
     $consultaNombres = "SELECT * FROM reunion WHERE id='$v1'";
     $resultadoNombres = mysqli_query($conexion, $consultaNombres) or die ( "Algo ha ido mal en la consulta a la base de datos1");
@@ -25,8 +29,18 @@ function selectReunion(){
     $consultatemas = "SELECT * FROM tema WHERE refreunion='$v1'";
     $resultadotemas = mysqli_query($conexion, $consultatemas) or die ( "Algo ha ido mal en la consulta a la base de datos1");
     while ($columnatemas = mysqli_fetch_array( $resultadotemas )){
+        $idAccion = $columnatemas["id"];
+        $consultaAcciones = "SELECT * FROM accion WHERE reftema='$idAccion'";
+        $resultadoAcciones = mysqli_query($conexion, $consultaAcciones) or die ( "Algo ha ido mal en la consulta a la base de datos1");
         $datostemas = $columnatemas["nombre"];
         $temas = "$temas \n <p style='margin: 0;'> .- $datostemas </p>";
+        $temas = "$temas \n <br>";
+        while ($columnaAcciones = mysqli_fetch_array( $resultadoAcciones )){
+            #." -> Encargado:  ".$columnaAcciones["refinvitado"];
+            $datosAccion = $columnaAcciones["nombre"];
+            $temas = "$temas \n <p style='margin: 20px 10px;'>.                                         -> $datosAccion </p>";
+        }
+        $temas = "$temas \n <br>";
     }
 
     $tabla="";
@@ -126,9 +140,5 @@ function selectReunion(){
         return $tabla;
     }    
 
-$html = selectReunion();
-$mpdf = new \Mpdf\Mpdf([]);
-$mpdf->WriteHTML($css,\Mpdf\HTMLParserMode::HEADER_CSS);
-$mpdf->WriteHTML($html);
-$mpdf->Output();
+
 ?>

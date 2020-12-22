@@ -373,14 +373,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                             <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Correo</th>
-                            <?php 
-                            if($estado== "Terminado"){
-
-                            }
-                            else{
-                                echo'<th scope="col">Acciones</th>';
-                            }
-                            ?>
+                            
                             <th scope="col">Asistencia</th>
                             </tr>
                         </thead>
@@ -434,19 +427,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                         $usarFuncion = "preguntarSiNo('".$datos."')";
                                         echo '<tr>
                                             <td>'.$columna2['nombre'].'</td>
-                                            <td>'.$columna2['correo'].'</td>';
-                                            if($estado=="Terminado"){
-                                                echo'';
-                            
-                            
-                                            }
-                                            else{
-                            
-                                                echo '<td><a class="buttonRed delete" onclick="'.$usarFuncion.'"> Eliminar </a></td>';
-                            
-                            
-                                                }
-                                            echo'
+                                            <td>'.$columna2['correo'].'</td>
 
 
                                             <td>'.$botonAsistencia.'</td>
@@ -537,7 +518,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
         <div class="bg-card-body">
          <div class="row row-cols-3">
                 <div class="col">
-                    <form method="post" action="generate_pdf.php">                                        
+                    <form method="post" action="generate_pdfcc.php">                                        
                         <input type="hidden" name="variable1" value="<?php echo $id;?>"/>
                         <div class="d-flex flex-row-reverse">
                             <div class="p-2">
@@ -597,7 +578,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
+                        <div <?php echo "hidden";?> class="form-group" >
                             <div class="row">
                                 <div class="col">
                                     <label for="correoInvitadoModal">ID Tema</label>
@@ -655,7 +636,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
     <!-- Administrar Acciones Modal-->
     <div class="modal fade" id="adminAccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" style="overflow-y: scroll;">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Administrador Acciones</h5>
@@ -673,19 +654,23 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                         </div>
                     </div>
                     <h2></h2>
-                    <table class="table table-hover table-condensed table-bordered">
-                        <thead>
-                            <tr>
-                                <td>Nombre</td>
-                                <td>Encargado</td>
-                                <td>Fecha termino</td>
-                                <td>Editar</td>
-                                <td>Eliminar</td>
-                            </tr>
-                        </thead>
-                        <tbody id="relleno">
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-condensed table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td>Encargado</td>
+                                    <td>Fecha termino</td>
+                                    <td>Editar</td>
+                                    <td>Eliminar</td>
+                                    <td>Editado por</td>
+                                </tr>
+                            </thead>
+                            <tbody id="relleno">
+                            </tbody>
+                        </table>
+                    </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <a class="button save" data-dismiss="modal"> Listo </a>
@@ -719,12 +704,22 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                 <div class="col">
                                     <label>Encargado</label>
                                         <select class="form-control" id="encargadoAccionModal" required>
-                                            <option value="">Seleccionar invitado</option>
+                                            <option value="">Seleccionar encargado</option>
                                             <?php
+                                                echo '<option value="">-- Invitados --</option>';
                                                 $consulta2 = "SELECT * FROM relacionreunioninvitado WHERE refid='$idReunion'";
                                                 $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
                                                 while ($columna = mysqli_fetch_array($resultado2)){
                                                     $refCorreo = $columna['refcorreo'];
+                                                    $nombre = $columna['nombre'];
+                                                    echo '<option value="'.$refCorreo.'">'.$refCorreo .'</option>';
+                                                }
+                                                echo '<option value="">-- Miembros del consejo --</option>';
+                                                $consulta3 = "SELECT * FROM consejo";
+                                                $resultado3 = mysqli_query($conexion, $consulta3) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                                while ($columna = mysqli_fetch_array($resultado3)){
+                                                    $refCorreo = $columna['correo'];
+                                                    $nombre = $columna['nombre'];
                                                     echo '<option value="'.$refCorreo.'">'.$refCorreo .'</option>';
                                                 }
                                             ?>
@@ -734,7 +729,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                             </div>
                             <div class="row">
                                     <div class="col">
-                                        <label>Fecha Reunión</label>
+                                        <label>Fecha Acción</label>
                                         <input type="date" class="form-control" id="fechaterminoAccion" requiered>
                                     </div>
                                 </div>
@@ -763,7 +758,17 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
+                        <div <?php //echo "hidden";?> class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="idAccionModalEdicion">Correo Session</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="correoSesionModalEdicion" value="<?php echo $correoSession;?>" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div <?php echo "hidden";?> class="form-group">
                             <div class="row">
                                 <div class="col">
                                     <label for="idAccionModalEdicion">ID Accion</label>
@@ -792,13 +797,23 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                     <select class="form-control" id="encargadoAccionModalEdicion" required>
                                         <option value="">Seleccione nuevo encargado</option>
                                         <?php
-                                            $consulta2 = "SELECT * FROM relacionreunioninvitado WHERE refid='$idReunion'";
-                                            $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
-                                            while ($columna = mysqli_fetch_array($resultado2)){
-                                                $refCorreo = $columna['refcorreo'];
-                                                echo '<option value="'.$refCorreo.'">'.$refCorreo .'</option>';
-                                            }
-                                        ?>
+                                                echo '<option value="">-- Invitados --</option>';
+                                                $consulta2 = "SELECT * FROM relacionreunioninvitado WHERE refid='$idReunion'";
+                                                $resultado2 = mysqli_query($conexion, $consulta2) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                                while ($columna = mysqli_fetch_array($resultado2)){
+                                                    $refCorreo = $columna['refcorreo'];
+                                                    $nombre = $columna['nombre'];
+                                                    echo '<option value="'.$refCorreo.'">'.$refCorreo .'</option>';
+                                                }
+                                                echo '<option value="">-- Miembros del consejo --</option>';
+                                                $consulta3 = "SELECT * FROM consejo";
+                                                $resultado3 = mysqli_query($conexion, $consulta3) or die ( "Algo ha ido mal en la consulta a la base de datos1");
+                                                while ($columna = mysqli_fetch_array($resultado3)){
+                                                    $refCorreo = $columna['correo'];
+                                                    $nombre = $columna['nombre'];
+                                                    echo '<option value="'.$refCorreo.'">'.$refCorreo .'</option>';
+                                                }
+                                            ?>
                                     </select>
                                 </div>
                             </div>
@@ -827,6 +842,12 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label>Comentarios</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="comentarioAccionModalEdicion" cols="30" rows="10"></textarea>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -851,7 +872,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                 </div>
                 <div class="modal-body">
                     <form>   
-                        <div class="form-group">
+                        <div <?php echo "hidden";?> class="form-group">
                             <input type="text" class="form-control" id="idReunionTemaModal" value="<?php echo $id;?>" readonly>
                         </div>
                         <?php
@@ -868,8 +889,8 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                             }while($idTema==0 || $existe);
                         ?>
                         <div class="form-group">
-                            <label>Id tema</label>
-                            <input type="text" class="form-control" id="idTemaCrear" value="<?php echo $idTema;?>" readonly>
+                        
+                            <input type="hidden" class="form-control" id="idTemaCrear" value="<?php echo $idTema;?>" readonly>
                         </div>
                         <div class="form-group">
                             <div class="row">
@@ -916,7 +937,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
+                        <div <?php echo "hidden";?> class="form-group">
                             <input type="text" class="form-control" id="idReunionInvitadoModal" value="<?php echo $id;?>" readonly>
                         </div>
                         <div class="form-group">

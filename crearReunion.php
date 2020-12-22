@@ -478,7 +478,7 @@
                 </div>
                 <div class="modal-body">
                     <form>   
-                        <div class="form-group">
+                        <div <?php echo "hidden";?> class="form-group">
                             <input type="text" class="form-control" id="idReunionTemaModal" value="<?php echo $idReunion;?>" readonly>
                         </div>
                         <?php
@@ -494,7 +494,7 @@
                                 }
                             }while($idTema==0 || $existe);
                         ?>
-                        <div class="form-group">
+                        <div <?php echo "hidden";?>  class="form-group">
                             <label>Id tema</label>
                             <input type="text" class="form-control" id="idTemaCrear" value="<?php echo $idTema;?>" readonly>
                         </div>
@@ -531,7 +531,7 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
+                        <div <?php echo "hidden";?> class="form-group">
                             <input type="text" class="form-control" id="idReunionInvitadoModal" value="<?php echo $idReunion;?>" readonly>
                         </div>
                         <div class="form-group">
@@ -580,7 +580,7 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
+                        <div <?php echo "hidden";?> class="form-group">
                             <div class="row">
                                 <div class="col">
                                     <label for="correoInvitadoModal">ID Tema</label>
