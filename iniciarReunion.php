@@ -636,7 +636,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
     <!-- Administrar Acciones Modal-->
     <div class="modal fade" id="adminAccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" style="overflow-y: scroll;">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Administrador Acciones</h5>
@@ -654,19 +654,23 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                         </div>
                     </div>
                     <h2></h2>
-                    <table class="table table-hover table-condensed table-bordered">
-                        <thead>
-                            <tr>
-                                <td>Nombre</td>
-                                <td>Encargado</td>
-                                <td>Fecha termino</td>
-                                <td>Editar</td>
-                                <td>Eliminar</td>
-                            </tr>
-                        </thead>
-                        <tbody id="relleno">
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-condensed table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td>Encargado</td>
+                                    <td>Fecha termino</td>
+                                    <td>Editar</td>
+                                    <td>Eliminar</td>
+                                    <td>Editado por</td>
+                                </tr>
+                            </thead>
+                            <tbody id="relleno">
+                            </tbody>
+                        </table>
+                    </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <a class="button save" data-dismiss="modal"> Listo </a>
@@ -725,7 +729,7 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                             </div>
                             <div class="row">
                                     <div class="col">
-                                        <label>Fecha Reunión</label>
+                                        <label>Fecha Acción</label>
                                         <input type="date" class="form-control" id="fechaterminoAccion" requiered>
                                     </div>
                                 </div>
@@ -754,6 +758,16 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                 </div>
                 <div class="modal-body">
                     <form>
+                        <div <?php //echo "hidden";?> class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="idAccionModalEdicion">Correo Session</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="correoSesionModalEdicion" value="<?php echo $correoSession;?>" readonly>
+                                </div>
+                            </div>
+                        </div>
                         <div <?php echo "hidden";?> class="form-group">
                             <div class="row">
                                 <div class="col">
@@ -827,6 +841,12 @@ while ($columna = mysqli_fetch_array( $resultadoR )){
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Comentarios</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="comentarioAccionModalEdicion" cols="30" rows="10"></textarea>
                         </div>
                     </form>
                 </div>

@@ -6,6 +6,8 @@
     $encargadoAccionModal= $_POST['encargadoAccionModalEdicion'];        
     $fechaAccionModal= $_POST['fechanuevaterminoAccion'];
     $estadoAccionModal= $_POST['estadoAccionModalEdicion'];
+    $comentarioAccionModal= $_POST['comentarioAccionModal'];
+    $correoSesionModalEdicion= $_POST['correoSesionModalEdicion'];
     $seguir = false;
     
     $consulta = "SELECT * FROM accion WHERE id='$idAccion'";
@@ -29,6 +31,14 @@
         }
         if($estadoAccionModal != ""){
             $consulta = "UPDATE accion SET estado='$estadoAccionModal' WHERE id='$idAccion'";
+            $result=mysqli_query($conexion,$consulta);
+        }
+        if($comentarioAccionModal != ""){
+            $consulta = "UPDATE accion SET comentario='$comentarioAccionModal' WHERE id='$idAccion'";
+            $result=mysqli_query($conexion,$consulta);
+        }
+        if($correoSesionModalEdicion != ""){
+            $consulta = "UPDATE accion SET refeditor='$correoSesionModalEdicion' WHERE id='$idAccion'";
             $result=mysqli_query($conexion,$consulta);
         }
         echo $result;
